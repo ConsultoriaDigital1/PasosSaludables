@@ -1,0 +1,10 @@
+10:52:38 [types] Generated 2ms
+
+ astro  v4.16.19 ready in 1624 ms
+
+┃ Local    http://localhost:4321/
+┃ Network  use --host to expose
+
+10:52:39 watching for file changes...
+10:52:40 [200] /admin 13ms
+10:52:41 [200] / 782ms

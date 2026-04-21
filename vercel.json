@@ -1,0 +1,8 @@
+{
+  "buildCommand": "chmod +x ./node_modules/.bin/astro && npm run build",
+  "outputDirectory": "dist",
+  "regions": ["iad1"],
+  "rewrites": [
+    { "source": "/uploads/(.*)", "destination": "/api/uploads/$1" }
+  ]
+}

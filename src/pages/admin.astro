@@ -1,0 +1,11 @@
+---
+import Layout from '../layouts/Layout.astro';
+import DashboardApp from '../components/DashboardApp';
+---
+
+<Layout
+  title="Pasos Saludables Stock - Dashboard"
+  description="Dashboard nuevo conectado a la base de datos de PasosSaludablesStock"
+>
+  <DashboardApp client:only="react" />
+</Layout>

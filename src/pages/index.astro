@@ -1,0 +1,267 @@
+---
+import Layout from '../layouts/Layout.astro';
+import StorefrontApp from '../components/StorefrontApp';
+import { db } from '../lib/database';
+import type { StorefrontBootstrap } from '../types';
+
+const emptyBootstrap: StorefrontBootstrap = {
+  summary: {
+    totalProducts: 0,
+    totalCategories: 0,
+    totalStock: 0,
+    inventoryValue: 0,
+    lowStockProducts: 0,
+    featuredProducts: 0
+  },
+  categories: [],
+  products: [],
+  featuredProducts: []
+};
+
+let initialData = emptyBootstrap;
+let loadError: string | null = null;
+
+try {
+  initialData = await db.storefront.getBootstrap();
+} catch (error) {
+  loadError =
+    error instanceof Error ? error.message : 'No se pudo cargar la storefront';
+  console.error('[storefront] bootstrap failed', error);
+}
+---
+
+<Layout
+  title="Pasos Saludables Stock"
+  description="Storefront nuevo conectado a la base de datos de PasosSaludablesStock"
+>
+  <StorefrontApp
+    client:only="react"
+    initialData={initialData}
+    loadError={loadError}
+  />
+  <div class="storefront-fallback" aria-hidden="true">
+    <div class="storefront-fallback__backdrop"></div>
+    <section class="storefront-fallback__shell">
+      <header class="storefront-fallback__header">
+        <div class="storefront-fallback__brand">
+          <img src="/pasossaludablesstock-logo.jpeg" alt="" />
+          <div>
+            <strong>Pasos Saludables</strong>
+            <span>tienda + stock real</span>
+          </div>
+        </div>
+
+        <nav class="storefront-fallback__nav">
+          <span>Como comprar</span>
+          <span>Destacados</span>
+          <span>Catalogo</span>
+        </nav>
+
+        <div class="storefront-fallback__cart">Carrito</div>
+      </header>
+
+      <div class="storefront-fallback__panel">
+        <h1>Comprar online no tiene que ser un tramite.</h1>
+        <p>Filtras, eliges y cierras el pedido con informacion real.</p>
+
+        <div class="storefront-fallback__steps">
+          <article>
+            <span>01</span>
+            <strong>Explora el catalogo</strong>
+          </article>
+          <article>
+            <span>02</span>
+            <strong>Arma tu pedido</strong>
+          </article>
+          <article>
+            <span>03</span>
+            <strong>Confirma por WhatsApp</strong>
+          </article>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .storefront-fallback {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+    background: linear-gradient(180deg, #f8f4ea 0%, #fbfbf7 52%, #eef5dc 100%);
+    transition: opacity 180ms ease, visibility 180ms ease;
+  }
+
+  .storefront-fallback__backdrop {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at top left, rgba(141, 198, 63, 0.16), transparent 28%),
+      radial-gradient(circle at 85% 14%, rgba(16, 185, 129, 0.14), transparent 26%);
+  }
+
+  .storefront-fallback__shell {
+    position: relative;
+    max-width: 80rem;
+    padding: 1rem 1.5rem 2rem;
+  }
+
+  .storefront-fallback__header {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+
+  .storefront-fallback__brand {
+    align-items: center;
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    border-radius: 999px;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06);
+    display: inline-flex;
+    gap: 0.75rem;
+    max-width: min(100%, 22rem);
+    padding: 0.5rem 1rem 0.5rem 0.5rem;
+  }
+
+  .storefront-fallback__brand img {
+    border-radius: 999px;
+    height: 3rem;
+    object-fit: cover;
+    width: 3rem;
+  }
+
+  .storefront-fallback__brand strong,
+  .storefront-fallback__brand span {
+    display: block;
+  }
+
+  .storefront-fallback__brand strong {
+    color: #0f172a;
+    font-size: 0.95rem;
+    line-height: 1.2;
+  }
+
+  .storefront-fallback__brand span {
+    color: #6f8f2f;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    margin-top: 0.2rem;
+    text-transform: uppercase;
+  }
+
+  .storefront-fallback__nav {
+    color: #475569;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 0.95rem;
+    gap: 0.75rem;
+    width: 100%;
+  }
+
+  .storefront-fallback__nav span {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid #dce2cd;
+    border-radius: 999px;
+    padding: 0.6rem 0.9rem;
+  }
+
+  .storefront-fallback__cart {
+    background: #173b2d;
+    border-radius: 999px;
+    color: white;
+    font-size: 0.92rem;
+    font-weight: 700;
+    padding: 0.75rem 1rem;
+  }
+
+  .storefront-fallback__panel {
+    border: 1px solid #dce2cd;
+    border-radius: 2.25rem;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.07);
+    backdrop-filter: blur(16px);
+    padding: 2rem;
+  }
+
+  .storefront-fallback h1 {
+    margin: 0;
+    max-width: 44rem;
+    color: #0f172a;
+    font-size: clamp(3rem, 6vw, 4.6rem);
+    line-height: 0.96;
+  }
+
+  .storefront-fallback p {
+    margin: 1rem 0 0;
+    max-width: 38rem;
+    color: #475569;
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+
+  .storefront-fallback__steps {
+    display: grid;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .storefront-fallback__steps article {
+    border: 1px solid #dde5cc;
+    border-radius: 1.75rem;
+    background: #fbfaf5;
+    padding: 1.5rem;
+  }
+
+  .storefront-fallback__steps span {
+    color: #6f8f2f;
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    text-align: right;
+  }
+
+  .storefront-fallback__steps strong {
+    color: #0f172a;
+    display: block;
+    font-size: 1.4rem;
+    line-height: 1.25;
+  }
+
+  @media (min-width: 768px) {
+    .storefront-fallback__shell {
+      padding: 1.25rem 2rem 3rem;
+    }
+
+    .storefront-fallback__panel {
+      padding: 2rem 2rem 2.25rem;
+    }
+
+    .storefront-fallback__nav {
+      gap: 1.5rem;
+      width: auto;
+    }
+
+    .storefront-fallback__nav span {
+      background: transparent;
+      border: 0;
+      padding: 0;
+    }
+
+    .storefront-fallback__steps {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  body[data-storefront-mounted='1'] .storefront-fallback {
+    opacity: 0;
+    visibility: hidden;
+  }
+</style>

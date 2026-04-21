@@ -1,0 +1,16 @@
+- generic [active]:
+  - generic:
+    - generic:
+      - generic:
+        - heading [level=1]: Comprar online no tiene que ser un tramite.
+        - paragraph: Filtras, eliges y cierras el pedido con informacion real.
+        - generic:
+          - article:
+            - generic: "01"
+            - strong: Explora el catalogo
+          - article:
+            - generic: "02"
+            - strong: Arma tu pedido
+          - article:
+            - generic: "03"
+            - strong: Confirma por WhatsApp

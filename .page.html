@@ -1,0 +1,1944 @@
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="description" content="Storefront nuevo conectado a la base de datos de PasosSaludablesStock"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#8dc63f"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="apple-touch-icon" href="/pasossaludablesstock-logo.jpeg"><meta name="generator" content="Astro v4.16.19"><title>Pasos Saludables Stock</title><style data-vite-dev-id="D:/dev/PasosSaludables/node_modules/@astrojs/tailwind/base.css">*, ::before, ::after {
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-pan-x:  ;
+  --tw-pan-y:  ;
+  --tw-pinch-zoom:  ;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-gradient-from-position:  ;
+  --tw-gradient-via-position:  ;
+  --tw-gradient-to-position:  ;
+  --tw-ordinal:  ;
+  --tw-slashed-zero:  ;
+  --tw-numeric-figure:  ;
+  --tw-numeric-spacing:  ;
+  --tw-numeric-fraction:  ;
+  --tw-ring-inset:  ;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: rgb(59 130 246 / 0.5);
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+  --tw-blur:  ;
+  --tw-brightness:  ;
+  --tw-contrast:  ;
+  --tw-grayscale:  ;
+  --tw-hue-rotate:  ;
+  --tw-invert:  ;
+  --tw-saturate:  ;
+  --tw-sepia:  ;
+  --tw-drop-shadow:  ;
+  --tw-backdrop-blur:  ;
+  --tw-backdrop-brightness:  ;
+  --tw-backdrop-contrast:  ;
+  --tw-backdrop-grayscale:  ;
+  --tw-backdrop-hue-rotate:  ;
+  --tw-backdrop-invert:  ;
+  --tw-backdrop-opacity:  ;
+  --tw-backdrop-saturate:  ;
+  --tw-backdrop-sepia:  ;
+  --tw-contain-size:  ;
+  --tw-contain-layout:  ;
+  --tw-contain-paint:  ;
+  --tw-contain-style:  ;
+}
+
+::backdrop {
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-pan-x:  ;
+  --tw-pan-y:  ;
+  --tw-pinch-zoom:  ;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-gradient-from-position:  ;
+  --tw-gradient-via-position:  ;
+  --tw-gradient-to-position:  ;
+  --tw-ordinal:  ;
+  --tw-slashed-zero:  ;
+  --tw-numeric-figure:  ;
+  --tw-numeric-spacing:  ;
+  --tw-numeric-fraction:  ;
+  --tw-ring-inset:  ;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: rgb(59 130 246 / 0.5);
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+  --tw-blur:  ;
+  --tw-brightness:  ;
+  --tw-contrast:  ;
+  --tw-grayscale:  ;
+  --tw-hue-rotate:  ;
+  --tw-invert:  ;
+  --tw-saturate:  ;
+  --tw-sepia:  ;
+  --tw-drop-shadow:  ;
+  --tw-backdrop-blur:  ;
+  --tw-backdrop-brightness:  ;
+  --tw-backdrop-contrast:  ;
+  --tw-backdrop-grayscale:  ;
+  --tw-backdrop-hue-rotate:  ;
+  --tw-backdrop-invert:  ;
+  --tw-backdrop-opacity:  ;
+  --tw-backdrop-saturate:  ;
+  --tw-backdrop-sepia:  ;
+  --tw-contain-size:  ;
+  --tw-contain-layout:  ;
+  --tw-contain-paint:  ;
+  --tw-contain-style:  ;
+}/*
+! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com
+*//*
+1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
+2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
+*/
+
+*,
+::before,
+::after {
+  box-sizing: border-box; /* 1 */
+  border-width: 0; /* 2 */
+  border-style: solid; /* 2 */
+  border-color: #e5e7eb; /* 2 */
+}
+
+::before,
+::after {
+  --tw-content: '';
+}
+
+/*
+1. Use a consistent sensible line-height in all browsers.
+2. Prevent adjustments of font size after orientation changes in iOS.
+3. Use a more readable tab size.
+4. Use the user's configured `sans` font-family by default.
+5. Use the user's configured `sans` font-feature-settings by default.
+6. Use the user's configured `sans` font-variation-settings by default.
+7. Disable tap highlights on iOS
+*/
+
+html,
+:host {
+  line-height: 1.5; /* 1 */
+  -webkit-text-size-adjust: 100%; /* 2 */
+  -moz-tab-size: 4; /* 3 */
+  -o-tab-size: 4;
+     tab-size: 4; /* 3 */
+  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; /* 4 */
+  font-feature-settings: normal; /* 5 */
+  font-variation-settings: normal; /* 6 */
+  -webkit-tap-highlight-color: transparent; /* 7 */
+}
+
+/*
+1. Remove the margin in all browsers.
+2. Inherit line-height from `html` so users can set them as a class directly on the `html` element.
+*/
+
+body {
+  margin: 0; /* 1 */
+  line-height: inherit; /* 2 */
+}
+
+/*
+1. Add the correct height in Firefox.
+2. Correct the inheritance of border color in Firefox. (https://bugzilla.mozilla.org/show_bug.cgi?id=190655)
+3. Ensure horizontal rules are visible by default.
+*/
+
+hr {
+  height: 0; /* 1 */
+  color: inherit; /* 2 */
+  border-top-width: 1px; /* 3 */
+}
+
+/*
+Add the correct text decoration in Chrome, Edge, and Safari.
+*/
+
+abbr:where([title]) {
+  -webkit-text-decoration: underline dotted;
+          text-decoration: underline dotted;
+}
+
+/*
+Remove the default font size and weight for headings.
+*/
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+/*
+Reset links to optimize for opt-in styling instead of opt-out.
+*/
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+/*
+Add the correct font weight in Edge and Safari.
+*/
+
+b,
+strong {
+  font-weight: bolder;
+}
+
+/*
+1. Use the user's configured `mono` font-family by default.
+2. Use the user's configured `mono` font-feature-settings by default.
+3. Use the user's configured `mono` font-variation-settings by default.
+4. Correct the odd `em` font sizing in all browsers.
+*/
+
+code,
+kbd,
+samp,
+pre {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; /* 1 */
+  font-feature-settings: normal; /* 2 */
+  font-variation-settings: normal; /* 3 */
+  font-size: 1em; /* 4 */
+}
+
+/*
+Add the correct font size in all browsers.
+*/
+
+small {
+  font-size: 80%;
+}
+
+/*
+Prevent `sub` and `sup` elements from affecting the line height in all browsers.
+*/
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+/*
+1. Remove text indentation from table contents in Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=999088, https://bugs.webkit.org/show_bug.cgi?id=201297)
+2. Correct table border color inheritance in all Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=935729, https://bugs.webkit.org/show_bug.cgi?id=195016)
+3. Remove gaps between table borders by default.
+*/
+
+table {
+  text-indent: 0; /* 1 */
+  border-color: inherit; /* 2 */
+  border-collapse: collapse; /* 3 */
+}
+
+/*
+1. Change the font styles in all browsers.
+2. Remove the margin in Firefox and Safari.
+3. Remove default padding in all browsers.
+*/
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit; /* 1 */
+  font-feature-settings: inherit; /* 1 */
+  font-variation-settings: inherit; /* 1 */
+  font-size: 100%; /* 1 */
+  font-weight: inherit; /* 1 */
+  line-height: inherit; /* 1 */
+  letter-spacing: inherit; /* 1 */
+  color: inherit; /* 1 */
+  margin: 0; /* 2 */
+  padding: 0; /* 3 */
+}
+
+/*
+Remove the inheritance of text transform in Edge and Firefox.
+*/
+
+button,
+select {
+  text-transform: none;
+}
+
+/*
+1. Correct the inability to style clickable types in iOS and Safari.
+2. Remove default button styles.
+*/
+
+button,
+input:where([type='button']),
+input:where([type='reset']),
+input:where([type='submit']) {
+  -webkit-appearance: button; /* 1 */
+  background-color: transparent; /* 2 */
+  background-image: none; /* 2 */
+}
+
+/*
+Use the modern Firefox focus style for all focusable elements.
+*/
+
+:-moz-focusring {
+  outline: auto;
+}
+
+/*
+Remove the additional `:invalid` styles in Firefox. (https://github.com/mozilla/gecko-dev/blob/2f9eacd9d3d995c937b4251a5557d95d494c9be1/layout/style/res/forms.css#L728-L737)
+*/
+
+:-moz-ui-invalid {
+  box-shadow: none;
+}
+
+/*
+Add the correct vertical alignment in Chrome and Firefox.
+*/
+
+progress {
+  vertical-align: baseline;
+}
+
+/*
+Correct the cursor style of increment and decrement buttons in Safari.
+*/
+
+::-webkit-inner-spin-button,
+::-webkit-outer-spin-button {
+  height: auto;
+}
+
+/*
+1. Correct the odd appearance in Chrome and Safari.
+2. Correct the outline style in Safari.
+*/
+
+[type='search'] {
+  -webkit-appearance: textfield; /* 1 */
+  outline-offset: -2px; /* 2 */
+}
+
+/*
+Remove the inner padding in Chrome and Safari on macOS.
+*/
+
+::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+/*
+1. Correct the inability to style clickable types in iOS and Safari.
+2. Change font properties to `inherit` in Safari.
+*/
+
+::-webkit-file-upload-button {
+  -webkit-appearance: button; /* 1 */
+  font: inherit; /* 2 */
+}
+
+/*
+Add the correct display in Chrome and Safari.
+*/
+
+summary {
+  display: list-item;
+}
+
+/*
+Removes the default spacing and border for appropriate elements.
+*/
+
+blockquote,
+dl,
+dd,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+figure,
+p,
+pre {
+  margin: 0;
+}
+
+fieldset {
+  margin: 0;
+  padding: 0;
+}
+
+legend {
+  padding: 0;
+}
+
+ol,
+ul,
+menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/*
+Reset default styling for dialogs.
+*/
+dialog {
+  padding: 0;
+}
+
+/*
+Prevent resizing textareas horizontally by default.
+*/
+
+textarea {
+  resize: vertical;
+}
+
+/*
+1. Reset the default placeholder opacity in Firefox. (https://github.com/tailwindlabs/tailwindcss/issues/3300)
+2. Set the default placeholder color to the user's configured gray 400 color.
+*/
+
+input::-moz-placeholder, textarea::-moz-placeholder {
+  opacity: 1; /* 1 */
+  color: #9ca3af; /* 2 */
+}
+
+input::placeholder,
+textarea::placeholder {
+  opacity: 1; /* 1 */
+  color: #9ca3af; /* 2 */
+}
+
+/*
+Set the default cursor for buttons.
+*/
+
+button,
+[role="button"] {
+  cursor: pointer;
+}
+
+/*
+Make sure disabled buttons don't get the pointer cursor.
+*/
+:disabled {
+  cursor: default;
+}
+
+/*
+1. Make replaced elements `display: block` by default. (https://github.com/mozdevs/cssremedy/issues/14)
+2. Add `vertical-align: middle` to align replaced elements more sensibly by default. (https://github.com/jensimmons/cssremedy/issues/14#issuecomment-634934210)
+   This can trigger a poorly considered lint error in some tools but is included by design.
+*/
+
+img,
+svg,
+video,
+canvas,
+audio,
+iframe,
+embed,
+object {
+  display: block; /* 1 */
+  vertical-align: middle; /* 2 */
+}
+
+/*
+Constrain images and videos to the parent width and preserve their intrinsic aspect ratio. (https://github.com/mozdevs/cssremedy/issues/14)
+*/
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Make elements with the HTML hidden attribute stay hidden by default */
+[hidden]:where(:not([hidden="until-found"])) {
+  display: none;
+}
+.pointer-events-none {
+  pointer-events: none;
+}
+.visible {
+  visibility: visible;
+}
+.fixed {
+  position: fixed;
+}
+.absolute {
+  position: absolute;
+}
+.relative {
+  position: relative;
+}
+.sticky {
+  position: sticky;
+}
+.inset-0 {
+  inset: 0px;
+}
+.-left-6 {
+  left: -1.5rem;
+}
+.-right-4 {
+  right: -1rem;
+}
+.bottom-4 {
+  bottom: 1rem;
+}
+.bottom-5 {
+  bottom: 1.25rem;
+}
+.bottom-8 {
+  bottom: 2rem;
+}
+.left-1\/2 {
+  left: 50%;
+}
+.left-4 {
+  left: 1rem;
+}
+.right-4 {
+  right: 1rem;
+}
+.right-5 {
+  right: 1.25rem;
+}
+.top-0 {
+  top: 0px;
+}
+.top-1\/2 {
+  top: 50%;
+}
+.top-10 {
+  top: 2.5rem;
+}
+.top-4 {
+  top: 1rem;
+}
+.top-5 {
+  top: 1.25rem;
+}
+.-z-10 {
+  z-index: -10;
+}
+.z-10 {
+  z-index: 10;
+}
+.z-30 {
+  z-index: 30;
+}
+.z-40 {
+  z-index: 40;
+}
+.z-50 {
+  z-index: 50;
+}
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+.mb-6 {
+  margin-bottom: 1.5rem;
+}
+.mb-8 {
+  margin-bottom: 2rem;
+}
+.mt-0\.5 {
+  margin-top: 0.125rem;
+}
+.mt-1 {
+  margin-top: 0.25rem;
+}
+.mt-10 {
+  margin-top: 2.5rem;
+}
+.mt-2 {
+  margin-top: 0.5rem;
+}
+.mt-3 {
+  margin-top: 0.75rem;
+}
+.mt-4 {
+  margin-top: 1rem;
+}
+.mt-5 {
+  margin-top: 1.25rem;
+}
+.mt-6 {
+  margin-top: 1.5rem;
+}
+.mt-8 {
+  margin-top: 2rem;
+}
+.line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+.block {
+  display: block;
+}
+.flex {
+  display: flex;
+}
+.inline-flex {
+  display: inline-flex;
+}
+.grid {
+  display: grid;
+}
+.hidden {
+  display: none;
+}
+.h-10 {
+  height: 2.5rem;
+}
+.h-11 {
+  height: 2.75rem;
+}
+.h-12 {
+  height: 3rem;
+}
+.h-14 {
+  height: 3.5rem;
+}
+.h-16 {
+  height: 4rem;
+}
+.h-20 {
+  height: 5rem;
+}
+.h-24 {
+  height: 6rem;
+}
+.h-28 {
+  height: 7rem;
+}
+.h-3\.5 {
+  height: 0.875rem;
+}
+.h-36 {
+  height: 9rem;
+}
+.h-4 {
+  height: 1rem;
+}
+.h-48 {
+  height: 12rem;
+}
+.h-5 {
+  height: 1.25rem;
+}
+.h-56 {
+  height: 14rem;
+}
+.h-64 {
+  height: 16rem;
+}
+.h-72 {
+  height: 18rem;
+}
+.h-8 {
+  height: 2rem;
+}
+.h-\[460px\] {
+  height: 460px;
+}
+.h-full {
+  height: 100%;
+}
+.max-h-\[90vh\] {
+  max-height: 90vh;
+}
+.min-h-28 {
+  min-height: 7rem;
+}
+.min-h-32 {
+  min-height: 8rem;
+}
+.min-h-screen {
+  min-height: 100vh;
+}
+.w-10 {
+  width: 2.5rem;
+}
+.w-11 {
+  width: 2.75rem;
+}
+.w-12 {
+  width: 3rem;
+}
+.w-14 {
+  width: 3.5rem;
+}
+.w-16 {
+  width: 4rem;
+}
+.w-20 {
+  width: 5rem;
+}
+.w-24 {
+  width: 6rem;
+}
+.w-28 {
+  width: 7rem;
+}
+.w-3\.5 {
+  width: 0.875rem;
+}
+.w-36 {
+  width: 9rem;
+}
+.w-4 {
+  width: 1rem;
+}
+.w-5 {
+  width: 1.25rem;
+}
+.w-8 {
+  width: 2rem;
+}
+.w-auto {
+  width: auto;
+}
+.w-fit {
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.w-full {
+  width: 100%;
+}
+.min-w-0 {
+  min-width: 0px;
+}
+.min-w-10 {
+  min-width: 2.5rem;
+}
+.max-w-2xl {
+  max-width: 42rem;
+}
+.max-w-3xl {
+  max-width: 48rem;
+}
+.max-w-4xl {
+  max-width: 56rem;
+}
+.max-w-5xl {
+  max-width: 64rem;
+}
+.max-w-6xl {
+  max-width: 72rem;
+}
+.max-w-7xl {
+  max-width: 80rem;
+}
+.max-w-\[1500px\] {
+  max-width: 1500px;
+}
+.max-w-md {
+  max-width: 28rem;
+}
+.max-w-xl {
+  max-width: 36rem;
+}
+.flex-1 {
+  flex: 1 1 0%;
+}
+.-translate-x-1\/2 {
+  --tw-translate-x: -50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.-translate-y-1\/2 {
+  --tw-translate-y: -50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.translate-x-0 {
+  --tw-translate-x: 0px;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.translate-x-full {
+  --tw-translate-x: 100%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.transform {
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+@keyframes spin {
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+.flex-col {
+  flex-direction: column;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.items-start {
+  align-items: flex-start;
+}
+.items-end {
+  align-items: flex-end;
+}
+.items-center {
+  align-items: center;
+}
+.justify-end {
+  justify-content: flex-end;
+}
+.justify-center {
+  justify-content: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.gap-0 {
+  gap: 0px;
+}
+.gap-1 {
+  gap: 0.25rem;
+}
+.gap-10 {
+  gap: 2.5rem;
+}
+.gap-12 {
+  gap: 3rem;
+}
+.gap-2 {
+  gap: 0.5rem;
+}
+.gap-3 {
+  gap: 0.75rem;
+}
+.gap-4 {
+  gap: 1rem;
+}
+.gap-5 {
+  gap: 1.25rem;
+}
+.gap-6 {
+  gap: 1.5rem;
+}
+.space-y-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1rem * var(--tw-space-y-reverse));
+}
+.overflow-auto {
+  overflow: auto;
+}
+.overflow-hidden {
+  overflow: hidden;
+}
+.overflow-x-hidden {
+  overflow-x: hidden;
+}
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.rounded-2xl {
+  border-radius: 1rem;
+}
+.rounded-3xl {
+  border-radius: 1.5rem;
+}
+.rounded-\[14px\] {
+  border-radius: 14px;
+}
+.rounded-\[16px\] {
+  border-radius: 16px;
+}
+.rounded-\[18px\] {
+  border-radius: 18px;
+}
+.rounded-\[20px\] {
+  border-radius: 20px;
+}
+.rounded-\[22px\] {
+  border-radius: 22px;
+}
+.rounded-\[24px\] {
+  border-radius: 24px;
+}
+.rounded-\[28px\] {
+  border-radius: 28px;
+}
+.rounded-\[30px\] {
+  border-radius: 30px;
+}
+.rounded-\[32px\] {
+  border-radius: 32px;
+}
+.rounded-\[36px\] {
+  border-radius: 36px;
+}
+.rounded-full {
+  border-radius: 9999px;
+}
+.border {
+  border-width: 1px;
+}
+.border-b {
+  border-bottom-width: 1px;
+}
+.border-t {
+  border-top-width: 1px;
+}
+.border-dashed {
+  border-style: dashed;
+}
+.border-\[\#345340\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(52 83 64 / var(--tw-border-opacity, 1));
+}
+.border-\[\#b8d87b\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(184 216 123 / var(--tw-border-opacity, 1));
+}
+.border-\[\#cad4b2\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(202 212 178 / var(--tw-border-opacity, 1));
+}
+.border-\[\#cdd8b7\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(205 216 183 / var(--tw-border-opacity, 1));
+}
+.border-\[\#cfd8b6\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(207 216 182 / var(--tw-border-opacity, 1));
+}
+.border-\[\#cfe799\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(207 231 153 / var(--tw-border-opacity, 1));
+}
+.border-\[\#d6debf\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(214 222 191 / var(--tw-border-opacity, 1));
+}
+.border-\[\#d8dec5\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(216 222 197 / var(--tw-border-opacity, 1));
+}
+.border-\[\#d9edb1\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(217 237 177 / var(--tw-border-opacity, 1));
+}
+.border-\[\#dce2cd\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(220 226 205 / var(--tw-border-opacity, 1));
+}
+.border-\[\#dce3ca\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(220 227 202 / var(--tw-border-opacity, 1));
+}
+.border-\[\#e4ead2\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(228 234 210 / var(--tw-border-opacity, 1));
+}
+.border-amber-200 {
+  --tw-border-opacity: 1;
+  border-color: rgb(253 230 138 / var(--tw-border-opacity, 1));
+}
+.border-black\/5 {
+  border-color: rgb(0 0 0 / 0.05);
+}
+.border-emerald-400\/30 {
+  border-color: rgb(52 211 153 / 0.3);
+}
+.border-rose-200 {
+  --tw-border-opacity: 1;
+  border-color: rgb(254 205 211 / var(--tw-border-opacity, 1));
+}
+.border-slate-200 {
+  --tw-border-opacity: 1;
+  border-color: rgb(226 232 240 / var(--tw-border-opacity, 1));
+}
+.border-slate-300 {
+  --tw-border-opacity: 1;
+  border-color: rgb(203 213 225 / var(--tw-border-opacity, 1));
+}
+.border-white\/10 {
+  border-color: rgb(255 255 255 / 0.1);
+}
+.border-white\/75 {
+  border-color: rgb(255 255 255 / 0.75);
+}
+.border-white\/80 {
+  border-color: rgb(255 255 255 / 0.8);
+}
+.bg-\[\#08141f\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(8 20 31 / var(--tw-bg-opacity, 1));
+}
+.bg-\[\#173b2d\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(23 59 45 / var(--tw-bg-opacity, 1));
+}
+.bg-\[\#173b2d\]\/90 {
+  background-color: rgb(23 59 45 / 0.9);
+}
+.bg-\[\#8dc63f\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(141 198 63 / var(--tw-bg-opacity, 1));
+}
+.bg-\[\#8dc63f\]\/25 {
+  background-color: rgb(141 198 63 / 0.25);
+}
+.bg-\[\#edf7d7\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(237 247 215 / var(--tw-bg-opacity, 1));
+}
+.bg-\[\#eff4ef\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(239 244 239 / var(--tw-bg-opacity, 1));
+}
+.bg-\[\#f3fbe3\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(243 251 227 / var(--tw-bg-opacity, 1));
+}
+.bg-\[\#f8f4ea\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(248 244 234 / var(--tw-bg-opacity, 1));
+}
+.bg-\[\#f8f4ea\]\/90 {
+  background-color: rgb(248 244 234 / 0.9);
+}
+.bg-\[\#fbfaf5\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(251 250 245 / var(--tw-bg-opacity, 1));
+}
+.bg-\[\#fffdf8\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 253 248 / var(--tw-bg-opacity, 1));
+}
+.bg-amber-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 243 199 / var(--tw-bg-opacity, 1));
+}
+.bg-amber-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 251 235 / var(--tw-bg-opacity, 1));
+}
+.bg-emerald-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(209 250 229 / var(--tw-bg-opacity, 1));
+}
+.bg-emerald-300\/25 {
+  background-color: rgb(110 231 183 / 0.25);
+}
+.bg-emerald-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(52 211 153 / var(--tw-bg-opacity, 1));
+}
+.bg-emerald-400\/10 {
+  background-color: rgb(52 211 153 / 0.1);
+}
+.bg-emerald-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(236 253 245 / var(--tw-bg-opacity, 1));
+}
+.bg-rose-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 228 230 / var(--tw-bg-opacity, 1));
+}
+.bg-rose-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 241 242 / var(--tw-bg-opacity, 1));
+}
+.bg-slate-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(241 245 249 / var(--tw-bg-opacity, 1));
+}
+.bg-slate-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(226 232 240 / var(--tw-bg-opacity, 1));
+}
+.bg-slate-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(248 250 252 / var(--tw-bg-opacity, 1));
+}
+.bg-slate-950 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(2 6 23 / var(--tw-bg-opacity, 1));
+}
+.bg-slate-950\/55 {
+  background-color: rgb(2 6 23 / 0.55);
+}
+.bg-slate-950\/60 {
+  background-color: rgb(2 6 23 / 0.6);
+}
+.bg-slate-950\/65 {
+  background-color: rgb(2 6 23 / 0.65);
+}
+.bg-white {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}
+.bg-white\/10 {
+  background-color: rgb(255 255 255 / 0.1);
+}
+.bg-white\/5 {
+  background-color: rgb(255 255 255 / 0.05);
+}
+.bg-white\/70 {
+  background-color: rgb(255 255 255 / 0.7);
+}
+.bg-white\/80 {
+  background-color: rgb(255 255 255 / 0.8);
+}
+.bg-white\/90 {
+  background-color: rgb(255 255 255 / 0.9);
+}
+.bg-\[radial-gradient\(circle_at_top\2c _rgba\(141\2c 198\2c 63\2c 0\.24\)\2c _transparent_52\%\)\2c linear-gradient\(135deg\2c _\#173b2d_0\%\2c _\#1f2937_52\%\2c _\#335e22_100\%\)\] {
+  background-image: radial-gradient(circle at top, rgba(141,198,63,0.24), transparent 52%),linear-gradient(135deg, #173b2d 0%, #1f2937 52%, #335e22 100%);
+}
+.bg-\[radial-gradient\(circle_at_top\2c _rgba\(141\2c 198\2c 63\2c 0\.24\)\2c _transparent_58\%\)\2c linear-gradient\(135deg\2c _\#173b2d_0\%\2c _\#111827_52\%\2c _\#335e22_100\%\)\] {
+  background-image: radial-gradient(circle at top, rgba(141,198,63,0.24), transparent 58%),linear-gradient(135deg, #173b2d 0%, #111827 52%, #335e22 100%);
+}
+.bg-\[radial-gradient\(circle_at_top\2c _rgba\(16\2c 185\2c 129\2c 0\.22\)\2c _transparent_55\%\)\2c linear-gradient\(135deg\2c _\#0f172a_0\%\2c _\#111827_52\%\2c _\#052e16_100\%\)\] {
+  background-image: radial-gradient(circle at top, rgba(16,185,129,0.22), transparent 55%),linear-gradient(135deg, #0f172a 0%, #111827 52%, #052e16 100%);
+}
+.bg-\[radial-gradient\(circle_at_top\2c _rgba\(255\2c 255\2c 255\2c 0\.16\)\2c _transparent_36\%\)\2c linear-gradient\(160deg\2c _rgba\(141\2c 198\2c 63\2c 0\.18\)_0\%\2c _rgba\(23\2c 59\2c 45\2c 0\)_54\%\)\] {
+  background-image: radial-gradient(circle at top, rgba(255,255,255,0.16), transparent 36%),linear-gradient(160deg, rgba(141,198,63,0.18) 0%, rgba(23,59,45,0) 54%);
+}
+.bg-\[radial-gradient\(circle_at_top_left\2c _rgba\(141\2c 198\2c 63\2c 0\.16\)\2c _transparent_28\%\)\2c radial-gradient\(circle_at_85\%_14\%\2c _rgba\(16\2c 185\2c 129\2c 0\.14\)\2c _transparent_26\%\)\2c linear-gradient\(180deg\2c _\#f8f4ea_0\%\2c _\#fbfbf7_55\%\2c _\#eef5dc_100\%\)\] {
+  background-image: radial-gradient(circle at top left, rgba(141,198,63,0.16), transparent 28%),radial-gradient(circle at 85% 14%, rgba(16,185,129,0.14), transparent 26%),linear-gradient(180deg, #f8f4ea 0%, #fbfbf7 55%, #eef5dc 100%);
+}
+.bg-\[radial-gradient\(circle_at_top_left\2c _rgba\(34\2c 197\2c 94\2c 0\.14\)\2c _transparent_28\%\)\2c radial-gradient\(circle_at_bottom_right\2c _rgba\(14\2c 165\2c 233\2c 0\.18\)\2c _transparent_35\%\)\2c linear-gradient\(180deg\2c _\#020617_0\%\2c _\#08141f_50\%\2c _\#0f172a_100\%\)\] {
+  background-image: radial-gradient(circle at top left, rgba(34,197,94,0.14), transparent 28%),radial-gradient(circle at bottom right, rgba(14,165,233,0.18), transparent 35%),linear-gradient(180deg, #020617 0%, #08141f 50%, #0f172a 100%);
+}
+.fill-current {
+  fill: currentColor;
+}
+.object-cover {
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.p-1 {
+  padding: 0.25rem;
+}
+.p-1\.5 {
+  padding: 0.375rem;
+}
+.p-10 {
+  padding: 2.5rem;
+}
+.p-2 {
+  padding: 0.5rem;
+}
+.p-3 {
+  padding: 0.75rem;
+}
+.p-4 {
+  padding: 1rem;
+}
+.p-5 {
+  padding: 1.25rem;
+}
+.p-6 {
+  padding: 1.5rem;
+}
+.p-8 {
+  padding: 2rem;
+}
+.px-12 {
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+.px-2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.px-5 {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+.px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+.px-8 {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+.py-0\.5 {
+  padding-top: 0.125rem;
+  padding-bottom: 0.125rem;
+}
+.py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+.py-12 {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+.py-16 {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+.py-2\.5 {
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem;
+}
+.py-3 {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.py-5 {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+.py-6 {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+.pr-3 {
+  padding-right: 0.75rem;
+}
+.pt-6 {
+  padding-top: 1.5rem;
+}
+.text-left {
+  text-align: left;
+}
+.text-center {
+  text-align: center;
+}
+.text-right {
+  text-align: right;
+}
+.font-serif {
+  font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+}
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
+.text-5xl {
+  font-size: 3rem;
+  line-height: 1;
+}
+.text-base {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+.font-medium {
+  font-weight: 500;
+}
+.font-semibold {
+  font-weight: 600;
+}
+.uppercase {
+  text-transform: uppercase;
+}
+.leading-6 {
+  line-height: 1.5rem;
+}
+.leading-8 {
+  line-height: 2rem;
+}
+.leading-\[0\.98\] {
+  line-height: 0.98;
+}
+.leading-tight {
+  line-height: 1.25;
+}
+.tracking-\[0\.22em\] {
+  letter-spacing: 0.22em;
+}
+.tracking-\[0\.24em\] {
+  letter-spacing: 0.24em;
+}
+.tracking-\[0\.28em\] {
+  letter-spacing: 0.28em;
+}
+.tracking-\[0\.2em\] {
+  letter-spacing: 0.2em;
+}
+.tracking-tight {
+  letter-spacing: -0.025em;
+}
+.text-\[\#173b2d\] {
+  --tw-text-opacity: 1;
+  color: rgb(23 59 45 / var(--tw-text-opacity, 1));
+}
+.text-\[\#2f4a1f\] {
+  --tw-text-opacity: 1;
+  color: rgb(47 74 31 / var(--tw-text-opacity, 1));
+}
+.text-\[\#365221\] {
+  --tw-text-opacity: 1;
+  color: rgb(54 82 33 / var(--tw-text-opacity, 1));
+}
+.text-\[\#3f612a\] {
+  --tw-text-opacity: 1;
+  color: rgb(63 97 42 / var(--tw-text-opacity, 1));
+}
+.text-\[\#6f8f2f\] {
+  --tw-text-opacity: 1;
+  color: rgb(111 143 47 / var(--tw-text-opacity, 1));
+}
+.text-\[\#d9f3af\] {
+  --tw-text-opacity: 1;
+  color: rgb(217 243 175 / var(--tw-text-opacity, 1));
+}
+.text-\[\#daf3af\] {
+  --tw-text-opacity: 1;
+  color: rgb(218 243 175 / var(--tw-text-opacity, 1));
+}
+.text-amber-500 {
+  --tw-text-opacity: 1;
+  color: rgb(245 158 11 / var(--tw-text-opacity, 1));
+}
+.text-amber-700 {
+  --tw-text-opacity: 1;
+  color: rgb(180 83 9 / var(--tw-text-opacity, 1));
+}
+.text-amber-800 {
+  --tw-text-opacity: 1;
+  color: rgb(146 64 14 / var(--tw-text-opacity, 1));
+}
+.text-amber-900 {
+  --tw-text-opacity: 1;
+  color: rgb(120 53 15 / var(--tw-text-opacity, 1));
+}
+.text-amber-950 {
+  --tw-text-opacity: 1;
+  color: rgb(69 26 3 / var(--tw-text-opacity, 1));
+}
+.text-emerald-100 {
+  --tw-text-opacity: 1;
+  color: rgb(209 250 229 / var(--tw-text-opacity, 1));
+}
+.text-emerald-200 {
+  --tw-text-opacity: 1;
+  color: rgb(167 243 208 / var(--tw-text-opacity, 1));
+}
+.text-emerald-700 {
+  --tw-text-opacity: 1;
+  color: rgb(4 120 87 / var(--tw-text-opacity, 1));
+}
+.text-emerald-800 {
+  --tw-text-opacity: 1;
+  color: rgb(6 95 70 / var(--tw-text-opacity, 1));
+}
+.text-emerald-950 {
+  --tw-text-opacity: 1;
+  color: rgb(2 44 34 / var(--tw-text-opacity, 1));
+}
+.text-rose-700 {
+  --tw-text-opacity: 1;
+  color: rgb(190 18 60 / var(--tw-text-opacity, 1));
+}
+.text-rose-800 {
+  --tw-text-opacity: 1;
+  color: rgb(159 18 57 / var(--tw-text-opacity, 1));
+}
+.text-rose-900\/80 {
+  color: rgb(136 19 55 / 0.8);
+}
+.text-rose-950 {
+  --tw-text-opacity: 1;
+  color: rgb(76 5 25 / var(--tw-text-opacity, 1));
+}
+.text-slate-300 {
+  --tw-text-opacity: 1;
+  color: rgb(203 213 225 / var(--tw-text-opacity, 1));
+}
+.text-slate-400 {
+  --tw-text-opacity: 1;
+  color: rgb(148 163 184 / var(--tw-text-opacity, 1));
+}
+.text-slate-500 {
+  --tw-text-opacity: 1;
+  color: rgb(100 116 139 / var(--tw-text-opacity, 1));
+}
+.text-slate-600 {
+  --tw-text-opacity: 1;
+  color: rgb(71 85 105 / var(--tw-text-opacity, 1));
+}
+.text-slate-700 {
+  --tw-text-opacity: 1;
+  color: rgb(51 65 85 / var(--tw-text-opacity, 1));
+}
+.text-slate-900 {
+  --tw-text-opacity: 1;
+  color: rgb(15 23 42 / var(--tw-text-opacity, 1));
+}
+.text-slate-950 {
+  --tw-text-opacity: 1;
+  color: rgb(2 6 23 / var(--tw-text-opacity, 1));
+}
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+.text-white\/70 {
+  color: rgb(255 255 255 / 0.7);
+}
+.antialiased {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.opacity-0 {
+  opacity: 0;
+}
+.opacity-100 {
+  opacity: 1;
+}
+.shadow-\[0_12px_30px_rgba\(15\2c 23\2c 42\2c 0\.06\)\] {
+  --tw-shadow: 0 12px 30px rgba(15,23,42,0.06);
+  --tw-shadow-colored: 0 12px 30px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.shadow-\[0_16px_40px_rgba\(15\2c 23\2c 42\2c 0\.05\)\] {
+  --tw-shadow: 0 16px 40px rgba(15,23,42,0.05);
+  --tw-shadow-colored: 0 16px 40px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.shadow-\[0_16px_40px_rgba\(15\2c 23\2c 42\2c 0\.06\)\] {
+  --tw-shadow: 0 16px 40px rgba(15,23,42,0.06);
+  --tw-shadow-colored: 0 16px 40px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.shadow-\[0_16px_50px_rgba\(15\2c 23\2c 42\2c 0\.08\)\] {
+  --tw-shadow: 0 16px 50px rgba(15,23,42,0.08);
+  --tw-shadow-colored: 0 16px 50px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.shadow-\[0_18px_40px_rgba\(120\2c 53\2c 15\2c 0\.08\)\] {
+  --tw-shadow: 0 18px 40px rgba(120,53,15,0.08);
+  --tw-shadow-colored: 0 18px 40px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.shadow-\[0_18px_42px_rgba\(23\2c 59\2c 45\2c 0\.24\)\] {
+  --tw-shadow: 0 18px 42px rgba(23,59,45,0.24);
+  --tw-shadow-colored: 0 18px 42px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.shadow-\[0_18px_50px_rgba\(15\2c 23\2c 42\2c 0\.08\)\] {
+  --tw-shadow: 0 18px 50px rgba(15,23,42,0.08);
+  --tw-shadow-colored: 0 18px 50px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.shadow-\[0_20px_40px_rgba\(141\2c 198\2c 63\2c 0\.18\)\] {
+  --tw-shadow: 0 20px 40px rgba(141,198,63,0.18);
+  --tw-shadow-colored: 0 20px 40px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.shadow-\[0_20px_50px_rgba\(15\2c 23\2c 42\2c 0\.2\)\] {
+  --tw-shadow: 0 20px 50px rgba(15,23,42,0.2);
+  --tw-shadow-colored: 0 20px 50px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.shadow-\[0_20px_60px_rgba\(15\2c 23\2c 42\2c 0\.07\)\] {
+  --tw-shadow: 0 20px 60px rgba(15,23,42,0.07);
+  --tw-shadow-colored: 0 20px 60px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.shadow-\[0_20px_60px_rgba\(15\2c 23\2c 42\2c 0\.08\)\] {
+  --tw-shadow: 0 20px 60px rgba(15,23,42,0.08);
+  --tw-shadow-colored: 0 20px 60px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.shadow-\[0_24px_60px_rgba\(23\2c 59\2c 45\2c 0\.22\)\] {
+  --tw-shadow: 0 24px 60px rgba(23,59,45,0.22);
+  --tw-shadow-colored: 0 24px 60px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.shadow-\[0_24px_80px_rgba\(15\2c 23\2c 42\2c 0\.24\)\] {
+  --tw-shadow: 0 24px 80px rgba(15,23,42,0.24);
+  --tw-shadow-colored: 0 24px 80px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.shadow-\[0_30px_100px_rgba\(0\2c 0\2c 0\2c 0\.3\)\] {
+  --tw-shadow: 0 30px 100px rgba(0,0,0,0.3);
+  --tw-shadow-colored: 0 30px 100px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.shadow-\[0_30px_80px_rgba\(15\2c 23\2c 42\2c 0\.16\)\] {
+  --tw-shadow: 0 30px 80px rgba(15,23,42,0.16);
+  --tw-shadow-colored: 0 30px 80px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.shadow-\[0_34px_100px_rgba\(23\2c 59\2c 45\2c 0\.3\)\] {
+  --tw-shadow: 0 34px 100px rgba(23,59,45,0.3);
+  --tw-shadow-colored: 0 34px 100px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.shadow-\[0_40px_120px_rgba\(15\2c 23\2c 42\2c 0\.22\)\] {
+  --tw-shadow: 0 40px 120px rgba(15,23,42,0.22);
+  --tw-shadow-colored: 0 40px 120px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.shadow-\[0_40px_120px_rgba\(15\2c 23\2c 42\2c 0\.28\)\] {
+  --tw-shadow: 0 40px 120px rgba(15,23,42,0.28);
+  --tw-shadow-colored: 0 40px 120px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.shadow-inner {
+  --tw-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+  --tw-shadow-colored: inset 0 2px 4px 0 var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.shadow-lg {
+  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.shadow-sm {
+  --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.outline-none {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+.blur-3xl {
+  --tw-blur: blur(64px);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+.filter {
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+.backdrop-blur {
+  --tw-backdrop-blur: blur(8px);
+  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+}
+.backdrop-blur-sm {
+  --tw-backdrop-blur: blur(4px);
+  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+}
+.backdrop-blur-xl {
+  --tw-backdrop-blur: blur(24px);
+  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+}
+.transition {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.transition-opacity {
+  transition-property: opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.duration-300 {
+  transition-duration: 300ms;
+}
+.duration-500 {
+  transition-duration: 500ms;
+}
+.ease-in-out {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+.hover\:-translate-y-0\.5:hover {
+  --tw-translate-y: -0.125rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.hover\:-translate-y-1:hover {
+  --tw-translate-y: -0.25rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.hover\:-translate-y-1\.5:hover {
+  --tw-translate-y: -0.375rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.hover\:border-\[\#8dc63f\]:hover {
+  --tw-border-opacity: 1;
+  border-color: rgb(141 198 63 / var(--tw-border-opacity, 1));
+}
+.hover\:border-emerald-400:hover {
+  --tw-border-opacity: 1;
+  border-color: rgb(52 211 153 / var(--tw-border-opacity, 1));
+}
+.hover\:border-rose-300:hover {
+  --tw-border-opacity: 1;
+  border-color: rgb(253 164 175 / var(--tw-border-opacity, 1));
+}
+.hover\:border-slate-400:hover {
+  --tw-border-opacity: 1;
+  border-color: rgb(148 163 184 / var(--tw-border-opacity, 1));
+}
+.hover\:border-white\/30:hover {
+  border-color: rgb(255 255 255 / 0.3);
+}
+.hover\:bg-\[\#21503c\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(33 80 60 / var(--tw-bg-opacity, 1));
+}
+.hover\:bg-\[\#9fd348\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(159 211 72 / var(--tw-bg-opacity, 1));
+}
+.hover\:bg-emerald-300:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(110 231 183 / var(--tw-bg-opacity, 1));
+}
+.hover\:bg-emerald-800:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(6 95 70 / var(--tw-bg-opacity, 1));
+}
+.hover\:bg-slate-100:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(241 245 249 / var(--tw-bg-opacity, 1));
+}
+.hover\:text-\[\#173b2d\]:hover {
+  --tw-text-opacity: 1;
+  color: rgb(23 59 45 / var(--tw-text-opacity, 1));
+}
+.hover\:text-emerald-700:hover {
+  --tw-text-opacity: 1;
+  color: rgb(4 120 87 / var(--tw-text-opacity, 1));
+}
+.hover\:text-rose-600:hover {
+  --tw-text-opacity: 1;
+  color: rgb(225 29 72 / var(--tw-text-opacity, 1));
+}
+.hover\:text-rose-700:hover {
+  --tw-text-opacity: 1;
+  color: rgb(190 18 60 / var(--tw-text-opacity, 1));
+}
+.hover\:text-slate-700:hover {
+  --tw-text-opacity: 1;
+  color: rgb(51 65 85 / var(--tw-text-opacity, 1));
+}
+.hover\:text-slate-950:hover {
+  --tw-text-opacity: 1;
+  color: rgb(2 6 23 / var(--tw-text-opacity, 1));
+}
+.hover\:text-white:hover {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+.hover\:shadow-\[0_30px_80px_rgba\(15\2c 23\2c 42\2c 0\.12\)\]:hover {
+  --tw-shadow: 0 30px 80px rgba(15,23,42,0.12);
+  --tw-shadow-colored: 0 30px 80px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.focus\:border-\[\#8dc63f\]:focus {
+  --tw-border-opacity: 1;
+  border-color: rgb(141 198 63 / var(--tw-border-opacity, 1));
+}
+.focus\:border-emerald-400:focus {
+  --tw-border-opacity: 1;
+  border-color: rgb(52 211 153 / var(--tw-border-opacity, 1));
+}
+.focus\:border-emerald-500:focus {
+  --tw-border-opacity: 1;
+  border-color: rgb(16 185 129 / var(--tw-border-opacity, 1));
+}
+.disabled\:cursor-not-allowed:disabled {
+  cursor: not-allowed;
+}
+.disabled\:bg-slate-300:disabled {
+  --tw-bg-opacity: 1;
+  background-color: rgb(203 213 225 / var(--tw-bg-opacity, 1));
+}
+.disabled\:opacity-70:disabled {
+  opacity: 0.7;
+}
+.group:hover .group-hover\:scale-105 {
+  --tw-scale-x: 1.05;
+  --tw-scale-y: 1.05;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+@media (min-width: 640px) {
+
+  .sm\:left-auto {
+    left: auto;
+  }
+
+  .sm\:right-5 {
+    right: 1.25rem;
+  }
+
+  .sm\:w-auto {
+    width: auto;
+  }
+
+  .sm\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .sm\:grid-cols-6 {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .sm\:flex-row {
+    flex-direction: row;
+  }
+
+  .sm\:items-center {
+    align-items: center;
+  }
+
+  .sm\:justify-end {
+    justify-content: flex-end;
+  }
+
+  .sm\:justify-between {
+    justify-content: space-between;
+  }
+
+  .sm\:px-6 {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+@media (min-width: 768px) {
+
+  .md\:inline-flex {
+    display: inline-flex;
+  }
+
+  .md\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .md\:text-4xl {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+
+  .md\:text-5xl {
+    font-size: 3rem;
+    line-height: 1;
+  }
+
+  .md\:text-7xl {
+    font-size: 4.5rem;
+    line-height: 1;
+  }
+}
+@media (min-width: 1024px) {
+
+  .lg\:min-h-screen {
+    min-height: 100vh;
+  }
+
+  .lg\:w-80 {
+    width: 20rem;
+  }
+
+  .lg\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .lg\:grid-cols-\[1\.05fr_0\.95fr\] {
+    grid-template-columns: 1.05fr 0.95fr;
+  }
+
+  .lg\:grid-cols-\[1\.08fr_0\.92fr\] {
+    grid-template-columns: 1.08fr 0.92fr;
+  }
+
+  .lg\:grid-cols-\[1fr_0\.9fr\] {
+    grid-template-columns: 1fr 0.9fr;
+  }
+
+  .lg\:flex-row {
+    flex-direction: row;
+  }
+
+  .lg\:items-end {
+    align-items: flex-end;
+  }
+
+  .lg\:justify-between {
+    justify-content: space-between;
+  }
+
+  .lg\:border-b-0 {
+    border-bottom-width: 0px;
+  }
+
+  .lg\:border-r {
+    border-right-width: 1px;
+  }
+
+  .lg\:p-10 {
+    padding: 2.5rem;
+  }
+
+  .lg\:px-6 {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .lg\:px-8 {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  .lg\:py-20 {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  .lg\:py-8 {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+}
+@media (min-width: 1280px) {
+
+  .xl\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .xl\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .xl\:grid-cols-5 {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .xl\:grid-cols-\[0\.9fr_1\.1fr\] {
+    grid-template-columns: 0.9fr 1.1fr;
+  }
+
+  .xl\:grid-cols-\[0\.9fr_1\.1fr_1fr\] {
+    grid-template-columns: 0.9fr 1.1fr 1fr;
+  }
+
+  .xl\:grid-cols-\[1\.2fr_0\.8fr\] {
+    grid-template-columns: 1.2fr 0.8fr;
+  }
+}
+@media (min-width: 1536px) {
+
+  .\32xl\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+</style>
+<style data-vite-dev-id="D:/dev/PasosSaludables/src/layouts/Layout.astro?astro&#38;type=style&#38;index=0&#38;lang.css">:root {
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    background: #f8f4ea;
+    color: #0f172a;
+    font-family: 'Trebuchet MS', 'Segoe UI Variable', 'Gill Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: Georgia, 'Times New Roman', serif;
+  }
+
+  * {
+    box-sizing: border-box;
+  }</style>
+<style data-vite-dev-id="D:/dev/PasosSaludables/src/pages/index.astro?astro&#38;type=style&#38;index=0&#38;lang.css">.storefront-fallback[data-astro-cid-j7pv25f6]{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:linear-gradient(180deg,#f8f4ea 0%,#fbfbf7 52%,#eef5dc 100%)}.storefront-fallback__backdrop[data-astro-cid-j7pv25f6]{position:absolute;inset:0;background:radial-gradient(circle at top left,rgba(141,198,63,0.16),transparent 28%),radial-gradient(circle at 85% 14%,rgba(16,185,129,0.14),transparent 26%)}.storefront-fallback__hero[data-astro-cid-j7pv25f6]{position:relative;max-width:56rem;padding:6rem 1.5rem 2rem}.storefront-fallback__pill[data-astro-cid-j7pv25f6]{display:inline-flex;border:1px solid #b8d87b;border-radius:999px;background:#edf7d7;color:#365221;font-size:0.75rem;font-weight:700;letter-spacing:0.24em;padding:0.75rem 1rem;text-transform:uppercase}.storefront-fallback[data-astro-cid-j7pv25f6] h1[data-astro-cid-j7pv25f6]{margin:1.5rem 0 0;max-width:52rem;color:#0f172a;font-size:clamp(3rem,8vw,5rem);line-height:0.98}.storefront-fallback[data-astro-cid-j7pv25f6] p[data-astro-cid-j7pv25f6]{margin:1.5rem 0 0;max-width:38rem;color:#475569;font-size:1.05rem;line-height:1.8}astro-island[data-astro-cid-j7pv25f6]:not([ssr])~.storefront-fallback[data-astro-cid-j7pv25f6]{display:none}</style><script type="module" src="/@vite/client"></script>
+<script type="module" src="/node_modules/@astrojs/tailwind/base.css"></script>
+<script type="module" src="/src/layouts/Layout.astro?astro&type=style&index=0&lang.css"></script>
+<script type="module" src="/src/pages/index.astro?astro&type=style&index=0&lang.css"></script></head> <body>  <style>astro-island,astro-slot,astro-static-slot{display:contents}</style><script>(()=>{var e=async t=>{await(await t())()};(self.Astro||(self.Astro={})).load=e;window.dispatchEvent(new Event("astro:load"));})();;(()=>{var A=Object.defineProperty;var g=(i,o,a)=>o in i?A(i,o,{enumerable:!0,configurable:!0,writable:!0,value:a}):i[o]=a;var l=(i,o,a)=>g(i,typeof o!="symbol"?o+"":o,a);{let i={0:t=>y(t),1:t=>a(t),2:t=>new RegExp(t),3:t=>new Date(t),4:t=>new Map(a(t)),5:t=>new Set(a(t)),6:t=>BigInt(t),7:t=>new URL(t),8:t=>new Uint8Array(t),9:t=>new Uint16Array(t),10:t=>new Uint32Array(t),11:t=>1/0*t},o=t=>{let[h,e]=t;return h in i?i[h](e):void 0},a=t=>t.map(o),y=t=>typeof t!="object"||t===null?t:Object.fromEntries(Object.entries(t).map(([h,e])=>[h,o(e)]));class f extends HTMLElement{constructor(){super(...arguments);l(this,"Component");l(this,"hydrator");l(this,"hydrate",async()=>{var b;if(!this.hydrator||!this.isConnected)return;let e=(b=this.parentElement)==null?void 0:b.closest("astro-island[ssr]");if(e){e.addEventListener("astro:hydrate",this.hydrate,{once:!0});return}let c=this.querySelectorAll("astro-slot"),n={},p=this.querySelectorAll("template[data-astro-template]");for(let r of p){let s=r.closest(this.tagName);s!=null&&s.isSameNode(this)&&(n[r.getAttribute("data-astro-template")||"default"]=r.innerHTML,r.remove())}for(let r of c){let s=r.closest(this.tagName);s!=null&&s.isSameNode(this)&&(n[r.getAttribute("name")||"default"]=r.innerHTML)}let u;try{u=this.hasAttribute("props")?y(JSON.parse(this.getAttribute("props"))):{}}catch(r){let s=this.getAttribute("component-url")||"<unknown>",v=this.getAttribute("component-export");throw v&&(s+=` (export ${v})`),console.error(`[hydrate] Error parsing props for component ${s}`,this.getAttribute("props"),r),r}let d,m=this.hydrator(this);d=performance.now(),await m(this.Component,u,n,{client:this.getAttribute("client")}),d&&this.setAttribute("client-render-time",(performance.now()-d).toString()),this.removeAttribute("ssr"),this.dispatchEvent(new CustomEvent("astro:hydrate"))});l(this,"unmount",()=>{this.isConnected||this.dispatchEvent(new CustomEvent("astro:unmount"))})}disconnectedCallback(){document.removeEventListener("astro:after-swap",this.unmount),document.addEventListener("astro:after-swap",this.unmount,{once:!0})}connectedCallback(){if(!this.hasAttribute("await-children")||document.readyState==="interactive"||document.readyState==="complete")this.childrenConnectedCallback();else{let e=()=>{document.removeEventListener("DOMContentLoaded",e),c.disconnect(),this.childrenConnectedCallback()},c=new MutationObserver(()=>{var n;((n=this.lastChild)==null?void 0:n.nodeType)===Node.COMMENT_NODE&&this.lastChild.nodeValue==="astro:end"&&(this.lastChild.remove(),e())});c.observe(this,{childList:!0}),document.addEventListener("DOMContentLoaded",e)}}async childrenConnectedCallback(){let e=this.getAttribute("before-hydration-url");e&&await import(e),this.start()}async start(){let e=JSON.parse(this.getAttribute("opts")),c=this.getAttribute("client");if(Astro[c]===void 0){window.addEventListener(`astro:${c}`,()=>this.start(),{once:!0});return}try{await Astro[c](async()=>{let n=this.getAttribute("renderer-url"),[p,{default:u}]=await Promise.all([import(this.getAttribute("component-url")),n?import(n):()=>()=>{}]),d=this.getAttribute("component-export")||"default";if(!d.includes("."))this.Component=p[d];else{this.Component=p;for(let m of d.split("."))this.Component=this.Component[m]}return this.hydrator=u,this.hydrate},e,this)}catch(n){console.error(`[astro-island] Error hydrating ${this.getAttribute("component-url")}`,n)}}attributeChangedCallback(){this.hydrate()}}l(f,"observedAttributes",["props"]),customElements.get("astro-island")||customElements.define("astro-island",f)}})();</script><astro-island uid="ZPOtpA" component-url="/src/components/StorefrontApp.tsx" component-export="default" renderer-url="/node_modules/@astrojs/react/client.js?v=30349ae4" props="{&quot;initialData&quot;:[0,{&quot;summary&quot;:[0,{&quot;totalProducts&quot;:[0,74],&quot;totalCategories&quot;:[0,1],&quot;totalStock&quot;:[0,730],&quot;inventoryValue&quot;:[0,51241000],&quot;lowStockProducts&quot;:[0,1],&quot;featuredProducts&quot;:[0,0]}],&quot;categories&quot;:[1,[[0,{&quot;id&quot;:[0,1],&quot;name&quot;:[0,&quot;PRODUCTOS&quot;],&quot;description&quot;:[0,&quot;Importado desde Fiweex&quot;],&quot;createdAt&quot;:[0,&quot;Mon Apr 06 2026 15:14:31 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 06 2026 15:14:31 GMT-0300 (hora estándar de Argentina)&quot;]}]]],&quot;products&quot;:[1,[[0,{&quot;id&quot;:[0,96],&quot;name&quot;:[0,&quot;Caldo de Huesos GURU 300 ML&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,0],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-96.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-96.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,0],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 15:11:35 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:39:50 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,95],&quot;name&quot;:[0,&quot;Empanada de mandioca rellena con queso de bufala&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,11000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-95.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-95.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:06 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:39:43 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,94],&quot;name&quot;:[0,&quot;Empanada de mandioca casera c/GHEE&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,13000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-94.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-94.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:06 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:39:41 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,93],&quot;name&quot;:[0,&quot;Golden Milk (leche dorada) 200 Gr&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,69900],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-93.webp&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-93.webp&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:06 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:39:39 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,92],&quot;name&quot;:[0,&quot;pistachos salados 500gr&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,100000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-92.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-92.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:06 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:39:37 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,91],&quot;name&quot;:[0,&quot;Nueces Mariposa 500gr&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,90000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-91.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-91.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:06 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:39:35 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,90],&quot;name&quot;:[0,&quot;Datiles medjoul con semilla 500gr&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,64900],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-90.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-90.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:06 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:39:34 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,89],&quot;name&quot;:[0,&quot;Chips de Coco Natural 500gr&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,85000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-89.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-89.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:06 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:39:32 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,88],&quot;name&quot;:[0,&quot;Castañas de Caju 500gr&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,85000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-88.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-88.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:06 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:39:30 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,87],&quot;name&quot;:[0,&quot;Pochoclo organico Sweet grande&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,12900],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-87.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-87.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:06 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:39:28 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,86],&quot;name&quot;:[0,&quot;Pochoclo organico Sweet chico&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,9900],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-86.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-86.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:06 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:39:27 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,85],&quot;name&quot;:[0,&quot;Pochoclo organico Sweet &amp; salty grande&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,12900],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-85.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-85.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:05 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:39:26 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,84],&quot;name&quot;:[0,&quot;Pochoclo organico Sweet &amp; salty chico&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,9900],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-84.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-84.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:05 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:39:24 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,83],&quot;name&quot;:[0,&quot;Pochoclo organico Salty grande&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,12900],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-83.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-83.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:05 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:39:22 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,82],&quot;name&quot;:[0,&quot;Pochoclo organico Salty chico&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,9900],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-82.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-82.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:05 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:39:20 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,81],&quot;name&quot;:[0,&quot;Pan de centeno&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,65000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-81.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-81.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:05 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:39:19 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,80],&quot;name&quot;:[0,&quot;Pan de Trigo Sarraceno masa madre&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,60000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-80.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-80.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:05 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:39:15 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,79],&quot;name&quot;:[0,&quot;Empanada de mandioca casera carne&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,10000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-79.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-79.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:05 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:39:12 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,78],&quot;name&quot;:[0,&quot;Panceta ahumada entera - 1 kg aprox&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,99500],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-78.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-78.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:05 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:39:09 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,77],&quot;name&quot;:[0,&quot;Crema de Leche doble Los Colonos 500ML&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,14900],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-77.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-77.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:05 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:39:07 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,76],&quot;name&quot;:[0,&quot;Rebozador Dani Picante 500 gr&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,58000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-76.png&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-76.png&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:05 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:39:05 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,75],&quot;name&quot;:[0,&quot;Harina de banana verde 500gr&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,35000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-75.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-75.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:05 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:38:59 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,74],&quot;name&quot;:[0,&quot;Mix de Berries Congelados&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,69900],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-74.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-74.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:05 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:38:58 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,73],&quot;name&quot;:[0,&quot;Stevia Liquida Color Andina 30 ML&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,35000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-73.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-73.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:05 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:38:56 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,72],&quot;name&quot;:[0,&quot;Stevia Andina en polvo 10 gr&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,60000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-72.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-72.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:04 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:38:54 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,71],&quot;name&quot;:[0,&quot;salame tipo colorado envasado 250gr&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,27900],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-71.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-71.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:04 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:38:52 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,70],&quot;name&quot;:[0,&quot;morcilla sin conservantes - UNIDAD&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,35000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-70.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-70.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:04 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:38:47 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,69],&quot;name&quot;:[0,&quot;Salame tipo tandil picado fino UNIDAD&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,55000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-69.png&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-69.png&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:04 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:38:43 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,68],&quot;name&quot;:[0,&quot;Salame tipo tandil envasado 250 Gr&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,27900],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-68.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-68.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:04 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:38:41 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,67],&quot;name&quot;:[0,&quot;Salame tipo tandil envasado 150 Gr&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,12900],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-67.webp&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-67.webp&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:04 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:38:37 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,66],&quot;name&quot;:[0,&quot;Salame tipo peperoni envasado 250 Gr&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,27900],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-66.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-66.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:04 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:38:34 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,65],&quot;name&quot;:[0,&quot;Chorizo Toscano Sin Conservantes UNID&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,35000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-65.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-65.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:04 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:38:20 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,64],&quot;name&quot;:[0,&quot;Chorizo Picante sin conservantes UNIDAD&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,35000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-64.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-64.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:04 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:38:18 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,63],&quot;name&quot;:[0,&quot;hamburguesa de carne con panceta&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,18900],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-63.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-63.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:04 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:38:14 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,62],&quot;name&quot;:[0,&quot;Hamburguesa de cerdo con panceta&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,16000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-62.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-62.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:04 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:38:12 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,61],&quot;name&quot;:[0,&quot;Bondiola Madurada con pimienta Sin Conservantes - paquetes de 300gr&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,115000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-61.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-61.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:04 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:38:10 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,60],&quot;name&quot;:[0,&quot;Bondiola Madurada Sin Conservantes - paquetes de 300gr&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,115000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-60.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-60.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:04 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:38:07 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,59],&quot;name&quot;:[0,&quot;Super coffee sachet original&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,12000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-59.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-59.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:04 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:38:02 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,58],&quot;name&quot;:[0,&quot;Super Coffee Sachet Choconilla&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,12000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-58.png&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-58.png&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:04 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:37:57 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,57],&quot;name&quot;:[0,&quot;Super Coffee Sachet Chocolate Lengua de gato&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,13000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-57.webp&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-57.webp&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:04 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:37:55 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,56],&quot;name&quot;:[0,&quot;Super Coffee Original 380 gr&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,320000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-56.webp&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-56.webp&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:03 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:37:54 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,55],&quot;name&quot;:[0,&quot;Super Coffee Original 220 gr&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,220000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-55.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-55.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:03 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:37:52 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,54],&quot;name&quot;:[0,&quot;Super Coffee Chocolate Lingua de Gato 380gr&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,330000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-54.webp&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-54.webp&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:03 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:37:50 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,53],&quot;name&quot;:[0,&quot;Super Coffee Chocolate Lingua de Gato 220 Gr&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,230000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-53.png&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-53.png&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:03 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:37:48 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,52],&quot;name&quot;:[0,&quot;Super Coffee Beijinho 220 gr&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,220000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-52.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-52.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:03 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:37:46 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,51],&quot;name&quot;:[0,&quot;Capsulas de café -DolcceGusto ESPRESSO INTENSO 10 unid&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,42900],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-51.png&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-51.png&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:03 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:37:45 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,50],&quot;name&quot;:[0,&quot;Capsulas de café -DolcceGusto ESPRESSO 10 unid&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,42900],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-50.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-50.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:03 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:37:42 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,49],&quot;name&quot;:[0,&quot;Cacau Salvagem en Polvo 200 Gr&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,80000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-49.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-49.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:03 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:37:40 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,48],&quot;name&quot;:[0,&quot;Achocolatado Color Andina 200 Gr&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,99000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-48.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-48.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:03 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:37:37 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,47],&quot;name&quot;:[0,&quot;Prosecco Mionetto 750ML&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,110000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-47.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-47.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:03 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:37:35 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,46],&quot;name&quot;:[0,&quot;jamon cocido natural Kg- paquetes de 250-300gr&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,99000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-46.png&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-46.png&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:03 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:37:31 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,45],&quot;name&quot;:[0,&quot;Queso de bufala tipo py - en pedazos de 1kg aprox&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,65000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-45.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-45.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:03 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:37:28 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,44],&quot;name&quot;:[0,&quot;Jamon Crudo Sin Conservantes - paquetes de 300 gr aprox&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,115000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-44.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-44.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:03 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:37:24 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,43],&quot;name&quot;:[0,&quot;Almendra tostada y salada 500 gramos&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,90000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-43.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-43.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:03 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:37:22 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,42],&quot;name&quot;:[0,&quot;Snack - Chips de queso provolone 150gr&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,55000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-42.png&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-42.png&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:03 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:37:20 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,41],&quot;name&quot;:[0,&quot;Espumante sin alcohol BOTTEGA&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,95000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-41.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-41.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:02 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:37:18 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,40],&quot;name&quot;:[0,&quot;Aceite de Coco Copra sin sabor spray 100ml&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,49900],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-40.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-40.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:02 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:37:15 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,39],&quot;name&quot;:[0,&quot;Aceite de Coco Copra sin sabor 200ML&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,39900],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-39.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-39.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Thu Apr 09 2026 13:41:02 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:37:14 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,37],&quot;name&quot;:[0,&quot;Morning Shot Tangerina&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,185000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-37.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-37.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Mon Apr 06 2026 15:15:04 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:37:12 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,33],&quot;name&quot;:[0,&quot;MCT Oil en polvo Don Justo 165 gr&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,155000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-33.webp&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-33.webp&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Mon Apr 06 2026 15:15:00 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:37:10 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,32],&quot;name&quot;:[0,&quot;Pate  de ternera sin conservantes kg 300gr aprox&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,65000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-32.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-32.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Mon Apr 06 2026 15:14:59 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:37:08 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,31],&quot;name&quot;:[0,&quot;CALDO DE HUESO GURU 600 ML&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,35000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-31.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-31.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Mon Apr 06 2026 15:14:58 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:37:05 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,30],&quot;name&quot;:[0,&quot;Morning Shot Limon&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,185000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-30.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-30.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Mon Apr 06 2026 15:14:57 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:36:59 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,29],&quot;name&quot;:[0,&quot;Vinagre de manzana organico Serra Gaucha 500ml&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,45900],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-29.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-29.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Mon Apr 06 2026 15:14:56 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:36:58 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,21],&quot;name&quot;:[0,&quot;Panceta Ahumada - paquetes de 500gr aprox&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,99500],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-21.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-21.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Mon Apr 06 2026 15:14:47 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:36:55 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,20],&quot;name&quot;:[0,&quot;Huevos Libres plancha de 30 unidades&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,39900],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-20.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-20.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Mon Apr 06 2026 15:14:46 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:36:52 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,19],&quot;name&quot;:[0,&quot;Grasa de chancho kg - viene en frasco de 350-450gr&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,49000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-19.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-19.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Mon Apr 06 2026 15:14:46 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:36:49 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,16],&quot;name&quot;:[0,&quot;Salame Tipo Tandil UNIDAD&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,55000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-16.png&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-16.png&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Mon Apr 06 2026 15:14:44 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:36:47 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,15],&quot;name&quot;:[0,&quot;Salame tipo colorado UNIDAD&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,58000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-15.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-15.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Mon Apr 06 2026 15:14:42 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:36:43 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,13],&quot;name&quot;:[0,&quot;Chipita bastoncitos - Lievito&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,4500],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-13.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-13.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Mon Apr 06 2026 15:14:40 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:36:40 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,12],&quot;name&quot;:[0,&quot;Galletita de maiz salmas&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,17900],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-12.png&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-12.png&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Mon Apr 06 2026 15:14:39 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:36:38 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,5],&quot;name&quot;:[0,&quot;Crema de Leche doble Los Colonos 1 litro&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,27900],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-5.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-5.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Mon Apr 06 2026 15:14:34 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:36:36 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,3],&quot;name&quot;:[0,&quot;Manteca Ghee 200 ML Don Justo&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,59900],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-3.png&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-3.png&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Mon Apr 06 2026 15:14:32 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:36:33 GMT-0300 (hora estándar de Argentina)&quot;]}],[0,{&quot;id&quot;:[0,1],&quot;name&quot;:[0,&quot;Queso Bufala Organico santa florencia kg - paquetes de 500-600gr&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;price&quot;:[0,85000],&quot;category&quot;:[0,&quot;PRODUCTOS&quot;],&quot;image&quot;:[0,&quot;/assets/web-search/product-1.jpg&quot;],&quot;images&quot;:[1,[[0,&quot;/assets/web-search/product-1.jpg&quot;]]],&quot;featured&quot;:[0,false],&quot;stockQuantity&quot;:[0,10],&quot;createdAt&quot;:[0,&quot;Mon Apr 06 2026 15:07:43 GMT-0300 (hora estándar de Argentina)&quot;],&quot;updatedAt&quot;:[0,&quot;Mon Apr 20 2026 02:36:31 GMT-0300 (hora estándar de Argentina)&quot;]}]]],&quot;featuredProducts&quot;:[1,[]]}],&quot;loadError&quot;:[0,null],&quot;data-astro-cid-j7pv25f6&quot;:[0,true]}" ssr="" client="load" before-hydration-url="/@id/astro:scripts/before-hydration.js" opts="{&quot;name&quot;:&quot;StorefrontApp&quot;,&quot;value&quot;:true}" server-render-time="0.09119999999529682"></astro-island> <div class="storefront-fallback" aria-hidden="true" data-astro-cid-j7pv25f6> <div class="storefront-fallback__backdrop" data-astro-cid-j7pv25f6></div> <section class="storefront-fallback__hero" data-astro-cid-j7pv25f6> <div class="storefront-fallback__pill" data-astro-cid-j7pv25f6>Pasos Saludables</div> <h1 data-astro-cid-j7pv25f6>La tienda esta cargando el catalogo.</h1> <p data-astro-cid-j7pv25f6>
+Si React tarda un segundo en hidratar, al menos no ves una pantalla blanca.
+</p> </section> </div>  </body></html> 

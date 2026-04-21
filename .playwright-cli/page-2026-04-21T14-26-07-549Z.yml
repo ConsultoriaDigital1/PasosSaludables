@@ -1,0 +1,6 @@
+- generic [active]:
+  - generic:
+    - generic:
+      - generic: Pasos Saludables
+      - heading [level=1]: La tienda esta cargando el catalogo.
+      - paragraph: Si React tarda un segundo en hidratar, al menos no ves una pantalla blanca.

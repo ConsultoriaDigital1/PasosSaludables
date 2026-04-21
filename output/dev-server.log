@@ -1,0 +1,13 @@
+
+> pasossaludablesstock@0.0.1 predev
+> npm run sync:assets
+
+
+> pasossaludablesstock@0.0.1 sync:assets
+> node scripts/sync-stock-assets.mjs
+
+[sync:assets] Assets sincronizados desde D:\dev\PasosSaludablesStock\img hacia D:\dev\PasosSaludables\public\assets (174 archivos, 174 copiados, 0 bloqueados).
+
+> pasossaludablesstock@0.0.1 dev
+> node scripts/run-astro.mjs dev --host 127.0.0.1 --port 4323
+

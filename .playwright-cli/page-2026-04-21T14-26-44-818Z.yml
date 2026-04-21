@@ -1,0 +1,1579 @@
+- generic [ref=e3]:
+  - banner [ref=e5]:
+    - generic [ref=e6]:
+      - link "Logo Pasos Saludables Stock Pasos Saludables tienda + stock real" [ref=e7] [cursor=pointer]:
+        - /url: /
+        - img "Logo Pasos Saludables Stock" [ref=e9]
+        - generic [ref=e10]:
+          - paragraph [ref=e11]: Pasos Saludables
+          - paragraph [ref=e12]: tienda + stock real
+      - navigation [ref=e13]:
+        - link "Destacados" [ref=e14] [cursor=pointer]:
+          - /url: "#destacados"
+        - link "Como comprar" [ref=e15] [cursor=pointer]:
+          - /url: "#como-comprar"
+        - link "Catalogo" [ref=e16] [cursor=pointer]:
+          - /url: "#catalogo"
+      - generic [ref=e17]:
+        - link "Admin" [ref=e18] [cursor=pointer]:
+          - /url: /admin
+        - button "Carrito 1" [ref=e1746] [cursor=pointer]:
+          - img [ref=e20]
+          - generic [ref=e24]: Carrito
+          - generic [ref=e25]: "1"
+  - main [ref=e26]:
+    - generic [ref=e27]:
+      - generic [ref=e28]:
+        - generic [ref=e29]:
+          - img [ref=e30]
+          - text: stock real y compra directa
+        - heading "Productos seleccionados con stock real, compra simple y pedido directo por WhatsApp." [level=1] [ref=e32]
+        - paragraph [ref=e33]: Pasos Saludables muestra lo que realmente esta disponible para que puedas elegir, sumar al carrito y cerrar el pedido sin adivinar precios ni stock.
+        - generic [ref=e34]:
+          - link "Ver destacados" [ref=e35] [cursor=pointer]:
+            - /url: "#destacados"
+            - text: Ver destacados
+            - img [ref=e36]
+          - link "Explorar catalogo" [ref=e38] [cursor=pointer]:
+            - /url: "#catalogo"
+            - text: Explorar catalogo
+            - img [ref=e39]
+        - generic [ref=e42]:
+          - article [ref=e43]:
+            - paragraph [ref=e44]: Actualizacion visible
+            - paragraph [ref=e45]: Catalogo actualizado 21-abr
+            - paragraph [ref=e46]: Ves productos, categorias y disponibilidad ordenada para comprar sin vueltas.
+          - article [ref=e47]:
+            - paragraph [ref=e48]: Atencion real
+            - paragraph [ref=e49]: El pedido se confirma por WhatsApp
+            - paragraph [ref=e50]: Coordinamos entrega, retiro y medios de pago con una persona, no con un checkout frio.
+        - generic [ref=e51]:
+          - article [ref=e52]:
+            - paragraph [ref=e53]: Productos publicados
+            - paragraph [ref=e54]: "74"
+            - paragraph [ref=e55]: 1 categoria
+          - article [ref=e56]:
+            - paragraph [ref=e57]: Con stock confirmado
+            - paragraph [ref=e58]: "73"
+            - paragraph [ref=e59]: 73 con precio publicado
+          - article [ref=e60]:
+            - paragraph [ref=e61]: Unidades disponibles
+            - paragraph [ref=e62]: "730"
+            - paragraph [ref=e63]: 1 con stock bajo
+      - generic [ref=e69]:
+        - generic [ref=e70]:
+          - generic [ref=e71]:
+            - img "Aceite de Coco Copra sin sabor 200ML" [ref=e73]
+            - generic [ref=e74]:
+              - paragraph [ref=e75]: recomendado hoy
+              - heading "Aceite de Coco Copra sin sabor 200ML" [level=2] [ref=e76]
+              - paragraph [ref=e77]: PRODUCTOS
+              - generic [ref=e78]:
+                - generic [ref=e79]: Listo para comprar
+                - generic [ref=e80]: Stock 10
+          - paragraph [ref=e81]: Producto destacado del catalogo con datos listos para concretar el pedido.
+          - generic [ref=e82]:
+            - generic [ref=e83]:
+              - paragraph [ref=e84]: Precio visible
+              - paragraph [ref=e85]: $39.900
+            - generic [ref=e86]:
+              - button "Agregar ahora" [active] [ref=e87] [cursor=pointer]:
+                - img [ref=e88]
+                - text: Agregar ahora
+              - button "Ver detalle" [ref=e89] [cursor=pointer]
+        - generic [ref=e90]:
+          - generic [ref=e91]:
+            - img [ref=e93]
+            - generic [ref=e96]:
+              - paragraph [ref=e97]: Stock confirmado
+              - paragraph [ref=e98]: Mostramos disponibilidad actualizada para que no pidas a ciegas.
+          - generic [ref=e99]:
+            - img [ref=e101]
+            - generic [ref=e105]:
+              - paragraph [ref=e106]: Pedido simple
+              - paragraph [ref=e107]: Filtras, agregas y cierras el pedido por WhatsApp sin friccion.
+          - generic [ref=e108]:
+            - img [ref=e110]
+            - generic [ref=e115]:
+              - paragraph [ref=e116]: Coordinacion rapida
+              - paragraph [ref=e117]: Te confirmamos entrega, retiro y medios de pago en una sola conversacion.
+        - generic [ref=e118]:
+          - article [ref=e119]:
+            - paragraph [ref=e120]: Stock visible
+            - paragraph [ref=e121]: "73"
+            - paragraph [ref=e122]: productos con unidades disponibles
+          - article [ref=e123]:
+            - paragraph [ref=e124]: Para comprar
+            - paragraph [ref=e125]: "73"
+            - paragraph [ref=e126]: productos con precio publicado
+          - article [ref=e127]:
+            - paragraph [ref=e128]: Carrito actual
+            - paragraph [ref=e129]: "1"
+            - paragraph [ref=e130]: producto listo para cerrar
+    - generic [ref=e132]:
+      - generic [ref=e133]:
+        - paragraph [ref=e134]: Como comprar
+        - heading "Comprar online no tiene que ser un tramite." [level=2] [ref=e135]
+        - paragraph [ref=e136]: Filtras, eliges y cierras el pedido con informacion real. La tienda ya no te obliga a adivinar si hay stock o si el precio sigue vigente.
+      - generic [ref=e137]:
+        - article [ref=e138]:
+          - generic [ref=e139]:
+            - img [ref=e141]
+            - generic [ref=e144]: "01"
+          - heading "Explora el catalogo" [level=3] [ref=e145]
+          - paragraph [ref=e146]: Encuentra productos por nombre, descripcion o categoria.
+        - article [ref=e147]:
+          - generic [ref=e148]:
+            - img [ref=e150]
+            - generic [ref=e154]: "02"
+          - heading "Arma tu pedido" [level=3] [ref=e155]
+          - paragraph [ref=e156]: Suma al carrito solo lo que tenga stock y precio listo para vender.
+        - article [ref=e157]:
+          - generic [ref=e158]:
+            - img [ref=e160]
+            - generic [ref=e165]: "03"
+          - heading "Confirma por WhatsApp" [level=3] [ref=e166]
+          - paragraph [ref=e167]: Cierras el pedido directo con atencion humana y coordinacion real.
+    - generic [ref=e168]:
+      - generic [ref=e169]:
+        - generic [ref=e170]:
+          - paragraph [ref=e171]: Destacados
+          - heading "Elegidos para arrancar sin perder tiempo" [level=2] [ref=e172]
+          - paragraph [ref=e173]: Priorizamos productos con mejor mezcla de stock, presentacion y precio visible para que puedas empezar a comprar rapido.
+        - link "Ver catalogo completo" [ref=e174] [cursor=pointer]:
+          - /url: "#catalogo"
+          - text: Ver catalogo completo
+          - img [ref=e175]
+      - generic [ref=e177]:
+        - article [ref=e178]:
+          - generic [ref=e179]:
+            - img "Aceite de Coco Copra sin sabor spray 100ml" [ref=e181]
+            - generic [ref=e182]:
+              - img [ref=e183]
+              - text: Destacado
+            - generic [ref=e185]: Compra directa
+          - generic [ref=e186]:
+            - paragraph [ref=e187]: PRODUCTOS
+            - heading "Aceite de Coco Copra sin sabor spray 100ml" [level=3] [ref=e188]
+            - paragraph [ref=e189]: Producto disponible en el catalogo actual.
+            - generic [ref=e190]:
+              - generic [ref=e191]:
+                - paragraph [ref=e192]: Precio
+                - paragraph [ref=e193]: $49.900
+              - button "Agregar" [ref=e194] [cursor=pointer]:
+                - img [ref=e195]
+                - text: Agregar
+        - article [ref=e196]:
+          - generic [ref=e197]:
+            - img "Achocolatado Color Andina 200 Gr" [ref=e199]
+            - generic [ref=e200]:
+              - img [ref=e201]
+              - text: Destacado
+            - generic [ref=e203]: Compra directa
+          - generic [ref=e204]:
+            - paragraph [ref=e205]: PRODUCTOS
+            - heading "Achocolatado Color Andina 200 Gr" [level=3] [ref=e206]
+            - paragraph [ref=e207]: Producto disponible en el catalogo actual.
+            - generic [ref=e208]:
+              - generic [ref=e209]:
+                - paragraph [ref=e210]: Precio
+                - paragraph [ref=e211]: $99.000
+              - button "Agregar" [ref=e212] [cursor=pointer]:
+                - img [ref=e213]
+                - text: Agregar
+        - article [ref=e214]:
+          - generic [ref=e215]:
+            - img "Almendra tostada y salada 500 gramos" [ref=e217]
+            - generic [ref=e218]:
+              - img [ref=e219]
+              - text: Destacado
+            - generic [ref=e221]: Compra directa
+          - generic [ref=e222]:
+            - paragraph [ref=e223]: PRODUCTOS
+            - heading "Almendra tostada y salada 500 gramos" [level=3] [ref=e224]
+            - paragraph [ref=e225]: Producto disponible en el catalogo actual.
+            - generic [ref=e226]:
+              - generic [ref=e227]:
+                - paragraph [ref=e228]: Precio
+                - paragraph [ref=e229]: $90.000
+              - button "Agregar" [ref=e230] [cursor=pointer]:
+                - img [ref=e231]
+                - text: Agregar
+        - article [ref=e232]:
+          - generic [ref=e233]:
+            - img "Bondiola Madurada con pimienta Sin Conservantes - paquetes de 300gr" [ref=e235]
+            - generic [ref=e236]:
+              - img [ref=e237]
+              - text: Destacado
+            - generic [ref=e239]: Compra directa
+          - generic [ref=e240]:
+            - paragraph [ref=e241]: PRODUCTOS
+            - heading "Bondiola Madurada con pimienta Sin Conservantes - paquetes de 300gr" [level=3] [ref=e242]
+            - paragraph [ref=e243]: Producto disponible en el catalogo actual.
+            - generic [ref=e244]:
+              - generic [ref=e245]:
+                - paragraph [ref=e246]: Precio
+                - paragraph [ref=e247]: $115.000
+              - button "Agregar" [ref=e248] [cursor=pointer]:
+                - img [ref=e249]
+                - text: Agregar
+    - generic [ref=e250]:
+      - generic [ref=e251]:
+        - generic [ref=e252]:
+          - paragraph [ref=e253]: Catalogo
+          - heading "Encuentra lo que necesitas con stock visible" [level=2] [ref=e254]
+          - paragraph [ref=e255]: Busca por nombre, descripcion o categoria. Si un producto tiene precio publicado lo agregas al instante; si no, lo consultas sin salir del flujo.
+        - generic [ref=e257]:
+          - img
+          - textbox [ref=e258]:
+            - /placeholder: Buscar por nombre, descripcion o categoria
+      - generic [ref=e259]:
+        - button "Todos" [ref=e260] [cursor=pointer]
+        - button "PRODUCTOS" [ref=e261] [cursor=pointer]
+      - generic [ref=e262]:
+        - paragraph [ref=e263]: 74 productos visibles. 73 tienen stock y 73 se pueden comprar directo.
+        - paragraph [ref=e264]: Actualizado 21-abr.
+      - generic [ref=e265]:
+        - article [ref=e266]:
+          - generic [ref=e267]:
+            - img "Aceite de Coco Copra sin sabor 200ML" [ref=e269]
+            - generic [ref=e271]: PRODUCTOS
+            - generic [ref=e272]: "Stock: 10"
+          - generic [ref=e273]:
+            - generic [ref=e274]:
+              - generic [ref=e275]:
+                - heading "Aceite de Coco Copra sin sabor 200ML" [level=3] [ref=e276]
+                - paragraph [ref=e277]: Sin descripcion cargada.
+              - generic [ref=e278]: Disponible
+            - generic [ref=e279]:
+              - generic [ref=e280]:
+                - paragraph [ref=e281]: Precio
+                - paragraph [ref=e282]: $39.900
+              - generic [ref=e283]:
+                - button "Ver" [ref=e284] [cursor=pointer]
+                - button "Agregar" [ref=e285] [cursor=pointer]
+        - article [ref=e286]:
+          - generic [ref=e287]:
+            - img "Aceite de Coco Copra sin sabor spray 100ml" [ref=e289]
+            - generic [ref=e291]: PRODUCTOS
+            - generic [ref=e292]: "Stock: 10"
+          - generic [ref=e293]:
+            - generic [ref=e294]:
+              - generic [ref=e295]:
+                - heading "Aceite de Coco Copra sin sabor spray 100ml" [level=3] [ref=e296]
+                - paragraph [ref=e297]: Sin descripcion cargada.
+              - generic [ref=e298]: Disponible
+            - generic [ref=e299]:
+              - generic [ref=e300]:
+                - paragraph [ref=e301]: Precio
+                - paragraph [ref=e302]: $49.900
+              - generic [ref=e303]:
+                - button "Ver" [ref=e304] [cursor=pointer]
+                - button "Agregar" [ref=e305] [cursor=pointer]
+        - article [ref=e306]:
+          - generic [ref=e307]:
+            - img "Achocolatado Color Andina 200 Gr" [ref=e309]
+            - generic [ref=e311]: PRODUCTOS
+            - generic [ref=e312]: "Stock: 10"
+          - generic [ref=e313]:
+            - generic [ref=e314]:
+              - generic [ref=e315]:
+                - heading "Achocolatado Color Andina 200 Gr" [level=3] [ref=e316]
+                - paragraph [ref=e317]: Sin descripcion cargada.
+              - generic [ref=e318]: Disponible
+            - generic [ref=e319]:
+              - generic [ref=e320]:
+                - paragraph [ref=e321]: Precio
+                - paragraph [ref=e322]: $99.000
+              - generic [ref=e323]:
+                - button "Ver" [ref=e324] [cursor=pointer]
+                - button "Agregar" [ref=e325] [cursor=pointer]
+        - article [ref=e326]:
+          - generic [ref=e327]:
+            - img "Almendra tostada y salada 500 gramos" [ref=e329]
+            - generic [ref=e331]: PRODUCTOS
+            - generic [ref=e332]: "Stock: 10"
+          - generic [ref=e333]:
+            - generic [ref=e334]:
+              - generic [ref=e335]:
+                - heading "Almendra tostada y salada 500 gramos" [level=3] [ref=e336]
+                - paragraph [ref=e337]: Sin descripcion cargada.
+              - generic [ref=e338]: Disponible
+            - generic [ref=e339]:
+              - generic [ref=e340]:
+                - paragraph [ref=e341]: Precio
+                - paragraph [ref=e342]: $90.000
+              - generic [ref=e343]:
+                - button "Ver" [ref=e344] [cursor=pointer]
+                - button "Agregar" [ref=e345] [cursor=pointer]
+        - article [ref=e346]:
+          - generic [ref=e347]:
+            - img "Bondiola Madurada con pimienta Sin Conservantes - paquetes de 300gr" [ref=e349]
+            - generic [ref=e351]: PRODUCTOS
+            - generic [ref=e352]: "Stock: 10"
+          - generic [ref=e353]:
+            - generic [ref=e354]:
+              - generic [ref=e355]:
+                - heading "Bondiola Madurada con pimienta Sin Conservantes - paquetes de 300gr" [level=3] [ref=e356]
+                - paragraph [ref=e357]: Sin descripcion cargada.
+              - generic [ref=e358]: Disponible
+            - generic [ref=e359]:
+              - generic [ref=e360]:
+                - paragraph [ref=e361]: Precio
+                - paragraph [ref=e362]: $115.000
+              - generic [ref=e363]:
+                - button "Ver" [ref=e364] [cursor=pointer]
+                - button "Agregar" [ref=e365] [cursor=pointer]
+        - article [ref=e366]:
+          - generic [ref=e367]:
+            - img "Bondiola Madurada Sin Conservantes - paquetes de 300gr" [ref=e369]
+            - generic [ref=e371]: PRODUCTOS
+            - generic [ref=e372]: "Stock: 10"
+          - generic [ref=e373]:
+            - generic [ref=e374]:
+              - generic [ref=e375]:
+                - heading "Bondiola Madurada Sin Conservantes - paquetes de 300gr" [level=3] [ref=e376]
+                - paragraph [ref=e377]: Sin descripcion cargada.
+              - generic [ref=e378]: Disponible
+            - generic [ref=e379]:
+              - generic [ref=e380]:
+                - paragraph [ref=e381]: Precio
+                - paragraph [ref=e382]: $115.000
+              - generic [ref=e383]:
+                - button "Ver" [ref=e384] [cursor=pointer]
+                - button "Agregar" [ref=e385] [cursor=pointer]
+        - article [ref=e386]:
+          - generic [ref=e387]:
+            - img "Cacau Salvagem en Polvo 200 Gr" [ref=e389]
+            - generic [ref=e391]: PRODUCTOS
+            - generic [ref=e392]: "Stock: 10"
+          - generic [ref=e393]:
+            - generic [ref=e394]:
+              - generic [ref=e395]:
+                - heading "Cacau Salvagem en Polvo 200 Gr" [level=3] [ref=e396]
+                - paragraph [ref=e397]: Sin descripcion cargada.
+              - generic [ref=e398]: Disponible
+            - generic [ref=e399]:
+              - generic [ref=e400]:
+                - paragraph [ref=e401]: Precio
+                - paragraph [ref=e402]: $80.000
+              - generic [ref=e403]:
+                - button "Ver" [ref=e404] [cursor=pointer]
+                - button "Agregar" [ref=e405] [cursor=pointer]
+        - article [ref=e406]:
+          - generic [ref=e407]:
+            - img "CALDO DE HUESO GURU 600 ML" [ref=e409]
+            - generic [ref=e411]: PRODUCTOS
+            - generic [ref=e412]: "Stock: 10"
+          - generic [ref=e413]:
+            - generic [ref=e414]:
+              - generic [ref=e415]:
+                - heading "CALDO DE HUESO GURU 600 ML" [level=3] [ref=e416]
+                - paragraph [ref=e417]: Sin descripcion cargada.
+              - generic [ref=e418]: Disponible
+            - generic [ref=e419]:
+              - generic [ref=e420]:
+                - paragraph [ref=e421]: Precio
+                - paragraph [ref=e422]: $35.000
+              - generic [ref=e423]:
+                - button "Ver" [ref=e424] [cursor=pointer]
+                - button "Agregar" [ref=e425] [cursor=pointer]
+        - article [ref=e426]:
+          - generic [ref=e427]:
+            - img "Capsulas de café -DolcceGusto ESPRESSO 10 unid" [ref=e429]
+            - generic [ref=e431]: PRODUCTOS
+            - generic [ref=e432]: "Stock: 10"
+          - generic [ref=e433]:
+            - generic [ref=e434]:
+              - generic [ref=e435]:
+                - heading "Capsulas de café -DolcceGusto ESPRESSO 10 unid" [level=3] [ref=e436]
+                - paragraph [ref=e437]: Sin descripcion cargada.
+              - generic [ref=e438]: Disponible
+            - generic [ref=e439]:
+              - generic [ref=e440]:
+                - paragraph [ref=e441]: Precio
+                - paragraph [ref=e442]: $42.900
+              - generic [ref=e443]:
+                - button "Ver" [ref=e444] [cursor=pointer]
+                - button "Agregar" [ref=e445] [cursor=pointer]
+        - article [ref=e446]:
+          - generic [ref=e447]:
+            - img "Capsulas de café -DolcceGusto ESPRESSO INTENSO 10 unid" [ref=e449]
+            - generic [ref=e451]: PRODUCTOS
+            - generic [ref=e452]: "Stock: 10"
+          - generic [ref=e453]:
+            - generic [ref=e454]:
+              - generic [ref=e455]:
+                - heading "Capsulas de café -DolcceGusto ESPRESSO INTENSO 10 unid" [level=3] [ref=e456]
+                - paragraph [ref=e457]: Sin descripcion cargada.
+              - generic [ref=e458]: Disponible
+            - generic [ref=e459]:
+              - generic [ref=e460]:
+                - paragraph [ref=e461]: Precio
+                - paragraph [ref=e462]: $42.900
+              - generic [ref=e463]:
+                - button "Ver" [ref=e464] [cursor=pointer]
+                - button "Agregar" [ref=e465] [cursor=pointer]
+        - article [ref=e466]:
+          - generic [ref=e467]:
+            - img "Castañas de Caju 500gr" [ref=e469]
+            - generic [ref=e471]: PRODUCTOS
+            - generic [ref=e472]: "Stock: 10"
+          - generic [ref=e473]:
+            - generic [ref=e474]:
+              - generic [ref=e475]:
+                - heading "Castañas de Caju 500gr" [level=3] [ref=e476]
+                - paragraph [ref=e477]: Sin descripcion cargada.
+              - generic [ref=e478]: Disponible
+            - generic [ref=e479]:
+              - generic [ref=e480]:
+                - paragraph [ref=e481]: Precio
+                - paragraph [ref=e482]: $85.000
+              - generic [ref=e483]:
+                - button "Ver" [ref=e484] [cursor=pointer]
+                - button "Agregar" [ref=e485] [cursor=pointer]
+        - article [ref=e486]:
+          - generic [ref=e487]:
+            - img "Chipita bastoncitos - Lievito" [ref=e489]
+            - generic [ref=e491]: PRODUCTOS
+            - generic [ref=e492]: "Stock: 10"
+          - generic [ref=e493]:
+            - generic [ref=e494]:
+              - generic [ref=e495]:
+                - heading "Chipita bastoncitos - Lievito" [level=3] [ref=e496]
+                - paragraph [ref=e497]: Sin descripcion cargada.
+              - generic [ref=e498]: Disponible
+            - generic [ref=e499]:
+              - generic [ref=e500]:
+                - paragraph [ref=e501]: Precio
+                - paragraph [ref=e502]: $4.500
+              - generic [ref=e503]:
+                - button "Ver" [ref=e504] [cursor=pointer]
+                - button "Agregar" [ref=e505] [cursor=pointer]
+        - article [ref=e506]:
+          - generic [ref=e507]:
+            - img "Chips de Coco Natural 500gr" [ref=e509]
+            - generic [ref=e511]: PRODUCTOS
+            - generic [ref=e512]: "Stock: 10"
+          - generic [ref=e513]:
+            - generic [ref=e514]:
+              - generic [ref=e515]:
+                - heading "Chips de Coco Natural 500gr" [level=3] [ref=e516]
+                - paragraph [ref=e517]: Sin descripcion cargada.
+              - generic [ref=e518]: Disponible
+            - generic [ref=e519]:
+              - generic [ref=e520]:
+                - paragraph [ref=e521]: Precio
+                - paragraph [ref=e522]: $85.000
+              - generic [ref=e523]:
+                - button "Ver" [ref=e524] [cursor=pointer]
+                - button "Agregar" [ref=e525] [cursor=pointer]
+        - article [ref=e526]:
+          - generic [ref=e527]:
+            - img "Chorizo Picante sin conservantes UNIDAD" [ref=e529]
+            - generic [ref=e531]: PRODUCTOS
+            - generic [ref=e532]: "Stock: 10"
+          - generic [ref=e533]:
+            - generic [ref=e534]:
+              - generic [ref=e535]:
+                - heading "Chorizo Picante sin conservantes UNIDAD" [level=3] [ref=e536]
+                - paragraph [ref=e537]: Sin descripcion cargada.
+              - generic [ref=e538]: Disponible
+            - generic [ref=e539]:
+              - generic [ref=e540]:
+                - paragraph [ref=e541]: Precio
+                - paragraph [ref=e542]: $35.000
+              - generic [ref=e543]:
+                - button "Ver" [ref=e544] [cursor=pointer]
+                - button "Agregar" [ref=e545] [cursor=pointer]
+        - article [ref=e546]:
+          - generic [ref=e547]:
+            - img "Chorizo Toscano Sin Conservantes UNID" [ref=e549]
+            - generic [ref=e551]: PRODUCTOS
+            - generic [ref=e552]: "Stock: 10"
+          - generic [ref=e553]:
+            - generic [ref=e554]:
+              - generic [ref=e555]:
+                - heading "Chorizo Toscano Sin Conservantes UNID" [level=3] [ref=e556]
+                - paragraph [ref=e557]: Sin descripcion cargada.
+              - generic [ref=e558]: Disponible
+            - generic [ref=e559]:
+              - generic [ref=e560]:
+                - paragraph [ref=e561]: Precio
+                - paragraph [ref=e562]: $35.000
+              - generic [ref=e563]:
+                - button "Ver" [ref=e564] [cursor=pointer]
+                - button "Agregar" [ref=e565] [cursor=pointer]
+        - article [ref=e566]:
+          - generic [ref=e567]:
+            - img "Crema de Leche doble Los Colonos 1 litro" [ref=e569]
+            - generic [ref=e571]: PRODUCTOS
+            - generic [ref=e572]: "Stock: 10"
+          - generic [ref=e573]:
+            - generic [ref=e574]:
+              - generic [ref=e575]:
+                - heading "Crema de Leche doble Los Colonos 1 litro" [level=3] [ref=e576]
+                - paragraph [ref=e577]: Sin descripcion cargada.
+              - generic [ref=e578]: Disponible
+            - generic [ref=e579]:
+              - generic [ref=e580]:
+                - paragraph [ref=e581]: Precio
+                - paragraph [ref=e582]: $27.900
+              - generic [ref=e583]:
+                - button "Ver" [ref=e584] [cursor=pointer]
+                - button "Agregar" [ref=e585] [cursor=pointer]
+        - article [ref=e586]:
+          - generic [ref=e587]:
+            - img "Crema de Leche doble Los Colonos 500ML" [ref=e589]
+            - generic [ref=e591]: PRODUCTOS
+            - generic [ref=e592]: "Stock: 10"
+          - generic [ref=e593]:
+            - generic [ref=e594]:
+              - generic [ref=e595]:
+                - heading "Crema de Leche doble Los Colonos 500ML" [level=3] [ref=e596]
+                - paragraph [ref=e597]: Sin descripcion cargada.
+              - generic [ref=e598]: Disponible
+            - generic [ref=e599]:
+              - generic [ref=e600]:
+                - paragraph [ref=e601]: Precio
+                - paragraph [ref=e602]: $14.900
+              - generic [ref=e603]:
+                - button "Ver" [ref=e604] [cursor=pointer]
+                - button "Agregar" [ref=e605] [cursor=pointer]
+        - article [ref=e606]:
+          - generic [ref=e607]:
+            - img "Datiles medjoul con semilla 500gr" [ref=e609]
+            - generic [ref=e611]: PRODUCTOS
+            - generic [ref=e612]: "Stock: 10"
+          - generic [ref=e613]:
+            - generic [ref=e614]:
+              - generic [ref=e615]:
+                - heading "Datiles medjoul con semilla 500gr" [level=3] [ref=e616]
+                - paragraph [ref=e617]: Sin descripcion cargada.
+              - generic [ref=e618]: Disponible
+            - generic [ref=e619]:
+              - generic [ref=e620]:
+                - paragraph [ref=e621]: Precio
+                - paragraph [ref=e622]: $64.900
+              - generic [ref=e623]:
+                - button "Ver" [ref=e624] [cursor=pointer]
+                - button "Agregar" [ref=e625] [cursor=pointer]
+        - article [ref=e626]:
+          - generic [ref=e627]:
+            - img "Empanada de mandioca casera c/GHEE" [ref=e629]
+            - generic [ref=e631]: PRODUCTOS
+            - generic [ref=e632]: "Stock: 10"
+          - generic [ref=e633]:
+            - generic [ref=e634]:
+              - generic [ref=e635]:
+                - heading "Empanada de mandioca casera c/GHEE" [level=3] [ref=e636]
+                - paragraph [ref=e637]: Sin descripcion cargada.
+              - generic [ref=e638]: Disponible
+            - generic [ref=e639]:
+              - generic [ref=e640]:
+                - paragraph [ref=e641]: Precio
+                - paragraph [ref=e642]: $13.000
+              - generic [ref=e643]:
+                - button "Ver" [ref=e644] [cursor=pointer]
+                - button "Agregar" [ref=e645] [cursor=pointer]
+        - article [ref=e646]:
+          - generic [ref=e647]:
+            - img "Empanada de mandioca casera carne" [ref=e649]
+            - generic [ref=e651]: PRODUCTOS
+            - generic [ref=e652]: "Stock: 10"
+          - generic [ref=e653]:
+            - generic [ref=e654]:
+              - generic [ref=e655]:
+                - heading "Empanada de mandioca casera carne" [level=3] [ref=e656]
+                - paragraph [ref=e657]: Sin descripcion cargada.
+              - generic [ref=e658]: Disponible
+            - generic [ref=e659]:
+              - generic [ref=e660]:
+                - paragraph [ref=e661]: Precio
+                - paragraph [ref=e662]: $10.000
+              - generic [ref=e663]:
+                - button "Ver" [ref=e664] [cursor=pointer]
+                - button "Agregar" [ref=e665] [cursor=pointer]
+        - article [ref=e666]:
+          - generic [ref=e667]:
+            - img "Empanada de mandioca rellena con queso de bufala" [ref=e669]
+            - generic [ref=e671]: PRODUCTOS
+            - generic [ref=e672]: "Stock: 10"
+          - generic [ref=e673]:
+            - generic [ref=e674]:
+              - generic [ref=e675]:
+                - heading "Empanada de mandioca rellena con queso de bufala" [level=3] [ref=e676]
+                - paragraph [ref=e677]: Sin descripcion cargada.
+              - generic [ref=e678]: Disponible
+            - generic [ref=e679]:
+              - generic [ref=e680]:
+                - paragraph [ref=e681]: Precio
+                - paragraph [ref=e682]: $11.000
+              - generic [ref=e683]:
+                - button "Ver" [ref=e684] [cursor=pointer]
+                - button "Agregar" [ref=e685] [cursor=pointer]
+        - article [ref=e686]:
+          - generic [ref=e687]:
+            - img "Espumante sin alcohol BOTTEGA" [ref=e689]
+            - generic [ref=e691]: PRODUCTOS
+            - generic [ref=e692]: "Stock: 10"
+          - generic [ref=e693]:
+            - generic [ref=e694]:
+              - generic [ref=e695]:
+                - heading "Espumante sin alcohol BOTTEGA" [level=3] [ref=e696]
+                - paragraph [ref=e697]: Sin descripcion cargada.
+              - generic [ref=e698]: Disponible
+            - generic [ref=e699]:
+              - generic [ref=e700]:
+                - paragraph [ref=e701]: Precio
+                - paragraph [ref=e702]: $95.000
+              - generic [ref=e703]:
+                - button "Ver" [ref=e704] [cursor=pointer]
+                - button "Agregar" [ref=e705] [cursor=pointer]
+        - article [ref=e706]:
+          - generic [ref=e707]:
+            - img "Galletita de maiz salmas" [ref=e709]
+            - generic [ref=e711]: PRODUCTOS
+            - generic [ref=e712]: "Stock: 10"
+          - generic [ref=e713]:
+            - generic [ref=e714]:
+              - generic [ref=e715]:
+                - heading "Galletita de maiz salmas" [level=3] [ref=e716]
+                - paragraph [ref=e717]: Sin descripcion cargada.
+              - generic [ref=e718]: Disponible
+            - generic [ref=e719]:
+              - generic [ref=e720]:
+                - paragraph [ref=e721]: Precio
+                - paragraph [ref=e722]: $17.900
+              - generic [ref=e723]:
+                - button "Ver" [ref=e724] [cursor=pointer]
+                - button "Agregar" [ref=e725] [cursor=pointer]
+        - article [ref=e726]:
+          - generic [ref=e727]:
+            - img "Golden Milk (leche dorada) 200 Gr" [ref=e729]
+            - generic [ref=e731]: PRODUCTOS
+            - generic [ref=e732]: "Stock: 10"
+          - generic [ref=e733]:
+            - generic [ref=e734]:
+              - generic [ref=e735]:
+                - heading "Golden Milk (leche dorada) 200 Gr" [level=3] [ref=e736]
+                - paragraph [ref=e737]: Sin descripcion cargada.
+              - generic [ref=e738]: Disponible
+            - generic [ref=e739]:
+              - generic [ref=e740]:
+                - paragraph [ref=e741]: Precio
+                - paragraph [ref=e742]: $69.900
+              - generic [ref=e743]:
+                - button "Ver" [ref=e744] [cursor=pointer]
+                - button "Agregar" [ref=e745] [cursor=pointer]
+        - article [ref=e746]:
+          - generic [ref=e747]:
+            - img "Grasa de chancho kg - viene en frasco de 350-450gr" [ref=e749]
+            - generic [ref=e751]: PRODUCTOS
+            - generic [ref=e752]: "Stock: 10"
+          - generic [ref=e753]:
+            - generic [ref=e754]:
+              - generic [ref=e755]:
+                - heading "Grasa de chancho kg - viene en frasco de 350-450gr" [level=3] [ref=e756]
+                - paragraph [ref=e757]: Sin descripcion cargada.
+              - generic [ref=e758]: Disponible
+            - generic [ref=e759]:
+              - generic [ref=e760]:
+                - paragraph [ref=e761]: Precio
+                - paragraph [ref=e762]: $49.000
+              - generic [ref=e763]:
+                - button "Ver" [ref=e764] [cursor=pointer]
+                - button "Agregar" [ref=e765] [cursor=pointer]
+        - article [ref=e766]:
+          - generic [ref=e767]:
+            - img "hamburguesa de carne con panceta" [ref=e769]
+            - generic [ref=e771]: PRODUCTOS
+            - generic [ref=e772]: "Stock: 10"
+          - generic [ref=e773]:
+            - generic [ref=e774]:
+              - generic [ref=e775]:
+                - heading "hamburguesa de carne con panceta" [level=3] [ref=e776]
+                - paragraph [ref=e777]: Sin descripcion cargada.
+              - generic [ref=e778]: Disponible
+            - generic [ref=e779]:
+              - generic [ref=e780]:
+                - paragraph [ref=e781]: Precio
+                - paragraph [ref=e782]: $18.900
+              - generic [ref=e783]:
+                - button "Ver" [ref=e784] [cursor=pointer]
+                - button "Agregar" [ref=e785] [cursor=pointer]
+        - article [ref=e786]:
+          - generic [ref=e787]:
+            - img "Hamburguesa de cerdo con panceta" [ref=e789]
+            - generic [ref=e791]: PRODUCTOS
+            - generic [ref=e792]: "Stock: 10"
+          - generic [ref=e793]:
+            - generic [ref=e794]:
+              - generic [ref=e795]:
+                - heading "Hamburguesa de cerdo con panceta" [level=3] [ref=e796]
+                - paragraph [ref=e797]: Sin descripcion cargada.
+              - generic [ref=e798]: Disponible
+            - generic [ref=e799]:
+              - generic [ref=e800]:
+                - paragraph [ref=e801]: Precio
+                - paragraph [ref=e802]: $16.000
+              - generic [ref=e803]:
+                - button "Ver" [ref=e804] [cursor=pointer]
+                - button "Agregar" [ref=e805] [cursor=pointer]
+        - article [ref=e806]:
+          - generic [ref=e807]:
+            - img "Harina de banana verde 500gr" [ref=e809]
+            - generic [ref=e811]: PRODUCTOS
+            - generic [ref=e812]: "Stock: 10"
+          - generic [ref=e813]:
+            - generic [ref=e814]:
+              - generic [ref=e815]:
+                - heading "Harina de banana verde 500gr" [level=3] [ref=e816]
+                - paragraph [ref=e817]: Sin descripcion cargada.
+              - generic [ref=e818]: Disponible
+            - generic [ref=e819]:
+              - generic [ref=e820]:
+                - paragraph [ref=e821]: Precio
+                - paragraph [ref=e822]: $35.000
+              - generic [ref=e823]:
+                - button "Ver" [ref=e824] [cursor=pointer]
+                - button "Agregar" [ref=e825] [cursor=pointer]
+        - article [ref=e826]:
+          - generic [ref=e827]:
+            - img "Huevos Libres plancha de 30 unidades" [ref=e829]
+            - generic [ref=e831]: PRODUCTOS
+            - generic [ref=e832]: "Stock: 10"
+          - generic [ref=e833]:
+            - generic [ref=e834]:
+              - generic [ref=e835]:
+                - heading "Huevos Libres plancha de 30 unidades" [level=3] [ref=e836]
+                - paragraph [ref=e837]: Sin descripcion cargada.
+              - generic [ref=e838]: Disponible
+            - generic [ref=e839]:
+              - generic [ref=e840]:
+                - paragraph [ref=e841]: Precio
+                - paragraph [ref=e842]: $39.900
+              - generic [ref=e843]:
+                - button "Ver" [ref=e844] [cursor=pointer]
+                - button "Agregar" [ref=e845] [cursor=pointer]
+        - article [ref=e846]:
+          - generic [ref=e847]:
+            - img "jamon cocido natural Kg- paquetes de 250-300gr" [ref=e849]
+            - generic [ref=e851]: PRODUCTOS
+            - generic [ref=e852]: "Stock: 10"
+          - generic [ref=e853]:
+            - generic [ref=e854]:
+              - generic [ref=e855]:
+                - heading "jamon cocido natural Kg- paquetes de 250-300gr" [level=3] [ref=e856]
+                - paragraph [ref=e857]: Sin descripcion cargada.
+              - generic [ref=e858]: Disponible
+            - generic [ref=e859]:
+              - generic [ref=e860]:
+                - paragraph [ref=e861]: Precio
+                - paragraph [ref=e862]: $99.000
+              - generic [ref=e863]:
+                - button "Ver" [ref=e864] [cursor=pointer]
+                - button "Agregar" [ref=e865] [cursor=pointer]
+        - article [ref=e866]:
+          - generic [ref=e867]:
+            - img "Jamon Crudo Sin Conservantes - paquetes de 300 gr aprox" [ref=e869]
+            - generic [ref=e871]: PRODUCTOS
+            - generic [ref=e872]: "Stock: 10"
+          - generic [ref=e873]:
+            - generic [ref=e874]:
+              - generic [ref=e875]:
+                - heading "Jamon Crudo Sin Conservantes - paquetes de 300 gr aprox" [level=3] [ref=e876]
+                - paragraph [ref=e877]: Sin descripcion cargada.
+              - generic [ref=e878]: Disponible
+            - generic [ref=e879]:
+              - generic [ref=e880]:
+                - paragraph [ref=e881]: Precio
+                - paragraph [ref=e882]: $115.000
+              - generic [ref=e883]:
+                - button "Ver" [ref=e884] [cursor=pointer]
+                - button "Agregar" [ref=e885] [cursor=pointer]
+        - article [ref=e886]:
+          - generic [ref=e887]:
+            - img "Manteca Ghee 200 ML Don Justo" [ref=e889]
+            - generic [ref=e891]: PRODUCTOS
+            - generic [ref=e892]: "Stock: 10"
+          - generic [ref=e893]:
+            - generic [ref=e894]:
+              - generic [ref=e895]:
+                - heading "Manteca Ghee 200 ML Don Justo" [level=3] [ref=e896]
+                - paragraph [ref=e897]: Sin descripcion cargada.
+              - generic [ref=e898]: Disponible
+            - generic [ref=e899]:
+              - generic [ref=e900]:
+                - paragraph [ref=e901]: Precio
+                - paragraph [ref=e902]: $59.900
+              - generic [ref=e903]:
+                - button "Ver" [ref=e904] [cursor=pointer]
+                - button "Agregar" [ref=e905] [cursor=pointer]
+        - article [ref=e906]:
+          - generic [ref=e907]:
+            - img "MCT Oil en polvo Don Justo 165 gr" [ref=e909]
+            - generic [ref=e911]: PRODUCTOS
+            - generic [ref=e912]: "Stock: 10"
+          - generic [ref=e913]:
+            - generic [ref=e914]:
+              - generic [ref=e915]:
+                - heading "MCT Oil en polvo Don Justo 165 gr" [level=3] [ref=e916]
+                - paragraph [ref=e917]: Sin descripcion cargada.
+              - generic [ref=e918]: Disponible
+            - generic [ref=e919]:
+              - generic [ref=e920]:
+                - paragraph [ref=e921]: Precio
+                - paragraph [ref=e922]: $155.000
+              - generic [ref=e923]:
+                - button "Ver" [ref=e924] [cursor=pointer]
+                - button "Agregar" [ref=e925] [cursor=pointer]
+        - article [ref=e926]:
+          - generic [ref=e927]:
+            - img "Mix de Berries Congelados" [ref=e929]
+            - generic [ref=e931]: PRODUCTOS
+            - generic [ref=e932]: "Stock: 10"
+          - generic [ref=e933]:
+            - generic [ref=e934]:
+              - generic [ref=e935]:
+                - heading "Mix de Berries Congelados" [level=3] [ref=e936]
+                - paragraph [ref=e937]: Sin descripcion cargada.
+              - generic [ref=e938]: Disponible
+            - generic [ref=e939]:
+              - generic [ref=e940]:
+                - paragraph [ref=e941]: Precio
+                - paragraph [ref=e942]: $69.900
+              - generic [ref=e943]:
+                - button "Ver" [ref=e944] [cursor=pointer]
+                - button "Agregar" [ref=e945] [cursor=pointer]
+        - article [ref=e946]:
+          - generic [ref=e947]:
+            - img "morcilla sin conservantes - UNIDAD" [ref=e949]
+            - generic [ref=e951]: PRODUCTOS
+            - generic [ref=e952]: "Stock: 10"
+          - generic [ref=e953]:
+            - generic [ref=e954]:
+              - generic [ref=e955]:
+                - heading "morcilla sin conservantes - UNIDAD" [level=3] [ref=e956]
+                - paragraph [ref=e957]: Sin descripcion cargada.
+              - generic [ref=e958]: Disponible
+            - generic [ref=e959]:
+              - generic [ref=e960]:
+                - paragraph [ref=e961]: Precio
+                - paragraph [ref=e962]: $35.000
+              - generic [ref=e963]:
+                - button "Ver" [ref=e964] [cursor=pointer]
+                - button "Agregar" [ref=e965] [cursor=pointer]
+        - article [ref=e966]:
+          - generic [ref=e967]:
+            - img "Morning Shot Limon" [ref=e969]
+            - generic [ref=e971]: PRODUCTOS
+            - generic [ref=e972]: "Stock: 10"
+          - generic [ref=e973]:
+            - generic [ref=e974]:
+              - generic [ref=e975]:
+                - heading "Morning Shot Limon" [level=3] [ref=e976]
+                - paragraph [ref=e977]: Sin descripcion cargada.
+              - generic [ref=e978]: Disponible
+            - generic [ref=e979]:
+              - generic [ref=e980]:
+                - paragraph [ref=e981]: Precio
+                - paragraph [ref=e982]: $185.000
+              - generic [ref=e983]:
+                - button "Ver" [ref=e984] [cursor=pointer]
+                - button "Agregar" [ref=e985] [cursor=pointer]
+        - article [ref=e986]:
+          - generic [ref=e987]:
+            - img "Morning Shot Tangerina" [ref=e989]
+            - generic [ref=e991]: PRODUCTOS
+            - generic [ref=e992]: "Stock: 10"
+          - generic [ref=e993]:
+            - generic [ref=e994]:
+              - generic [ref=e995]:
+                - heading "Morning Shot Tangerina" [level=3] [ref=e996]
+                - paragraph [ref=e997]: Sin descripcion cargada.
+              - generic [ref=e998]: Disponible
+            - generic [ref=e999]:
+              - generic [ref=e1000]:
+                - paragraph [ref=e1001]: Precio
+                - paragraph [ref=e1002]: $185.000
+              - generic [ref=e1003]:
+                - button "Ver" [ref=e1004] [cursor=pointer]
+                - button "Agregar" [ref=e1005] [cursor=pointer]
+        - article [ref=e1006]:
+          - generic [ref=e1007]:
+            - img "Nueces Mariposa 500gr" [ref=e1009]
+            - generic [ref=e1011]: PRODUCTOS
+            - generic [ref=e1012]: "Stock: 10"
+          - generic [ref=e1013]:
+            - generic [ref=e1014]:
+              - generic [ref=e1015]:
+                - heading "Nueces Mariposa 500gr" [level=3] [ref=e1016]
+                - paragraph [ref=e1017]: Sin descripcion cargada.
+              - generic [ref=e1018]: Disponible
+            - generic [ref=e1019]:
+              - generic [ref=e1020]:
+                - paragraph [ref=e1021]: Precio
+                - paragraph [ref=e1022]: $90.000
+              - generic [ref=e1023]:
+                - button "Ver" [ref=e1024] [cursor=pointer]
+                - button "Agregar" [ref=e1025] [cursor=pointer]
+        - article [ref=e1026]:
+          - generic [ref=e1027]:
+            - img "Pan de centeno" [ref=e1029]
+            - generic [ref=e1031]: PRODUCTOS
+            - generic [ref=e1032]: "Stock: 10"
+          - generic [ref=e1033]:
+            - generic [ref=e1034]:
+              - generic [ref=e1035]:
+                - heading "Pan de centeno" [level=3] [ref=e1036]
+                - paragraph [ref=e1037]: Sin descripcion cargada.
+              - generic [ref=e1038]: Disponible
+            - generic [ref=e1039]:
+              - generic [ref=e1040]:
+                - paragraph [ref=e1041]: Precio
+                - paragraph [ref=e1042]: $65.000
+              - generic [ref=e1043]:
+                - button "Ver" [ref=e1044] [cursor=pointer]
+                - button "Agregar" [ref=e1045] [cursor=pointer]
+        - article [ref=e1046]:
+          - generic [ref=e1047]:
+            - img "Pan de Trigo Sarraceno masa madre" [ref=e1049]
+            - generic [ref=e1051]: PRODUCTOS
+            - generic [ref=e1052]: "Stock: 10"
+          - generic [ref=e1053]:
+            - generic [ref=e1054]:
+              - generic [ref=e1055]:
+                - heading "Pan de Trigo Sarraceno masa madre" [level=3] [ref=e1056]
+                - paragraph [ref=e1057]: Sin descripcion cargada.
+              - generic [ref=e1058]: Disponible
+            - generic [ref=e1059]:
+              - generic [ref=e1060]:
+                - paragraph [ref=e1061]: Precio
+                - paragraph [ref=e1062]: $60.000
+              - generic [ref=e1063]:
+                - button "Ver" [ref=e1064] [cursor=pointer]
+                - button "Agregar" [ref=e1065] [cursor=pointer]
+        - article [ref=e1066]:
+          - generic [ref=e1067]:
+            - img "Panceta Ahumada - paquetes de 500gr aprox" [ref=e1069]
+            - generic [ref=e1071]: PRODUCTOS
+            - generic [ref=e1072]: "Stock: 10"
+          - generic [ref=e1073]:
+            - generic [ref=e1074]:
+              - generic [ref=e1075]:
+                - heading "Panceta Ahumada - paquetes de 500gr aprox" [level=3] [ref=e1076]
+                - paragraph [ref=e1077]: Sin descripcion cargada.
+              - generic [ref=e1078]: Disponible
+            - generic [ref=e1079]:
+              - generic [ref=e1080]:
+                - paragraph [ref=e1081]: Precio
+                - paragraph [ref=e1082]: $99.500
+              - generic [ref=e1083]:
+                - button "Ver" [ref=e1084] [cursor=pointer]
+                - button "Agregar" [ref=e1085] [cursor=pointer]
+        - article [ref=e1086]:
+          - generic [ref=e1087]:
+            - img "Panceta ahumada entera - 1 kg aprox" [ref=e1089]
+            - generic [ref=e1091]: PRODUCTOS
+            - generic [ref=e1092]: "Stock: 10"
+          - generic [ref=e1093]:
+            - generic [ref=e1094]:
+              - generic [ref=e1095]:
+                - heading "Panceta ahumada entera - 1 kg aprox" [level=3] [ref=e1096]
+                - paragraph [ref=e1097]: Sin descripcion cargada.
+              - generic [ref=e1098]: Disponible
+            - generic [ref=e1099]:
+              - generic [ref=e1100]:
+                - paragraph [ref=e1101]: Precio
+                - paragraph [ref=e1102]: $99.500
+              - generic [ref=e1103]:
+                - button "Ver" [ref=e1104] [cursor=pointer]
+                - button "Agregar" [ref=e1105] [cursor=pointer]
+        - article [ref=e1106]:
+          - generic [ref=e1107]:
+            - img "Pate de ternera sin conservantes kg 300gr aprox" [ref=e1109]
+            - generic [ref=e1111]: PRODUCTOS
+            - generic [ref=e1112]: "Stock: 10"
+          - generic [ref=e1113]:
+            - generic [ref=e1114]:
+              - generic [ref=e1115]:
+                - heading "Pate de ternera sin conservantes kg 300gr aprox" [level=3] [ref=e1116]
+                - paragraph [ref=e1117]: Sin descripcion cargada.
+              - generic [ref=e1118]: Disponible
+            - generic [ref=e1119]:
+              - generic [ref=e1120]:
+                - paragraph [ref=e1121]: Precio
+                - paragraph [ref=e1122]: $65.000
+              - generic [ref=e1123]:
+                - button "Ver" [ref=e1124] [cursor=pointer]
+                - button "Agregar" [ref=e1125] [cursor=pointer]
+        - article [ref=e1126]:
+          - generic [ref=e1127]:
+            - img "pistachos salados 500gr" [ref=e1129]
+            - generic [ref=e1131]: PRODUCTOS
+            - generic [ref=e1132]: "Stock: 10"
+          - generic [ref=e1133]:
+            - generic [ref=e1134]:
+              - generic [ref=e1135]:
+                - heading "pistachos salados 500gr" [level=3] [ref=e1136]
+                - paragraph [ref=e1137]: Sin descripcion cargada.
+              - generic [ref=e1138]: Disponible
+            - generic [ref=e1139]:
+              - generic [ref=e1140]:
+                - paragraph [ref=e1141]: Precio
+                - paragraph [ref=e1142]: $100.000
+              - generic [ref=e1143]:
+                - button "Ver" [ref=e1144] [cursor=pointer]
+                - button "Agregar" [ref=e1145] [cursor=pointer]
+        - article [ref=e1146]:
+          - generic [ref=e1147]:
+            - img "Pochoclo organico Salty chico" [ref=e1149]
+            - generic [ref=e1151]: PRODUCTOS
+            - generic [ref=e1152]: "Stock: 10"
+          - generic [ref=e1153]:
+            - generic [ref=e1154]:
+              - generic [ref=e1155]:
+                - heading "Pochoclo organico Salty chico" [level=3] [ref=e1156]
+                - paragraph [ref=e1157]: Sin descripcion cargada.
+              - generic [ref=e1158]: Disponible
+            - generic [ref=e1159]:
+              - generic [ref=e1160]:
+                - paragraph [ref=e1161]: Precio
+                - paragraph [ref=e1162]: $9.900
+              - generic [ref=e1163]:
+                - button "Ver" [ref=e1164] [cursor=pointer]
+                - button "Agregar" [ref=e1165] [cursor=pointer]
+        - article [ref=e1166]:
+          - generic [ref=e1167]:
+            - img "Pochoclo organico Salty grande" [ref=e1169]
+            - generic [ref=e1171]: PRODUCTOS
+            - generic [ref=e1172]: "Stock: 10"
+          - generic [ref=e1173]:
+            - generic [ref=e1174]:
+              - generic [ref=e1175]:
+                - heading "Pochoclo organico Salty grande" [level=3] [ref=e1176]
+                - paragraph [ref=e1177]: Sin descripcion cargada.
+              - generic [ref=e1178]: Disponible
+            - generic [ref=e1179]:
+              - generic [ref=e1180]:
+                - paragraph [ref=e1181]: Precio
+                - paragraph [ref=e1182]: $12.900
+              - generic [ref=e1183]:
+                - button "Ver" [ref=e1184] [cursor=pointer]
+                - button "Agregar" [ref=e1185] [cursor=pointer]
+        - article [ref=e1186]:
+          - generic [ref=e1187]:
+            - img "Pochoclo organico Sweet & salty chico" [ref=e1189]
+            - generic [ref=e1191]: PRODUCTOS
+            - generic [ref=e1192]: "Stock: 10"
+          - generic [ref=e1193]:
+            - generic [ref=e1194]:
+              - generic [ref=e1195]:
+                - heading "Pochoclo organico Sweet & salty chico" [level=3] [ref=e1196]
+                - paragraph [ref=e1197]: Sin descripcion cargada.
+              - generic [ref=e1198]: Disponible
+            - generic [ref=e1199]:
+              - generic [ref=e1200]:
+                - paragraph [ref=e1201]: Precio
+                - paragraph [ref=e1202]: $9.900
+              - generic [ref=e1203]:
+                - button "Ver" [ref=e1204] [cursor=pointer]
+                - button "Agregar" [ref=e1205] [cursor=pointer]
+        - article [ref=e1206]:
+          - generic [ref=e1207]:
+            - img "Pochoclo organico Sweet & salty grande" [ref=e1209]
+            - generic [ref=e1211]: PRODUCTOS
+            - generic [ref=e1212]: "Stock: 10"
+          - generic [ref=e1213]:
+            - generic [ref=e1214]:
+              - generic [ref=e1215]:
+                - heading "Pochoclo organico Sweet & salty grande" [level=3] [ref=e1216]
+                - paragraph [ref=e1217]: Sin descripcion cargada.
+              - generic [ref=e1218]: Disponible
+            - generic [ref=e1219]:
+              - generic [ref=e1220]:
+                - paragraph [ref=e1221]: Precio
+                - paragraph [ref=e1222]: $12.900
+              - generic [ref=e1223]:
+                - button "Ver" [ref=e1224] [cursor=pointer]
+                - button "Agregar" [ref=e1225] [cursor=pointer]
+        - article [ref=e1226]:
+          - generic [ref=e1227]:
+            - img "Pochoclo organico Sweet chico" [ref=e1229]
+            - generic [ref=e1231]: PRODUCTOS
+            - generic [ref=e1232]: "Stock: 10"
+          - generic [ref=e1233]:
+            - generic [ref=e1234]:
+              - generic [ref=e1235]:
+                - heading "Pochoclo organico Sweet chico" [level=3] [ref=e1236]
+                - paragraph [ref=e1237]: Sin descripcion cargada.
+              - generic [ref=e1238]: Disponible
+            - generic [ref=e1239]:
+              - generic [ref=e1240]:
+                - paragraph [ref=e1241]: Precio
+                - paragraph [ref=e1242]: $9.900
+              - generic [ref=e1243]:
+                - button "Ver" [ref=e1244] [cursor=pointer]
+                - button "Agregar" [ref=e1245] [cursor=pointer]
+        - article [ref=e1246]:
+          - generic [ref=e1247]:
+            - img "Pochoclo organico Sweet grande" [ref=e1249]
+            - generic [ref=e1251]: PRODUCTOS
+            - generic [ref=e1252]: "Stock: 10"
+          - generic [ref=e1253]:
+            - generic [ref=e1254]:
+              - generic [ref=e1255]:
+                - heading "Pochoclo organico Sweet grande" [level=3] [ref=e1256]
+                - paragraph [ref=e1257]: Sin descripcion cargada.
+              - generic [ref=e1258]: Disponible
+            - generic [ref=e1259]:
+              - generic [ref=e1260]:
+                - paragraph [ref=e1261]: Precio
+                - paragraph [ref=e1262]: $12.900
+              - generic [ref=e1263]:
+                - button "Ver" [ref=e1264] [cursor=pointer]
+                - button "Agregar" [ref=e1265] [cursor=pointer]
+        - article [ref=e1266]:
+          - generic [ref=e1267]:
+            - img "Prosecco Mionetto 750ML" [ref=e1269]
+            - generic [ref=e1271]: PRODUCTOS
+            - generic [ref=e1272]: "Stock: 10"
+          - generic [ref=e1273]:
+            - generic [ref=e1274]:
+              - generic [ref=e1275]:
+                - heading "Prosecco Mionetto 750ML" [level=3] [ref=e1276]
+                - paragraph [ref=e1277]: Sin descripcion cargada.
+              - generic [ref=e1278]: Disponible
+            - generic [ref=e1279]:
+              - generic [ref=e1280]:
+                - paragraph [ref=e1281]: Precio
+                - paragraph [ref=e1282]: $110.000
+              - generic [ref=e1283]:
+                - button "Ver" [ref=e1284] [cursor=pointer]
+                - button "Agregar" [ref=e1285] [cursor=pointer]
+        - article [ref=e1286]:
+          - generic [ref=e1287]:
+            - img "Queso Bufala Organico santa florencia kg - paquetes de 500-600gr" [ref=e1289]
+            - generic [ref=e1291]: PRODUCTOS
+            - generic [ref=e1292]: "Stock: 10"
+          - generic [ref=e1293]:
+            - generic [ref=e1294]:
+              - generic [ref=e1295]:
+                - heading "Queso Bufala Organico santa florencia kg - paquetes de 500-600gr" [level=3] [ref=e1296]
+                - paragraph [ref=e1297]: Sin descripcion cargada.
+              - generic [ref=e1298]: Disponible
+            - generic [ref=e1299]:
+              - generic [ref=e1300]:
+                - paragraph [ref=e1301]: Precio
+                - paragraph [ref=e1302]: $85.000
+              - generic [ref=e1303]:
+                - button "Ver" [ref=e1304] [cursor=pointer]
+                - button "Agregar" [ref=e1305] [cursor=pointer]
+        - article [ref=e1306]:
+          - generic [ref=e1307]:
+            - img "Queso de bufala tipo py - en pedazos de 1kg aprox" [ref=e1309]
+            - generic [ref=e1311]: PRODUCTOS
+            - generic [ref=e1312]: "Stock: 10"
+          - generic [ref=e1313]:
+            - generic [ref=e1314]:
+              - generic [ref=e1315]:
+                - heading "Queso de bufala tipo py - en pedazos de 1kg aprox" [level=3] [ref=e1316]
+                - paragraph [ref=e1317]: Sin descripcion cargada.
+              - generic [ref=e1318]: Disponible
+            - generic [ref=e1319]:
+              - generic [ref=e1320]:
+                - paragraph [ref=e1321]: Precio
+                - paragraph [ref=e1322]: $65.000
+              - generic [ref=e1323]:
+                - button "Ver" [ref=e1324] [cursor=pointer]
+                - button "Agregar" [ref=e1325] [cursor=pointer]
+        - article [ref=e1326]:
+          - generic [ref=e1327]:
+            - img "Rebozador Dani Picante 500 gr" [ref=e1329]
+            - generic [ref=e1331]: PRODUCTOS
+            - generic [ref=e1332]: "Stock: 10"
+          - generic [ref=e1333]:
+            - generic [ref=e1334]:
+              - generic [ref=e1335]:
+                - heading "Rebozador Dani Picante 500 gr" [level=3] [ref=e1336]
+                - paragraph [ref=e1337]: Sin descripcion cargada.
+              - generic [ref=e1338]: Disponible
+            - generic [ref=e1339]:
+              - generic [ref=e1340]:
+                - paragraph [ref=e1341]: Precio
+                - paragraph [ref=e1342]: $58.000
+              - generic [ref=e1343]:
+                - button "Ver" [ref=e1344] [cursor=pointer]
+                - button "Agregar" [ref=e1345] [cursor=pointer]
+        - article [ref=e1346]:
+          - generic [ref=e1347]:
+            - img "salame tipo colorado envasado 250gr" [ref=e1349]
+            - generic [ref=e1351]: PRODUCTOS
+            - generic [ref=e1352]: "Stock: 10"
+          - generic [ref=e1353]:
+            - generic [ref=e1354]:
+              - generic [ref=e1355]:
+                - heading "salame tipo colorado envasado 250gr" [level=3] [ref=e1356]
+                - paragraph [ref=e1357]: Sin descripcion cargada.
+              - generic [ref=e1358]: Disponible
+            - generic [ref=e1359]:
+              - generic [ref=e1360]:
+                - paragraph [ref=e1361]: Precio
+                - paragraph [ref=e1362]: $27.900
+              - generic [ref=e1363]:
+                - button "Ver" [ref=e1364] [cursor=pointer]
+                - button "Agregar" [ref=e1365] [cursor=pointer]
+        - article [ref=e1366]:
+          - generic [ref=e1367]:
+            - img "Salame tipo colorado UNIDAD" [ref=e1369]
+            - generic [ref=e1371]: PRODUCTOS
+            - generic [ref=e1372]: "Stock: 10"
+          - generic [ref=e1373]:
+            - generic [ref=e1374]:
+              - generic [ref=e1375]:
+                - heading "Salame tipo colorado UNIDAD" [level=3] [ref=e1376]
+                - paragraph [ref=e1377]: Sin descripcion cargada.
+              - generic [ref=e1378]: Disponible
+            - generic [ref=e1379]:
+              - generic [ref=e1380]:
+                - paragraph [ref=e1381]: Precio
+                - paragraph [ref=e1382]: $58.000
+              - generic [ref=e1383]:
+                - button "Ver" [ref=e1384] [cursor=pointer]
+                - button "Agregar" [ref=e1385] [cursor=pointer]
+        - article [ref=e1386]:
+          - generic [ref=e1387]:
+            - img "Salame tipo peperoni envasado 250 Gr" [ref=e1389]
+            - generic [ref=e1391]: PRODUCTOS
+            - generic [ref=e1392]: "Stock: 10"
+          - generic [ref=e1393]:
+            - generic [ref=e1394]:
+              - generic [ref=e1395]:
+                - heading "Salame tipo peperoni envasado 250 Gr" [level=3] [ref=e1396]
+                - paragraph [ref=e1397]: Sin descripcion cargada.
+              - generic [ref=e1398]: Disponible
+            - generic [ref=e1399]:
+              - generic [ref=e1400]:
+                - paragraph [ref=e1401]: Precio
+                - paragraph [ref=e1402]: $27.900
+              - generic [ref=e1403]:
+                - button "Ver" [ref=e1404] [cursor=pointer]
+                - button "Agregar" [ref=e1405] [cursor=pointer]
+        - article [ref=e1406]:
+          - generic [ref=e1407]:
+            - img "Salame tipo tandil envasado 150 Gr" [ref=e1409]
+            - generic [ref=e1411]: PRODUCTOS
+            - generic [ref=e1412]: "Stock: 10"
+          - generic [ref=e1413]:
+            - generic [ref=e1414]:
+              - generic [ref=e1415]:
+                - heading "Salame tipo tandil envasado 150 Gr" [level=3] [ref=e1416]
+                - paragraph [ref=e1417]: Sin descripcion cargada.
+              - generic [ref=e1418]: Disponible
+            - generic [ref=e1419]:
+              - generic [ref=e1420]:
+                - paragraph [ref=e1421]: Precio
+                - paragraph [ref=e1422]: $12.900
+              - generic [ref=e1423]:
+                - button "Ver" [ref=e1424] [cursor=pointer]
+                - button "Agregar" [ref=e1425] [cursor=pointer]
+        - article [ref=e1426]:
+          - generic [ref=e1427]:
+            - img "Salame tipo tandil envasado 250 Gr" [ref=e1429]
+            - generic [ref=e1431]: PRODUCTOS
+            - generic [ref=e1432]: "Stock: 10"
+          - generic [ref=e1433]:
+            - generic [ref=e1434]:
+              - generic [ref=e1435]:
+                - heading "Salame tipo tandil envasado 250 Gr" [level=3] [ref=e1436]
+                - paragraph [ref=e1437]: Sin descripcion cargada.
+              - generic [ref=e1438]: Disponible
+            - generic [ref=e1439]:
+              - generic [ref=e1440]:
+                - paragraph [ref=e1441]: Precio
+                - paragraph [ref=e1442]: $27.900
+              - generic [ref=e1443]:
+                - button "Ver" [ref=e1444] [cursor=pointer]
+                - button "Agregar" [ref=e1445] [cursor=pointer]
+        - article [ref=e1446]:
+          - generic [ref=e1447]:
+            - img "Salame tipo tandil picado fino UNIDAD" [ref=e1449]
+            - generic [ref=e1451]: PRODUCTOS
+            - generic [ref=e1452]: "Stock: 10"
+          - generic [ref=e1453]:
+            - generic [ref=e1454]:
+              - generic [ref=e1455]:
+                - heading "Salame tipo tandil picado fino UNIDAD" [level=3] [ref=e1456]
+                - paragraph [ref=e1457]: Sin descripcion cargada.
+              - generic [ref=e1458]: Disponible
+            - generic [ref=e1459]:
+              - generic [ref=e1460]:
+                - paragraph [ref=e1461]: Precio
+                - paragraph [ref=e1462]: $55.000
+              - generic [ref=e1463]:
+                - button "Ver" [ref=e1464] [cursor=pointer]
+                - button "Agregar" [ref=e1465] [cursor=pointer]
+        - article [ref=e1466]:
+          - generic [ref=e1467]:
+            - img "Salame Tipo Tandil UNIDAD" [ref=e1469]
+            - generic [ref=e1471]: PRODUCTOS
+            - generic [ref=e1472]: "Stock: 10"
+          - generic [ref=e1473]:
+            - generic [ref=e1474]:
+              - generic [ref=e1475]:
+                - heading "Salame Tipo Tandil UNIDAD" [level=3] [ref=e1476]
+                - paragraph [ref=e1477]: Sin descripcion cargada.
+              - generic [ref=e1478]: Disponible
+            - generic [ref=e1479]:
+              - generic [ref=e1480]:
+                - paragraph [ref=e1481]: Precio
+                - paragraph [ref=e1482]: $55.000
+              - generic [ref=e1483]:
+                - button "Ver" [ref=e1484] [cursor=pointer]
+                - button "Agregar" [ref=e1485] [cursor=pointer]
+        - article [ref=e1486]:
+          - generic [ref=e1487]:
+            - img "Snack - Chips de queso provolone 150gr" [ref=e1489]
+            - generic [ref=e1491]: PRODUCTOS
+            - generic [ref=e1492]: "Stock: 10"
+          - generic [ref=e1493]:
+            - generic [ref=e1494]:
+              - generic [ref=e1495]:
+                - heading "Snack - Chips de queso provolone 150gr" [level=3] [ref=e1496]
+                - paragraph [ref=e1497]: Sin descripcion cargada.
+              - generic [ref=e1498]: Disponible
+            - generic [ref=e1499]:
+              - generic [ref=e1500]:
+                - paragraph [ref=e1501]: Precio
+                - paragraph [ref=e1502]: $55.000
+              - generic [ref=e1503]:
+                - button "Ver" [ref=e1504] [cursor=pointer]
+                - button "Agregar" [ref=e1505] [cursor=pointer]
+        - article [ref=e1506]:
+          - generic [ref=e1507]:
+            - img "Stevia Andina en polvo 10 gr" [ref=e1509]
+            - generic [ref=e1511]: PRODUCTOS
+            - generic [ref=e1512]: "Stock: 10"
+          - generic [ref=e1513]:
+            - generic [ref=e1514]:
+              - generic [ref=e1515]:
+                - heading "Stevia Andina en polvo 10 gr" [level=3] [ref=e1516]
+                - paragraph [ref=e1517]: Sin descripcion cargada.
+              - generic [ref=e1518]: Disponible
+            - generic [ref=e1519]:
+              - generic [ref=e1520]:
+                - paragraph [ref=e1521]: Precio
+                - paragraph [ref=e1522]: $60.000
+              - generic [ref=e1523]:
+                - button "Ver" [ref=e1524] [cursor=pointer]
+                - button "Agregar" [ref=e1525] [cursor=pointer]
+        - article [ref=e1526]:
+          - generic [ref=e1527]:
+            - img "Stevia Liquida Color Andina 30 ML" [ref=e1529]
+            - generic [ref=e1531]: PRODUCTOS
+            - generic [ref=e1532]: "Stock: 10"
+          - generic [ref=e1533]:
+            - generic [ref=e1534]:
+              - generic [ref=e1535]:
+                - heading "Stevia Liquida Color Andina 30 ML" [level=3] [ref=e1536]
+                - paragraph [ref=e1537]: Sin descripcion cargada.
+              - generic [ref=e1538]: Disponible
+            - generic [ref=e1539]:
+              - generic [ref=e1540]:
+                - paragraph [ref=e1541]: Precio
+                - paragraph [ref=e1542]: $35.000
+              - generic [ref=e1543]:
+                - button "Ver" [ref=e1544] [cursor=pointer]
+                - button "Agregar" [ref=e1545] [cursor=pointer]
+        - article [ref=e1546]:
+          - generic [ref=e1547]:
+            - img "Super Coffee Beijinho 220 gr" [ref=e1549]
+            - generic [ref=e1551]: PRODUCTOS
+            - generic [ref=e1552]: "Stock: 10"
+          - generic [ref=e1553]:
+            - generic [ref=e1554]:
+              - generic [ref=e1555]:
+                - heading "Super Coffee Beijinho 220 gr" [level=3] [ref=e1556]
+                - paragraph [ref=e1557]: Sin descripcion cargada.
+              - generic [ref=e1558]: Disponible
+            - generic [ref=e1559]:
+              - generic [ref=e1560]:
+                - paragraph [ref=e1561]: Precio
+                - paragraph [ref=e1562]: $220.000
+              - generic [ref=e1563]:
+                - button "Ver" [ref=e1564] [cursor=pointer]
+                - button "Agregar" [ref=e1565] [cursor=pointer]
+        - article [ref=e1566]:
+          - generic [ref=e1567]:
+            - img "Super Coffee Chocolate Lingua de Gato 220 Gr" [ref=e1569]
+            - generic [ref=e1571]: PRODUCTOS
+            - generic [ref=e1572]: "Stock: 10"
+          - generic [ref=e1573]:
+            - generic [ref=e1574]:
+              - generic [ref=e1575]:
+                - heading "Super Coffee Chocolate Lingua de Gato 220 Gr" [level=3] [ref=e1576]
+                - paragraph [ref=e1577]: Sin descripcion cargada.
+              - generic [ref=e1578]: Disponible
+            - generic [ref=e1579]:
+              - generic [ref=e1580]:
+                - paragraph [ref=e1581]: Precio
+                - paragraph [ref=e1582]: $230.000
+              - generic [ref=e1583]:
+                - button "Ver" [ref=e1584] [cursor=pointer]
+                - button "Agregar" [ref=e1585] [cursor=pointer]
+        - article [ref=e1586]:
+          - generic [ref=e1587]:
+            - img "Super Coffee Chocolate Lingua de Gato 380gr" [ref=e1589]
+            - generic [ref=e1591]: PRODUCTOS
+            - generic [ref=e1592]: "Stock: 10"
+          - generic [ref=e1593]:
+            - generic [ref=e1594]:
+              - generic [ref=e1595]:
+                - heading "Super Coffee Chocolate Lingua de Gato 380gr" [level=3] [ref=e1596]
+                - paragraph [ref=e1597]: Sin descripcion cargada.
+              - generic [ref=e1598]: Disponible
+            - generic [ref=e1599]:
+              - generic [ref=e1600]:
+                - paragraph [ref=e1601]: Precio
+                - paragraph [ref=e1602]: $330.000
+              - generic [ref=e1603]:
+                - button "Ver" [ref=e1604] [cursor=pointer]
+                - button "Agregar" [ref=e1605] [cursor=pointer]
+        - article [ref=e1606]:
+          - generic [ref=e1607]:
+            - img "Super Coffee Original 220 gr" [ref=e1609]
+            - generic [ref=e1611]: PRODUCTOS
+            - generic [ref=e1612]: "Stock: 10"
+          - generic [ref=e1613]:
+            - generic [ref=e1614]:
+              - generic [ref=e1615]:
+                - heading "Super Coffee Original 220 gr" [level=3] [ref=e1616]
+                - paragraph [ref=e1617]: Sin descripcion cargada.
+              - generic [ref=e1618]: Disponible
+            - generic [ref=e1619]:
+              - generic [ref=e1620]:
+                - paragraph [ref=e1621]: Precio
+                - paragraph [ref=e1622]: $220.000
+              - generic [ref=e1623]:
+                - button "Ver" [ref=e1624] [cursor=pointer]
+                - button "Agregar" [ref=e1625] [cursor=pointer]
+        - article [ref=e1626]:
+          - generic [ref=e1627]:
+            - img "Super Coffee Original 380 gr" [ref=e1629]
+            - generic [ref=e1631]: PRODUCTOS
+            - generic [ref=e1632]: "Stock: 10"
+          - generic [ref=e1633]:
+            - generic [ref=e1634]:
+              - generic [ref=e1635]:
+                - heading "Super Coffee Original 380 gr" [level=3] [ref=e1636]
+                - paragraph [ref=e1637]: Sin descripcion cargada.
+              - generic [ref=e1638]: Disponible
+            - generic [ref=e1639]:
+              - generic [ref=e1640]:
+                - paragraph [ref=e1641]: Precio
+                - paragraph [ref=e1642]: $320.000
+              - generic [ref=e1643]:
+                - button "Ver" [ref=e1644] [cursor=pointer]
+                - button "Agregar" [ref=e1645] [cursor=pointer]
+        - article [ref=e1646]:
+          - generic [ref=e1647]:
+            - img "Super Coffee Sachet Chocolate Lengua de gato" [ref=e1649]
+            - generic [ref=e1651]: PRODUCTOS
+            - generic [ref=e1652]: "Stock: 10"
+          - generic [ref=e1653]:
+            - generic [ref=e1654]:
+              - generic [ref=e1655]:
+                - heading "Super Coffee Sachet Chocolate Lengua de gato" [level=3] [ref=e1656]
+                - paragraph [ref=e1657]: Sin descripcion cargada.
+              - generic [ref=e1658]: Disponible
+            - generic [ref=e1659]:
+              - generic [ref=e1660]:
+                - paragraph [ref=e1661]: Precio
+                - paragraph [ref=e1662]: $13.000
+              - generic [ref=e1663]:
+                - button "Ver" [ref=e1664] [cursor=pointer]
+                - button "Agregar" [ref=e1665] [cursor=pointer]
+        - article [ref=e1666]:
+          - generic [ref=e1667]:
+            - img "Super Coffee Sachet Choconilla" [ref=e1669]
+            - generic [ref=e1671]: PRODUCTOS
+            - generic [ref=e1672]: "Stock: 10"
+          - generic [ref=e1673]:
+            - generic [ref=e1674]:
+              - generic [ref=e1675]:
+                - heading "Super Coffee Sachet Choconilla" [level=3] [ref=e1676]
+                - paragraph [ref=e1677]: Sin descripcion cargada.
+              - generic [ref=e1678]: Disponible
+            - generic [ref=e1679]:
+              - generic [ref=e1680]:
+                - paragraph [ref=e1681]: Precio
+                - paragraph [ref=e1682]: $12.000
+              - generic [ref=e1683]:
+                - button "Ver" [ref=e1684] [cursor=pointer]
+                - button "Agregar" [ref=e1685] [cursor=pointer]
+        - article [ref=e1686]:
+          - generic [ref=e1687]:
+            - img "Super coffee sachet original" [ref=e1689]
+            - generic [ref=e1691]: PRODUCTOS
+            - generic [ref=e1692]: "Stock: 10"
+          - generic [ref=e1693]:
+            - generic [ref=e1694]:
+              - generic [ref=e1695]:
+                - heading "Super coffee sachet original" [level=3] [ref=e1696]
+                - paragraph [ref=e1697]: Sin descripcion cargada.
+              - generic [ref=e1698]: Disponible
+            - generic [ref=e1699]:
+              - generic [ref=e1700]:
+                - paragraph [ref=e1701]: Precio
+                - paragraph [ref=e1702]: $12.000
+              - generic [ref=e1703]:
+                - button "Ver" [ref=e1704] [cursor=pointer]
+                - button "Agregar" [ref=e1705] [cursor=pointer]
+        - article [ref=e1706]:
+          - generic [ref=e1707]:
+            - img "Vinagre de manzana organico Serra Gaucha 500ml" [ref=e1709]
+            - generic [ref=e1711]: PRODUCTOS
+            - generic [ref=e1712]: "Stock: 10"
+          - generic [ref=e1713]:
+            - generic [ref=e1714]:
+              - generic [ref=e1715]:
+                - heading "Vinagre de manzana organico Serra Gaucha 500ml" [level=3] [ref=e1716]
+                - paragraph [ref=e1717]: Sin descripcion cargada.
+              - generic [ref=e1718]: Disponible
+            - generic [ref=e1719]:
+              - generic [ref=e1720]:
+                - paragraph [ref=e1721]: Precio
+                - paragraph [ref=e1722]: $45.900
+              - generic [ref=e1723]:
+                - button "Ver" [ref=e1724] [cursor=pointer]
+                - button "Agregar" [ref=e1725] [cursor=pointer]
+        - article [ref=e1726]:
+          - generic [ref=e1727]:
+            - img "Caldo de Huesos GURU 300 ML" [ref=e1729]
+            - generic [ref=e1731]: PRODUCTOS
+            - generic [ref=e1732]: Sin unidades
+          - generic [ref=e1733]:
+            - generic [ref=e1734]:
+              - generic [ref=e1735]:
+                - heading "Caldo de Huesos GURU 300 ML" [level=3] [ref=e1736]
+                - paragraph [ref=e1737]: Sin descripcion cargada.
+              - generic [ref=e1738]: Sin stock
+            - generic [ref=e1739]:
+              - generic [ref=e1740]:
+                - paragraph [ref=e1741]: Precio
+                - paragraph [ref=e1742]: Consultar
+              - generic [ref=e1743]:
+                - button "Ver" [ref=e1744] [cursor=pointer]
+                - button "Sin stock" [disabled] [ref=e1745]
+  - generic [ref=e1749]:
+    - img "Se agrego al carrito" [ref=e1751]
+    - generic [ref=e1752]:
+      - paragraph [ref=e1753]: Carrito actualizado
+      - heading "Se agrego al carrito" [level=4] [ref=e1754]
+      - paragraph [ref=e1755]: Aceite de Coco Copra sin sabor 200ML ya quedo listo para cerrar por WhatsApp cuando quieras.
+      - generic [ref=e1756]:
+        - button "Ver carrito" [ref=e1757] [cursor=pointer]
+        - button "Seguir viendo" [ref=e1758] [cursor=pointer]
+    - button [ref=e1759] [cursor=pointer]:
+      - img [ref=e1760]
