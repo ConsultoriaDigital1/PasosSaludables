@@ -15,13 +15,8 @@ export const formatWhatsAppMessage = (items: CartItem[], total: number) => {
   const totalUnits = items.reduce((sum, item) => sum + item.quantity, 0);
   const lines = ['Hola Pasos Saludables, quiero confirmar este pedido:', '', '*Pedido web*'];
 
-  items.forEach((item, index) => {
-    lines.push(`${index + 1}. *${item.product.name}*`);
-
-    if (item.product.category) {
-      lines.push(`   Categoria: ${item.product.category}`);
-    }
-
+  items.forEach((item) => {
+    lines.push(`- *${item.product.name}*`);
     lines.push(`   Cantidad: ${item.quantity}`);
     lines.push(`   Precio unitario: ${formatPriceARS(item.product.price)}`);
     lines.push(`   Subtotal: ${formatPriceARS(item.product.price * item.quantity)}`);
