@@ -1,8 +1,8 @@
 export const formatPriceARS = (price: number): string =>
-  `$${Math.round(price).toLocaleString('es-AR', {
+  `${Math.round(price).toLocaleString('es-AR', {
     maximumFractionDigits: 0,
     minimumFractionDigits: 0
-  })}`;
+  })} gs`;
 
 export const formatCompactNumber = (value: number): string =>
   new Intl.NumberFormat('es-AR', {

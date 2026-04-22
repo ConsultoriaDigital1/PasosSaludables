@@ -30,6 +30,13 @@ export interface Cart {
   total: number;
 }
 
+export interface CheckoutDetails {
+  customerName: string;
+  address: string;
+  paymentMethod: string;
+  invoicePreference: string;
+}
+
 export interface DashboardSummary {
   totalProducts: number;
   totalCategories: number;

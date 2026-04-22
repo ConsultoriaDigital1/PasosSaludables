@@ -1312,13 +1312,17 @@ export default function DashboardApp() {
                   <div className="rounded-3xl bg-emerald-50 p-5">
                     <p className="text-sm text-emerald-800">Ingresos</p>
                     <p className="mt-2 text-3xl font-semibold text-emerald-950">
-                      {snapshot ? formatPriceARS(snapshot.summary.totalIncome) : '$0'}
+                      {snapshot
+                        ? formatPriceARS(snapshot.summary.totalIncome)
+                        : formatPriceARS(0)}
                     </p>
                   </div>
                   <div className="rounded-3xl bg-rose-50 p-5">
                     <p className="text-sm text-rose-800">Egresos</p>
                     <p className="mt-2 text-3xl font-semibold text-rose-950">
-                      {snapshot ? formatPriceARS(snapshot.summary.totalExpense) : '$0'}
+                      {snapshot
+                        ? formatPriceARS(snapshot.summary.totalExpense)
+                        : formatPriceARS(0)}
                     </p>
                   </div>
                   <div className="rounded-3xl bg-slate-950 p-5 text-white">
@@ -1326,7 +1330,7 @@ export default function DashboardApp() {
                     <p className="mt-2 text-3xl font-semibold">
                       {snapshot
                         ? formatPriceARS(snapshot.summary.treasuryBalance)
-                        : '$0'}
+                        : formatPriceARS(0)}
                     </p>
                   </div>
                 </div>

@@ -11,7 +11,11 @@ import {
   Truck,
   X
 } from 'lucide-react';
-import type { Product, StorefrontBootstrap } from '../types';
+import type {
+  CheckoutDetails,
+  Product,
+  StorefrontBootstrap
+} from '../types';
 import { formatPriceARS } from '../lib/formatters';
 import {
   formatProductInquiryMessage,
@@ -34,7 +38,20 @@ interface ToastState {
   showCartAction?: boolean;
 }
 
+type CheckoutErrors = Partial<Record<keyof CheckoutDetails, string>>;
+
 const brandLogo = '/pasossaludablesstock-logo.jpeg';
+const MIN_ORDER_TOTAL = 150000;
+const PAYMENT_METHOD_OPTIONS = [
+  'Pago con QR',
+  'Transferencia',
+  'Debito',
+  'Credito'
+] as const;
+const INVOICE_PREFERENCE_OPTIONS = [
+  'Prefiero Ticket',
+  'Quiero Factura'
+] as const;
 
 const purchaseSteps = [
   {
@@ -160,6 +177,14 @@ export default function StorefrontApp({ initialData, loadError = null }: Props) 
   const [cartRendered, setCartRendered] = useState(false);
   const [cartVisible, setCartVisible] = useState(false);
   const [cartPulse, setCartPulse] = useState(false);
+  const [checkoutFormVisible, setCheckoutFormVisible] = useState(false);
+  const [checkoutDetails, setCheckoutDetails] = useState<CheckoutDetails>({
+    customerName: '',
+    address: '',
+    paymentMethod: '',
+    invoicePreference: 'Prefiero Ticket'
+  });
+  const [checkoutErrors, setCheckoutErrors] = useState<CheckoutErrors>({});
   const [highlightedCartItemId, setHighlightedCartItemId] = useState<number | null>(
     null
   );
@@ -283,6 +308,21 @@ export default function StorefrontApp({ initialData, loadError = null }: Props) 
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [cartRendered]);
 
+  useEffect(() => {
+    if (items.length > 0) {
+      return;
+    }
+
+    setCheckoutFormVisible(false);
+    setCheckoutErrors({});
+    setCheckoutDetails({
+      customerName: '',
+      address: '',
+      paymentMethod: '',
+      invoicePreference: 'Prefiero Ticket'
+    });
+  }, [items.length]);
+
   const normalizedSearch = search.trim().toLowerCase();
   const visibleCategories = [
     'Todos',
@@ -309,30 +349,11 @@ export default function StorefrontApp({ initialData, loadError = null }: Props) 
     return matchesSearch && matchesCategory;
   });
 
-  const merchandisingPool = dedupeProducts([
-    ...initialData.featuredProducts,
-    ...allProducts
-  ]).sort(sortProductsForStore);
-
-  const heroFeatured =
-    merchandisingPool.find(canPurchaseProduct) ??
-    merchandisingPool.find(isProductAvailable) ??
-    merchandisingPool[0] ??
-    null;
-
-  const featuredShelf = dedupeProducts([
-    ...merchandisingPool.filter(
-      (product) => product.id !== heroFeatured?.id && canPurchaseProduct(product)
-    ),
-    ...allProducts.filter(
-      (product) => product.id !== heroFeatured?.id && canPurchaseProduct(product)
-    ),
-    ...allProducts.filter(
-      (product) => product.id !== heroFeatured?.id && isProductAvailable(product)
-    )
-  ]).slice(0, 4);
+  const featuredShelf = allProducts.filter((product) => product.featured);
 
   const totalItems = getTotalItems();
+  const minimumOrderReached = total >= MIN_ORDER_TOTAL;
+  const missingAmountToMinimum = Math.max(MIN_ORDER_TOTAL - total, 0);
   const selectedProductAvailable = selectedProduct
     ? isProductAvailable(selectedProduct)
     : false;
@@ -389,6 +410,45 @@ export default function StorefrontApp({ initialData, loadError = null }: Props) 
     }
   };
 
+  const handleCheckoutFieldChange = (
+    field: keyof CheckoutDetails,
+    value: string
+  ) => {
+    setCheckoutDetails((current) => ({
+      ...current,
+      [field]: value
+    }));
+
+    setCheckoutErrors((current) => {
+      if (!current[field]) {
+        return current;
+      }
+
+      const nextErrors = { ...current };
+      delete nextErrors[field];
+      return nextErrors;
+    });
+  };
+
+  const validateCheckoutDetails = () => {
+    const nextErrors: CheckoutErrors = {};
+
+    if (!checkoutDetails.customerName.trim()) {
+      nextErrors.customerName = 'El nombre es obligatorio.';
+    }
+
+    if (!checkoutDetails.address.trim()) {
+      nextErrors.address = 'La direccion es obligatoria.';
+    }
+
+    if (!checkoutDetails.paymentMethod) {
+      nextErrors.paymentMethod = 'Selecciona un metodo de pago.';
+    }
+
+    setCheckoutErrors(nextErrors);
+    return Object.keys(nextErrors).length === 0;
+  };
+
   const handleCheckout = () => {
     if (items.length === 0) {
       showToast({
@@ -399,7 +459,40 @@ export default function StorefrontApp({ initialData, loadError = null }: Props) 
       return;
     }
 
-    openWhatsApp(formatWhatsAppMessage(items, total));
+    setCheckoutFormVisible(true);
+  };
+
+  const handleCheckoutSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (items.length === 0) {
+      showToast({
+        title: 'El carrito esta vacio',
+        description: 'Agrega productos antes de mandar el pedido.',
+        tone: 'error'
+      });
+      return;
+    }
+
+    if (!minimumOrderReached) {
+      showToast({
+        title: 'Pedido minimo no alcanzado',
+        description: `El pedido debe ser de al menos ${formatPriceARS(MIN_ORDER_TOTAL)} para enviarse.`,
+        tone: 'error'
+      });
+      return;
+    }
+
+    if (!validateCheckoutDetails()) {
+      showToast({
+        title: 'Faltan datos obligatorios',
+        description: 'Completa nombre, direccion y metodo de pago antes de enviar.',
+        tone: 'error'
+      });
+      return;
+    }
+
+    openWhatsApp(formatWhatsAppMessage(items, total, checkoutDetails));
   };
 
   const handleToastCartAction = () => {
@@ -470,7 +563,7 @@ export default function StorefrontApp({ initialData, loadError = null }: Props) 
         </div>
       </header>
 
-      <main className="pb-12 pt-4 sm:pt-6">
+      <main className="pb-28 pt-4 sm:pb-12 sm:pt-6">
 
         <section
           id="como-comprar"
@@ -673,17 +766,11 @@ export default function StorefrontApp({ initialData, loadError = null }: Props) 
                       <ProductArtwork product={product} />
                     </div>
                     <div className="absolute left-4 top-4 flex flex-wrap gap-2">
-                      <span className="rounded-full bg-white/92 px-3 py-1 text-xs font-semibold text-slate-900">
-                        {product.category}
-                      </span>
                       {product.featured && (
                         <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">
                           Destacado
                         </span>
                       )}
-                    </div>
-                    <div className="absolute bottom-4 left-4 rounded-full bg-[#173b2d]/90 px-3 py-1 text-xs font-medium text-white backdrop-blur">
-                      {available ? `Stock: ${product.stockQuantity}` : 'Sin unidades'}
                     </div>
                   </div>
 
@@ -802,31 +889,20 @@ export default function StorefrontApp({ initialData, loadError = null }: Props) 
               </div>
 
               <div className="p-8 lg:p-10">
-                <p className="text-xs uppercase tracking-[0.24em] text-[#6f8f2f]">
-                  {selectedProduct.category}
-                </p>
-                <h3 className="mt-3 font-serif text-4xl leading-tight text-slate-950">
+                <h3 className="font-serif text-4xl leading-tight text-slate-950">
                   {selectedProduct.name}
                 </h3>
                 <p className="mt-5 text-base leading-8 text-slate-600">
                   {selectedProduct.description || 'Sin descripcion cargada.'}
                 </p>
 
-                <div className="mt-8 grid gap-4 sm:grid-cols-3">
+                <div className="mt-8 grid gap-4 sm:grid-cols-2">
                   <div className="rounded-3xl bg-slate-50 p-4">
                     <p className="text-xs uppercase tracking-[0.2em] text-slate-400">
                       Precio
                     </p>
                     <p className="mt-2 text-2xl font-semibold text-slate-950">
                       {formatProductPrice(selectedProduct)}
-                    </p>
-                  </div>
-                  <div className="rounded-3xl bg-slate-50 p-4">
-                    <p className="text-xs uppercase tracking-[0.2em] text-slate-400">
-                      Stock
-                    </p>
-                    <p className="mt-2 text-2xl font-semibold text-slate-950">
-                      {selectedProduct.stockQuantity}
                     </p>
                   </div>
                   <div className="rounded-3xl bg-slate-50 p-4">
@@ -972,10 +1048,7 @@ export default function StorefrontApp({ initialData, loadError = null }: Props) 
                         <div className="min-w-0 flex-1">
                           <div className="flex items-start justify-between gap-4">
                             <div>
-                              <p className="text-sm uppercase tracking-[0.22em] text-[#6f8f2f]">
-                                {item.product.category}
-                              </p>
-                              <h4 className="mt-1 text-lg font-semibold text-slate-950">
+                              <h4 className="text-lg font-semibold text-slate-950">
                                 {item.product.name}
                               </h4>
                             </div>
@@ -1054,14 +1127,172 @@ export default function StorefrontApp({ initialData, loadError = null }: Props) 
                 </div>
 
                 <div className="mt-6 grid gap-3">
-                  <button
-                    type="button"
-                    onClick={handleCheckout}
-                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[#8dc63f] px-6 py-3 font-semibold text-[#173b2d] transition hover:bg-[#9fd348]"
-                  >
-                    Enviar pedido
-                    <ArrowRight className="h-4 w-4" />
-                  </button>
+                  {!minimumOrderReached && items.length > 0 && (
+                    <div className="rounded-[24px] border border-[#d9b65a] bg-[#f7d470]/14 px-4 py-4 text-sm text-[#fff0c7]">
+                      <p className="font-semibold text-white">
+                        Pedido minimo: {formatPriceARS(MIN_ORDER_TOTAL)}
+                      </p>
+                      <p className="mt-1">
+                        Te faltan {formatPriceARS(missingAmountToMinimum)} para poder
+                        enviarlo.
+                      </p>
+                    </div>
+                  )}
+
+                  {checkoutFormVisible ? (
+                    <form
+                      onSubmit={handleCheckoutSubmit}
+                      className="grid gap-4 rounded-[28px] border border-white/12 bg-white/8 p-4"
+                    >
+                      <div>
+                        <p className="text-sm font-semibold text-white">
+                          Datos obligatorios
+                        </p>
+                        <p className="mt-1 text-sm text-white/72">
+                          Antes de enviar el pedido necesitamos nombre, direccion y
+                          metodo de pago.
+                        </p>
+                      </div>
+
+                      <label className="grid gap-2 text-sm">
+                        <span className="font-medium text-white">Nombre</span>
+                        <input
+                          type="text"
+                          value={checkoutDetails.customerName}
+                          onChange={(event) =>
+                            handleCheckoutFieldChange(
+                              'customerName',
+                              event.target.value
+                            )
+                          }
+                          autoComplete="name"
+                          className="rounded-2xl border border-white/12 bg-white px-4 py-3 text-slate-950 outline-none transition focus:border-[#8dc63f]"
+                          placeholder="Tu nombre"
+                        />
+                        {checkoutErrors.customerName && (
+                          <span className="text-xs text-[#ffd7d7]">
+                            {checkoutErrors.customerName}
+                          </span>
+                        )}
+                      </label>
+
+                      <label className="grid gap-2 text-sm">
+                        <span className="font-medium text-white">Direccion</span>
+                        <textarea
+                          value={checkoutDetails.address}
+                          onChange={(event) =>
+                            handleCheckoutFieldChange('address', event.target.value)
+                          }
+                          autoComplete="street-address"
+                          rows={3}
+                          className="rounded-2xl border border-white/12 bg-white px-4 py-3 text-slate-950 outline-none transition focus:border-[#8dc63f]"
+                          placeholder="Direccion de entrega"
+                        />
+                        {checkoutErrors.address && (
+                          <span className="text-xs text-[#ffd7d7]">
+                            {checkoutErrors.address}
+                          </span>
+                        )}
+                      </label>
+
+                      <div className="grid gap-2 text-sm">
+                        <span className="font-medium text-white">
+                          Metodo de pago
+                        </span>
+                        <div className="grid grid-cols-2 gap-2">
+                          {PAYMENT_METHOD_OPTIONS.map((option) => {
+                            const selected =
+                              checkoutDetails.paymentMethod === option;
+
+                            return (
+                              <button
+                                key={option}
+                                type="button"
+                                onClick={() =>
+                                  handleCheckoutFieldChange('paymentMethod', option)
+                                }
+                                className={`rounded-2xl border px-4 py-3 text-sm font-medium transition ${
+                                  selected
+                                    ? 'border-[#8dc63f] bg-[#8dc63f] text-[#173b2d]'
+                                    : 'border-white/14 bg-white/8 text-white hover:border-white/28'
+                                }`}
+                                aria-pressed={selected}
+                              >
+                                {option}
+                              </button>
+                            );
+                          })}
+                        </div>
+                        {checkoutErrors.paymentMethod && (
+                          <span className="text-xs text-[#ffd7d7]">
+                            {checkoutErrors.paymentMethod}
+                          </span>
+                        )}
+                      </div>
+
+                      <div className="grid gap-3 text-sm">
+                        <span className="font-medium text-white">
+                          Datos para su factura
+                        </span>
+                        <div className="grid gap-3 rounded-[24px] border border-white/12 bg-white px-4 py-4 text-slate-700 sm:grid-cols-2">
+                          {INVOICE_PREFERENCE_OPTIONS.map((option) => {
+                            const checked =
+                              checkoutDetails.invoicePreference === option;
+
+                            return (
+                              <label
+                                key={option}
+                                className="flex cursor-pointer items-center gap-3 rounded-2xl px-2 py-2 transition hover:bg-slate-50"
+                              >
+                                <input
+                                  type="radio"
+                                  name="invoicePreference"
+                                  value={option}
+                                  checked={checked}
+                                  onChange={(event) =>
+                                    handleCheckoutFieldChange(
+                                      'invoicePreference',
+                                      event.target.value
+                                    )
+                                  }
+                                  className="h-4 w-4 border-slate-300 text-[#1473e6] focus:ring-[#1473e6]"
+                                />
+                                <span className="font-medium text-slate-700">
+                                  {option}
+                                </span>
+                              </label>
+                            );
+                          })}
+                        </div>
+                      </div>
+
+                      <div className="grid gap-3 sm:grid-cols-2">
+                        <button
+                          type="submit"
+                          className="inline-flex items-center justify-center gap-2 rounded-full bg-[#8dc63f] px-6 py-3 font-semibold text-[#173b2d] transition hover:bg-[#9fd348]"
+                        >
+                          Confirmar y enviar
+                          <ArrowRight className="h-4 w-4" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setCheckoutFormVisible(false)}
+                          className="rounded-full border border-white/16 px-6 py-3 font-medium text-white/84 transition hover:border-white/30 hover:text-white"
+                        >
+                          Cancelar
+                        </button>
+                      </div>
+                    </form>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={handleCheckout}
+                      className="inline-flex items-center justify-center gap-2 rounded-full bg-[#8dc63f] px-6 py-3 font-semibold text-[#173b2d] transition hover:bg-[#9fd348]"
+                    >
+                      Enviar pedido
+                      <ArrowRight className="h-4 w-4" />
+                    </button>
+                  )}
                   <button
                     type="button"
                     onClick={clearCart}
@@ -1076,8 +1307,31 @@ export default function StorefrontApp({ initialData, loadError = null }: Props) 
         </div>
       )}
 
+      {items.length > 0 && !cartRendered && (
+        <button
+          type="button"
+          onClick={openCart}
+          className="fixed bottom-4 left-4 right-4 z-40 flex items-center justify-between rounded-full bg-[#173b2d] px-5 py-4 text-left text-white shadow-[0_24px_50px_rgba(23,59,45,0.28)] transition hover:bg-[#21503c] sm:left-auto sm:right-5 sm:w-auto sm:min-w-[280px]"
+        >
+          <div className="flex items-center gap-3">
+            <div className="rounded-full bg-white/12 p-2">
+              <ShoppingCart className="h-5 w-5" />
+            </div>
+            <div>
+              <p className="text-sm font-semibold">Ver carrito</p>
+              <p className="text-xs text-white/72">{totalItems} unidades</p>
+            </div>
+          </div>
+          <span className="text-sm font-semibold">{formatPriceARS(total)}</span>
+        </button>
+      )}
+
       {toast && (
-        <div className="fixed bottom-4 left-4 right-4 z-50 flex justify-center sm:left-auto sm:right-5 sm:w-auto">
+        <div
+          className={`fixed left-4 right-4 z-50 flex justify-center sm:left-auto sm:right-5 sm:w-auto ${
+            items.length > 0 && !cartRendered ? 'bottom-24 sm:bottom-24' : 'bottom-4'
+          }`}
+        >
           <div
             key={toastKey}
             className={`pss-toast-pop w-full max-w-md rounded-[28px] border px-5 py-4 shadow-[0_30px_80px_rgba(15,23,42,0.16)] ${
