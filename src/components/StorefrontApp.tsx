@@ -985,12 +985,12 @@ export default function StorefrontApp({ initialData, loadError = null }: Props) 
           onClick={closeCart}
         >
           <div
-            className={`flex h-full w-full max-w-xl flex-col bg-[#fffdf8] shadow-[0_24px_80px_rgba(15,23,42,0.24)] transition duration-300 ${
+            className={`flex h-[100dvh] max-h-[100dvh] w-full max-w-xl flex-col overflow-hidden bg-[#fffdf8] shadow-[0_24px_80px_rgba(15,23,42,0.24)] transition duration-300 ${
               cartVisible ? 'translate-x-0' : 'translate-x-full'
             }`}
             onClick={(event) => event.stopPropagation()}
           >
-            <div className="flex items-center justify-between border-b border-[#e4ead2] px-6 py-5">
+            <div className="flex shrink-0 items-center justify-between border-b border-[#e4ead2] px-4 py-4 sm:px-6 sm:py-5">
               <div className="flex items-center gap-3">
                 <div className="overflow-hidden rounded-[18px] bg-[#8dc63f] p-1">
                   <img
@@ -1017,8 +1017,29 @@ export default function StorefrontApp({ initialData, loadError = null }: Props) 
               </button>
             </div>
 
-            <div className="flex-1 space-y-4 overflow-auto px-6 py-6">
-              {items.length === 0 ? (
+            <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
+              <div className="space-y-4 px-4 py-4 sm:px-6 sm:py-6">
+              {checkoutFormVisible && items.length > 0 ? (
+                <div className="rounded-[24px] border border-[#e4ead2] bg-[#fbfaf5] px-4 py-3">
+                  <div className="flex items-center justify-between gap-3">
+                    <div>
+                      <p className="text-xs uppercase tracking-[0.2em] text-[#6f8f2f]">
+                        Resumen
+                      </p>
+                      <p className="mt-1 text-sm font-semibold text-slate-950">
+                        {totalItems} unidades listas para enviar
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setCheckoutFormVisible(false)}
+                      className="rounded-full border border-[#d6debf] px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-[#8dc63f] hover:text-[#173b2d]"
+                    >
+                      Editar
+                    </button>
+                  </div>
+                </div>
+              ) : items.length === 0 ? (
                 <div className="rounded-[28px] border border-dashed border-[#cdd8b7] bg-white p-10 text-center">
                   <p className="text-lg font-semibold text-slate-900">
                     Todavia no agregaste productos.
@@ -1107,16 +1128,16 @@ export default function StorefrontApp({ initialData, loadError = null }: Props) 
                   );
                 })
               )}
-            </div>
+              </div>
 
-            <div className="border-t border-[#e4ead2] px-6 py-6">
-              <div className="rounded-[32px] bg-[#173b2d] p-6 text-white shadow-[0_24px_60px_rgba(23,59,45,0.22)]">
+              <div className="border-t border-[#e4ead2] px-4 py-4 pb-[calc(1rem+env(safe-area-inset-bottom))] sm:px-6 sm:py-6 sm:pb-6">
+                <div className="rounded-[28px] bg-[#173b2d] p-4 text-white shadow-[0_24px_60px_rgba(23,59,45,0.22)] sm:rounded-[32px] sm:p-6">
                 <div className="flex items-end justify-between gap-4">
                   <div>
                     <p className="text-sm uppercase tracking-[0.22em] text-[#daf3af]">
                       Total
                     </p>
-                    <p className="mt-2 text-4xl font-semibold">
+                    <p className="mt-2 text-3xl font-semibold sm:text-4xl">
                       {formatPriceARS(total)}
                     </p>
                   </div>
@@ -1142,7 +1163,7 @@ export default function StorefrontApp({ initialData, loadError = null }: Props) 
                   {checkoutFormVisible ? (
                     <form
                       onSubmit={handleCheckoutSubmit}
-                      className="grid gap-4 rounded-[28px] border border-white/12 bg-white/8 p-4"
+                      className="grid gap-3 rounded-[28px] border border-white/12 bg-white/8 p-3 sm:gap-4 sm:p-4"
                     >
                       <div>
                         <p className="text-sm font-semibold text-white">
@@ -1184,7 +1205,7 @@ export default function StorefrontApp({ initialData, loadError = null }: Props) 
                             handleCheckoutFieldChange('address', event.target.value)
                           }
                           autoComplete="street-address"
-                          rows={3}
+                          rows={2}
                           className="rounded-2xl border border-white/12 bg-white px-4 py-3 text-slate-950 outline-none transition focus:border-[#8dc63f]"
                           placeholder="Direccion de entrega"
                         />
@@ -1266,10 +1287,10 @@ export default function StorefrontApp({ initialData, loadError = null }: Props) 
                         </div>
                       </div>
 
-                      <div className="grid gap-3 sm:grid-cols-2">
+                      <div className="sticky bottom-0 z-10 -mx-3 -mb-3 grid grid-cols-2 gap-2 border-t border-white/10 bg-[#173b2d] px-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-3 sm:static sm:mx-0 sm:mb-0 sm:border-t-0 sm:bg-transparent sm:p-0">
                         <button
                           type="submit"
-                          className="inline-flex items-center justify-center gap-2 rounded-full bg-[#8dc63f] px-6 py-3 font-semibold text-[#173b2d] transition hover:bg-[#9fd348]"
+                          className="col-span-2 inline-flex items-center justify-center gap-2 rounded-full bg-[#8dc63f] px-6 py-3 font-semibold text-[#173b2d] transition hover:bg-[#9fd348] sm:col-span-1"
                         >
                           Confirmar y enviar
                           <ArrowRight className="h-4 w-4" />
@@ -1277,9 +1298,16 @@ export default function StorefrontApp({ initialData, loadError = null }: Props) 
                         <button
                           type="button"
                           onClick={() => setCheckoutFormVisible(false)}
-                          className="rounded-full border border-white/16 px-6 py-3 font-medium text-white/84 transition hover:border-white/30 hover:text-white"
+                          className="rounded-full border border-white/16 px-4 py-2.5 font-medium text-white/84 transition hover:border-white/30 hover:text-white sm:px-6 sm:py-3"
                         >
                           Cancelar
+                        </button>
+                        <button
+                          type="button"
+                          onClick={clearCart}
+                          className="rounded-full border border-white/16 px-4 py-2.5 font-medium text-white/84 transition hover:border-white/30 hover:text-white sm:col-span-2 sm:px-6 sm:py-3"
+                        >
+                          Vaciar carrito
                         </button>
                       </div>
                     </form>
@@ -1293,17 +1321,20 @@ export default function StorefrontApp({ initialData, loadError = null }: Props) 
                       <ArrowRight className="h-4 w-4" />
                     </button>
                   )}
-                  <button
-                    type="button"
-                    onClick={clearCart}
-                    className="rounded-full border border-white/16 px-6 py-3 font-medium text-white/84 transition hover:border-white/30 hover:text-white"
-                  >
-                    Vaciar carrito
-                  </button>
+                  {!checkoutFormVisible && (
+                    <button
+                      type="button"
+                      onClick={clearCart}
+                      className="rounded-full border border-white/16 px-6 py-3 font-medium text-white/84 transition hover:border-white/30 hover:text-white"
+                    >
+                      Vaciar carrito
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
           </div>
+        </div>
         </div>
       )}
 
