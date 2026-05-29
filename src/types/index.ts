@@ -33,6 +33,7 @@ export interface Cart {
 export interface CheckoutDetails {
   customerName: string;
   address: string;
+  ruc: string;
   paymentMethod: string;
   invoicePreference: string;
 }

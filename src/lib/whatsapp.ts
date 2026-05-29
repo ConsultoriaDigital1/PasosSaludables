@@ -27,6 +27,9 @@ export const formatWhatsAppMessage = (
     '*Pedido web*',
     `*Nombre:* ${normalizeCheckoutValue(checkoutDetails.customerName)}`,
     `*Direccion:* ${normalizeCheckoutValue(checkoutDetails.address)}`,
+    ...(checkoutDetails.ruc.trim()
+      ? [`*RUC:* ${normalizeCheckoutValue(checkoutDetails.ruc)}`]
+      : []),
     `*Metodo de pago:* ${normalizeCheckoutValue(checkoutDetails.paymentMethod)}`,
     `*Comprobante:* ${normalizeCheckoutValue(checkoutDetails.invoicePreference)}`,
     ''

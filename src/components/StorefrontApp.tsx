@@ -181,6 +181,7 @@ export default function StorefrontApp({ initialData, loadError = null }: Props) 
   const [checkoutDetails, setCheckoutDetails] = useState<CheckoutDetails>({
     customerName: '',
     address: '',
+    ruc: '',
     paymentMethod: '',
     invoicePreference: 'Prefiero Ticket'
   });
@@ -318,6 +319,7 @@ export default function StorefrontApp({ initialData, loadError = null }: Props) 
     setCheckoutDetails({
       customerName: '',
       address: '',
+      ruc: '',
       paymentMethod: '',
       invoicePreference: 'Prefiero Ticket'
     });
@@ -1214,6 +1216,19 @@ export default function StorefrontApp({ initialData, loadError = null }: Props) 
                             {checkoutErrors.address}
                           </span>
                         )}
+                      </label>
+
+                      <label className="grid gap-2 text-sm">
+                        <span className="font-medium text-white">RUC</span>
+                        <input
+                          type="text"
+                          value={checkoutDetails.ruc}
+                          onChange={(event) =>
+                            handleCheckoutFieldChange('ruc', event.target.value)
+                          }
+                          className="rounded-2xl border border-white/12 bg-white px-4 py-3 text-slate-950 outline-none transition focus:border-[#8dc63f]"
+                          placeholder="RUC"
+                        />
                       </label>
 
                       <div className="grid gap-2 text-sm">
