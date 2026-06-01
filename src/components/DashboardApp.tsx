@@ -178,26 +178,34 @@ export default function DashboardApp() {
   const [transactionForm, setTransactionForm] =
     useState<TransactionFormState>(emptyTransactionForm);
   const [imageUploading, setImageUploading] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [draggingMain, setDraggingMain] = useState(false);
+  const [draggingGallery, setDraggingGallery] = useState(false);
+  const fileInputMainRef = useRef<HTMLInputElement>(null);
+  const fileInputGalleryRef = useRef<HTMLInputElement>(null);
 
-  async function handleImageUpload(file: File, field: 'image' | 'images') {
+  async function handleImageUpload(files: FileList | File[], field: 'image' | 'images') {
+    const fileArray = Array.from(files).filter((f) => f.type.startsWith('image/'));
+    if (fileArray.length === 0) return;
     setImageUploading(true);
     try {
-      const formData = new FormData();
-      formData.append('file', file);
-      const response = await fetch('/api/upload-image', {
-        method: 'POST',
-        body: formData
-      });
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || 'Error al subir');
-      setProductForm((current) => {
-        if (field === 'image') {
-          return { ...current, image: data.url };
-        }
-        const existing = current.images.trim();
-        return { ...current, images: existing ? `${existing}, ${data.url}` : data.url };
-      });
+      const toUpload = field === 'image' ? [fileArray[0]] : fileArray;
+      for (const file of toUpload) {
+        const formData = new FormData();
+        formData.append('file', file);
+        const response = await fetch('/api/upload-image', {
+          method: 'POST',
+          body: formData
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || 'Error al subir');
+        setProductForm((current) => {
+          if (field === 'image') {
+            return { ...current, image: data.url };
+          }
+          const existing = current.images.trim();
+          return { ...current, images: existing ? `${existing}, ${data.url}` : data.url };
+        });
+      }
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : 'Error al subir la imagen';
       setNotice(message);
@@ -1550,97 +1558,113 @@ export default function DashboardApp() {
               </label>
 
               <div className="grid gap-5 md:grid-cols-2">
+                {/* Imagen principal */}
                 <div className="grid gap-2">
                   <span className="text-sm text-[#475569]">Imagen principal</span>
-                  <div className="flex gap-2">
-                    <input
-                      value={productForm.image}
-                      onChange={(event) =>
-                        setProductForm((current) => ({
-                          ...current,
-                          image: event.target.value
-                        }))
-                      }
-                      placeholder="https://..."
-                      className="min-w-0 flex-1 rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
-                    />
-                    <button
-                      type="button"
-                      disabled={imageUploading}
-                      onClick={() => {
-                        if (fileInputRef.current) {
-                          fileInputRef.current.dataset.field = 'image';
-                          fileInputRef.current.click();
-                        }
-                      }}
-                      className="flex shrink-0 items-center gap-2 rounded-2xl border border-[#dce2cd] px-3 py-3 text-[#475569] transition hover:border-[#8dc63f] hover:text-[#6f8f2f] disabled:opacity-50"
-                      title="Subir imagen"
-                    >
-                      {imageUploading ? (
-                        <Loader2 className="h-4 w-4 animate-spin" />
-                      ) : (
-                        <ImagePlus className="h-4 w-4" />
-                      )}
-                    </button>
+                  <div
+                    onDragOver={(e) => { e.preventDefault(); setDraggingMain(true); }}
+                    onDragLeave={() => setDraggingMain(false)}
+                    onDrop={(e) => {
+                      e.preventDefault();
+                      setDraggingMain(false);
+                      if (e.dataTransfer.files.length) handleImageUpload(e.dataTransfer.files, 'image');
+                    }}
+                    onClick={() => fileInputMainRef.current?.click()}
+                    className={`relative cursor-pointer rounded-2xl border-2 border-dashed p-5 text-center transition ${draggingMain ? 'border-[#8dc63f] bg-[#f0f7e6]' : 'border-[#dce2cd] hover:border-[#8dc63f] hover:bg-[#fafaf7]'}`}
+                  >
+                    {productForm.image ? (
+                      <div className="relative inline-block">
+                        <img
+                          src={productForm.image}
+                          alt="Vista previa"
+                          className="mx-auto h-28 w-28 rounded-xl object-cover"
+                          onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                        />
+                        <button
+                          type="button"
+                          onClick={(e) => { e.stopPropagation(); setProductForm((c) => ({ ...c, image: '' })); }}
+                          className="absolute -right-2 -top-2 rounded-full bg-white p-1 shadow-md transition hover:bg-red-50"
+                        >
+                          <X className="h-3 w-3 text-red-500" />
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="flex flex-col items-center gap-2 text-[#475569]">
+                        {imageUploading ? (
+                          <Loader2 className="h-8 w-8 animate-spin text-[#8dc63f]" />
+                        ) : (
+                          <ImagePlus className="h-8 w-8 text-[#8dc63f]" />
+                        )}
+                        <p className="text-sm font-medium">
+                          {imageUploading ? 'Subiendo...' : 'Arrastrar o hacer clic'}
+                        </p>
+                        <p className="text-xs text-[#94a3b8]">PNG, JPG, WEBP — máx 5 MB</p>
+                      </div>
+                    )}
                   </div>
-                  {productForm.image && (
-                    <img
-                      src={productForm.image}
-                      alt="Vista previa"
-                      className="h-20 w-20 rounded-xl object-cover"
-                      onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
-                    />
-                  )}
+                  <input
+                    value={productForm.image}
+                    onChange={(event) => setProductForm((c) => ({ ...c, image: event.target.value }))}
+                    placeholder="O pegá una URL: https://..."
+                    className="min-w-0 flex-1 rounded-2xl border border-[#dce2cd] px-4 py-3 text-sm outline-none transition focus:border-[#8dc63f]"
+                  />
+                  <input
+                    ref={fileInputMainRef}
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={(e) => {
+                      if (e.target.files?.length) handleImageUpload(e.target.files, 'image');
+                      e.target.value = '';
+                    }}
+                  />
                 </div>
 
+                {/* Galería */}
                 <div className="grid gap-2">
-                  <span className="text-sm text-[#475569]">Galeria separada por comas</span>
-                  <div className="flex gap-2">
-                    <input
-                      value={productForm.images}
-                      onChange={(event) =>
-                        setProductForm((current) => ({
-                          ...current,
-                          images: event.target.value
-                        }))
-                      }
-                      placeholder="https://..., https://..."
-                      className="min-w-0 flex-1 rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
-                    />
-                    <button
-                      type="button"
-                      disabled={imageUploading}
-                      onClick={() => {
-                        if (fileInputRef.current) {
-                          fileInputRef.current.dataset.field = 'images';
-                          fileInputRef.current.click();
-                        }
-                      }}
-                      className="flex shrink-0 items-center gap-2 rounded-2xl border border-[#dce2cd] px-3 py-3 text-[#475569] transition hover:border-[#8dc63f] hover:text-[#6f8f2f] disabled:opacity-50"
-                      title="Agregar imagen a galería"
-                    >
+                  <span className="text-sm text-[#475569]">Galería</span>
+                  <div
+                    onDragOver={(e) => { e.preventDefault(); setDraggingGallery(true); }}
+                    onDragLeave={() => setDraggingGallery(false)}
+                    onDrop={(e) => {
+                      e.preventDefault();
+                      setDraggingGallery(false);
+                      if (e.dataTransfer.files.length) handleImageUpload(e.dataTransfer.files, 'images');
+                    }}
+                    onClick={() => fileInputGalleryRef.current?.click()}
+                    className={`cursor-pointer rounded-2xl border-2 border-dashed p-5 text-center transition ${draggingGallery ? 'border-[#8dc63f] bg-[#f0f7e6]' : 'border-[#dce2cd] hover:border-[#8dc63f] hover:bg-[#fafaf7]'}`}
+                  >
+                    <div className="flex flex-col items-center gap-2 text-[#475569]">
                       {imageUploading ? (
-                        <Loader2 className="h-4 w-4 animate-spin" />
+                        <Loader2 className="h-8 w-8 animate-spin text-[#8dc63f]" />
                       ) : (
-                        <ImagePlus className="h-4 w-4" />
+                        <ImagePlus className="h-8 w-8 text-[#8dc63f]" />
                       )}
-                    </button>
+                      <p className="text-sm font-medium">
+                        {imageUploading ? 'Subiendo...' : 'Arrastrar o hacer clic'}
+                      </p>
+                      <p className="text-xs text-[#94a3b8]">Podés soltar varias imágenes a la vez</p>
+                    </div>
                   </div>
+                  <input
+                    value={productForm.images}
+                    onChange={(event) => setProductForm((c) => ({ ...c, images: event.target.value }))}
+                    placeholder="O pegá URLs separadas por comas"
+                    className="min-w-0 flex-1 rounded-2xl border border-[#dce2cd] px-4 py-3 text-sm outline-none transition focus:border-[#8dc63f]"
+                  />
+                  <input
+                    ref={fileInputGalleryRef}
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    className="hidden"
+                    onChange={(e) => {
+                      if (e.target.files?.length) handleImageUpload(e.target.files, 'images');
+                      e.target.value = '';
+                    }}
+                  />
                 </div>
               </div>
-
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                className="hidden"
-                onChange={(event) => {
-                  const file = event.target.files?.[0];
-                  const field = (event.target.dataset.field as 'image' | 'images') || 'image';
-                  if (file) handleImageUpload(file, field);
-                  event.target.value = '';
-                }}
-              />
 
               <label className="inline-flex items-center gap-3 rounded-2xl bg-[#f0ede6] px-4 py-3 text-sm font-medium text-[#475569]">
                 <input
