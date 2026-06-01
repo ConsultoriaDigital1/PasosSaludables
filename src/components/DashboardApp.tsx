@@ -561,61 +561,75 @@ export default function DashboardApp() {
 
   if (!ready) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#08141f] text-white">
-        <Loader2 className="h-8 w-8 animate-spin" />
+      <div className="flex min-h-screen items-center justify-center bg-[#f8f4ea]">
+        <Loader2 className="h-8 w-8 animate-spin text-[#8dc63f]" />
       </div>
     );
   }
 
   if (!authenticated) {
     return (
-      <div className="relative min-h-screen overflow-hidden bg-[#08141f] text-white">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(34,197,94,0.14),_transparent_28%),radial-gradient(circle_at_bottom_right,_rgba(14,165,233,0.18),_transparent_35%),linear-gradient(180deg,_#020617_0%,_#08141f_50%,_#0f172a_100%)]" />
+      <div className="relative min-h-screen overflow-hidden bg-[#f8f4ea]">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(141,198,63,0.12),_transparent_40%),radial-gradient(circle_at_bottom_left,_rgba(23,59,45,0.08),_transparent_40%)]" />
         <div className="relative mx-auto grid min-h-screen max-w-6xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1fr_0.9fr] lg:px-8">
           <div className="flex flex-col justify-center">
-            <span className="inline-flex w-fit items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-emerald-200">
+            <div className="mb-8 flex items-center gap-3">
+              <img
+                src="/pasossaludablesstock-logo.jpeg"
+                alt="Pasos Saludables"
+                className="h-16 w-auto rounded-2xl object-contain"
+              />
+            </div>
+            <span className="inline-flex w-fit items-center gap-2 rounded-full border border-[#8dc63f]/40 bg-[#8dc63f]/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-[#6f8f2f]">
               <ShieldCheck className="h-4 w-4" />
               Acceso interno
             </span>
-            <h1 className="mt-6 font-serif text-5xl leading-[0.98] tracking-tight md:text-7xl">
-              Dashboard nuevo para operar sobre la DB del stock manager.
+            <h1 className="mt-6 font-serif text-5xl leading-[0.98] tracking-tight text-[#173b2d] md:text-6xl">
+              Panel de administración de stock y operaciones.
             </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-[#475569]">
               Inventario, bajo stock, movimientos y caja integrados en una sola
-              vista. Sin la interfaz vieja del Express anterior.
+              vista. Gestioná todo desde un solo lugar.
             </p>
 
             <div className="mt-10 grid gap-4 sm:grid-cols-3">
-              <div className="rounded-[28px] border border-white/10 bg-white/5 p-5 backdrop-blur">
-                <p className="text-sm text-slate-400">DB activa</p>
-                <p className="mt-3 text-2xl font-semibold">PasosSaludablesStock</p>
+              <div className="rounded-[28px] border border-[#dce2cd] bg-white/70 p-5 backdrop-blur">
+                <p className="text-sm text-[#6f8f2f]">DB activa</p>
+                <p className="mt-3 text-2xl font-semibold text-[#173b2d]">PasosSaludablesStock</p>
               </div>
-              <div className="rounded-[28px] border border-white/10 bg-white/5 p-5 backdrop-blur">
-                <p className="text-sm text-slate-400">Stack</p>
-                <p className="mt-3 text-2xl font-semibold">Astro + React</p>
+              <div className="rounded-[28px] border border-[#dce2cd] bg-white/70 p-5 backdrop-blur">
+                <p className="text-sm text-[#6f8f2f]">Stack</p>
+                <p className="mt-3 text-2xl font-semibold text-[#173b2d]">Astro + React</p>
               </div>
-              <div className="rounded-[28px] border border-white/10 bg-white/5 p-5 backdrop-blur">
-                <p className="text-sm text-slate-400">Foco</p>
-                <p className="mt-3 text-2xl font-semibold">Inventario real</p>
+              <div className="rounded-[28px] border border-[#dce2cd] bg-white/70 p-5 backdrop-blur">
+                <p className="text-sm text-[#6f8f2f]">Foco</p>
+                <p className="mt-3 text-2xl font-semibold text-[#173b2d]">Inventario real</p>
               </div>
             </div>
           </div>
 
           <div className="flex items-center">
-            <div className="w-full rounded-[32px] border border-white/10 bg-white/10 p-8 shadow-[0_30px_100px_rgba(0,0,0,0.3)] backdrop-blur">
-              <p className="text-sm uppercase tracking-[0.22em] text-emerald-200">
+            <div className="w-full rounded-[32px] border border-[#dce2cd] bg-white/80 p-8 shadow-[0_20px_60px_rgba(23,59,45,0.12)] backdrop-blur">
+              <div className="flex justify-center mb-6">
+                <img
+                  src="/pasossaludablesstock-logo.jpeg"
+                  alt="Pasos Saludables"
+                  className="h-20 w-auto rounded-2xl object-contain"
+                />
+              </div>
+              <p className="text-sm uppercase tracking-[0.22em] text-[#6f8f2f]">
                 Ingreso
               </p>
-              <h2 className="mt-3 text-3xl font-semibold text-white">
+              <h2 className="mt-3 text-3xl font-semibold text-[#173b2d]">
                 Entrar al panel
               </h2>
-              <p className="mt-3 text-sm leading-6 text-slate-300">
-                Usa las credenciales definidas en el `.env` del proyecto actual.
+              <p className="mt-3 text-sm leading-6 text-[#475569]">
+                Usa las credenciales del administrador para acceder.
               </p>
 
               <form onSubmit={handleLogin} className="mt-8 grid gap-5">
                 <label className="grid gap-2">
-                  <span className="text-sm text-slate-300">Usuario</span>
+                  <span className="text-sm font-medium text-[#173b2d]">Usuario</span>
                   <input
                     value={loginForm.username}
                     onChange={(event) =>
@@ -624,13 +638,13 @@ export default function DashboardApp() {
                         username: event.target.value
                       }))
                     }
-                    className="rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-white outline-none transition focus:border-emerald-400"
-                    placeholder="pasossaludables"
+                    className="rounded-2xl border border-[#dce2cd] bg-[#f8f4ea] px-4 py-3 text-[#0f172a] outline-none transition placeholder:text-[#a0a89a] focus:border-[#8dc63f] focus:ring-2 focus:ring-[#8dc63f]/20"
+                    placeholder="usuario"
                   />
                 </label>
 
                 <label className="grid gap-2">
-                  <span className="text-sm text-slate-300">Password</span>
+                  <span className="text-sm font-medium text-[#173b2d]">Contraseña</span>
                   <input
                     type="password"
                     value={loginForm.password}
@@ -640,7 +654,7 @@ export default function DashboardApp() {
                         password: event.target.value
                       }))
                     }
-                    className="rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-white outline-none transition focus:border-emerald-400"
+                    className="rounded-2xl border border-[#dce2cd] bg-[#f8f4ea] px-4 py-3 text-[#0f172a] outline-none transition placeholder:text-[#a0a89a] focus:border-[#8dc63f] focus:ring-2 focus:ring-[#8dc63f]/20"
                     placeholder="••••••••"
                   />
                 </label>
@@ -648,7 +662,7 @@ export default function DashboardApp() {
                 <button
                   type="submit"
                   disabled={loginLoading}
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-emerald-400 px-6 py-3 font-semibold text-emerald-950 transition hover:bg-emerald-300 disabled:cursor-not-allowed disabled:opacity-70"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#8dc63f] px-6 py-3 font-semibold text-[#173b2d] transition hover:bg-[#7db52e] disabled:cursor-not-allowed disabled:opacity-70"
                 >
                   {loginLoading && <Loader2 className="h-4 w-4 animate-spin" />}
                   Entrar
@@ -659,7 +673,7 @@ export default function DashboardApp() {
         </div>
 
         {notice && (
-          <div className="fixed bottom-5 left-1/2 z-50 -translate-x-1/2 rounded-full bg-white px-5 py-3 text-sm font-medium text-slate-950 shadow-lg">
+          <div className="fixed bottom-5 left-1/2 z-50 -translate-x-1/2 rounded-full bg-[#173b2d] px-5 py-3 text-sm font-medium text-white shadow-lg">
             {notice}
           </div>
         )}
@@ -668,18 +682,18 @@ export default function DashboardApp() {
   }
 
   return (
-    <div className="min-h-screen bg-[#eff4ef] text-slate-950">
+    <div className="min-h-screen bg-[#f8f4ea] text-[#0f172a]">
       <div className="mx-auto flex min-h-screen max-w-[1500px] flex-col lg:flex-row">
-        <aside className="border-b border-slate-200 bg-white/90 px-4 py-5 backdrop-blur lg:min-h-screen lg:w-80 lg:border-b-0 lg:border-r lg:px-6 lg:py-8">
+        <aside className="border-b border-[#dce2cd] bg-white/90 px-4 py-5 backdrop-blur lg:min-h-screen lg:w-80 lg:border-b-0 lg:border-r lg:px-6 lg:py-8">
           <div className="flex items-center gap-3">
             <img
-              src="/logo-pasos-saludables.svg"
+              src="/pasossaludablesstock-logo.jpeg"
               alt="Pasos Saludables Stock"
-              className="h-11 w-auto"
+              className="h-11 w-auto rounded-xl object-contain"
             />
             <div>
-              <p className="font-semibold text-slate-950">Pasos Saludables</p>
-              <p className="text-xs uppercase tracking-[0.28em] text-emerald-700">
+              <p className="font-semibold text-[#173b2d]">Pasos Saludables</p>
+              <p className="text-xs uppercase tracking-[0.28em] text-[#6f8f2f]">
                 Dashboard
               </p>
             </div>
@@ -696,8 +710,8 @@ export default function DashboardApp() {
                   onClick={() => setActiveTab(tab.id)}
                   className={`flex items-center gap-3 rounded-2xl px-4 py-3 text-left text-sm font-medium transition ${
                     active
-                      ? 'bg-slate-950 text-white shadow-sm'
-                      : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950'
+                      ? 'bg-[#173b2d] text-white shadow-sm'
+                      : 'text-[#475569] hover:bg-[#f0ede6] hover:text-[#173b2d]'
                   }`}
                 >
                   {tab.icon}
@@ -707,14 +721,14 @@ export default function DashboardApp() {
             })}
           </div>
 
-          <div className="mt-8 rounded-[28px] bg-slate-950 p-5 text-white">
-            <p className="text-sm uppercase tracking-[0.22em] text-emerald-200">
+          <div className="mt-8 rounded-[28px] bg-[#173b2d] p-5 text-white">
+            <p className="text-sm uppercase tracking-[0.22em] text-[#8dc63f]">
               Origen de datos
             </p>
             <p className="mt-3 text-2xl font-semibold">
               Base PasosSaludablesStock
             </p>
-            <p className="mt-3 text-sm leading-6 text-slate-300">
+            <p className="mt-3 text-sm leading-6 text-[#a8c49a]">
               Productos, categorias, movimientos y tesoreria salen de la misma
               base.
             </p>
@@ -723,7 +737,7 @@ export default function DashboardApp() {
           <button
             type="button"
             onClick={handleLogout}
-            className="mt-8 inline-flex items-center gap-2 rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-rose-300 hover:text-rose-700"
+            className="mt-8 inline-flex items-center gap-2 rounded-full border border-[#dce2cd] px-4 py-2 text-sm font-medium text-[#475569] transition hover:border-rose-300 hover:text-rose-700"
           >
             <LogOut className="h-4 w-4" />
             Cerrar sesion
@@ -733,10 +747,10 @@ export default function DashboardApp() {
         <section className="flex-1 px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
           <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div>
-              <p className="text-sm uppercase tracking-[0.24em] text-emerald-700">
+              <p className="text-sm uppercase tracking-[0.24em] text-[#6f8f2f]">
                 Operacion
               </p>
-              <h1 className="mt-2 font-serif text-4xl tracking-tight text-slate-950 md:text-5xl">
+              <h1 className="mt-2 font-serif text-4xl tracking-tight text-[#173b2d] md:text-5xl">
                 {activeTab === 'overview' && 'Lectura completa del negocio'}
                 {activeTab === 'inventory' && 'Inventario y productos'}
                 {activeTab === 'categories' && 'Estructura de categorias'}
@@ -750,7 +764,7 @@ export default function DashboardApp() {
                 <button
                   type="button"
                   onClick={openCreateProduct}
-                  className="inline-flex items-center gap-2 rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-emerald-800"
+                  className="inline-flex items-center gap-2 rounded-full bg-[#8dc63f] px-5 py-3 text-sm font-semibold text-[#173b2d] transition hover:bg-[#7db52e]"
                 >
                   <Plus className="h-4 w-4" />
                   Nuevo producto
@@ -760,7 +774,7 @@ export default function DashboardApp() {
                 <button
                   type="button"
                   onClick={openCreateCategory}
-                  className="inline-flex items-center gap-2 rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-emerald-800"
+                  className="inline-flex items-center gap-2 rounded-full bg-[#8dc63f] px-5 py-3 text-sm font-semibold text-[#173b2d] transition hover:bg-[#7db52e]"
                 >
                   <Plus className="h-4 w-4" />
                   Nueva categoria
@@ -770,7 +784,7 @@ export default function DashboardApp() {
                 <button
                   type="button"
                   onClick={openCreateMovement}
-                  className="inline-flex items-center gap-2 rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-emerald-800"
+                  className="inline-flex items-center gap-2 rounded-full bg-[#8dc63f] px-5 py-3 text-sm font-semibold text-[#173b2d] transition hover:bg-[#7db52e]"
                 >
                   <Plus className="h-4 w-4" />
                   Nuevo movimiento
@@ -780,7 +794,7 @@ export default function DashboardApp() {
                 <button
                   type="button"
                   onClick={openCreateTransaction}
-                  className="inline-flex items-center gap-2 rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-emerald-800"
+                  className="inline-flex items-center gap-2 rounded-full bg-[#8dc63f] px-5 py-3 text-sm font-semibold text-[#173b2d] transition hover:bg-[#7db52e]"
                 >
                   <Plus className="h-4 w-4" />
                   Nueva transaccion
@@ -790,8 +804,8 @@ export default function DashboardApp() {
           </div>
 
           {loading && !snapshot ? (
-            <div className="flex h-72 items-center justify-center rounded-[32px] border border-slate-200 bg-white">
-              <Loader2 className="h-8 w-8 animate-spin text-emerald-700" />
+            <div className="flex h-72 items-center justify-center rounded-[32px] border border-[#dce2cd] bg-white">
+              <Loader2 className="h-8 w-8 animate-spin text-[#8dc63f]" />
             </div>
           ) : null}
 
@@ -832,29 +846,29 @@ export default function DashboardApp() {
                 ].map((card) => (
                   <article
                     key={card.label}
-                    className="rounded-[30px] border border-slate-200 bg-white p-5 shadow-[0_16px_40px_rgba(15,23,42,0.06)]"
+                    className="rounded-[30px] border border-[#dce2cd] bg-white p-5 shadow-[0_16px_40px_rgba(15,23,42,0.06)]"
                   >
-                    <p className="text-sm text-slate-500">{card.label}</p>
-                    <p className="mt-3 text-3xl font-semibold text-slate-950">
+                    <p className="text-sm text-[#6b7a6b]">{card.label}</p>
+                    <p className="mt-3 text-3xl font-semibold text-[#173b2d]">
                       {card.value}
                     </p>
-                    <p className="mt-2 text-sm text-emerald-700">{card.detail}</p>
+                    <p className="mt-2 text-sm text-[#6f8f2f]">{card.detail}</p>
                   </article>
                 ))}
               </div>
 
               <div className="grid gap-6 xl:grid-cols-[1.2fr_0.8fr]">
-                <section className="rounded-[32px] border border-slate-200 bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.05)]">
+                <section className="rounded-[32px] border border-[#dce2cd] bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.05)]">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm uppercase tracking-[0.22em] text-emerald-700">
+                      <p className="text-sm uppercase tracking-[0.22em] text-[#6f8f2f]">
                         Finanzas
                       </p>
-                      <h2 className="mt-2 text-2xl font-semibold text-slate-950">
+                      <h2 className="mt-2 text-2xl font-semibold text-[#173b2d]">
                         Flujo mensual
                       </h2>
                     </div>
-                    <BarChart3 className="h-5 w-5 text-slate-400" />
+                    <BarChart3 className="h-5 w-5 text-[#94a494]" />
                   </div>
 
                   <div className="mt-8 grid gap-4 sm:grid-cols-6">
@@ -872,21 +886,21 @@ export default function DashboardApp() {
                         <div key={point.month} className="flex flex-col items-center gap-3">
                           <div className="flex h-48 items-end gap-2">
                             <div
-                              className="w-5 rounded-full bg-emerald-400"
+                              className="w-5 rounded-full bg-[#8dc63f]"
                               style={{ height: `${incomeHeight}px` }}
                               title={`Ingresos ${formatPriceARS(point.income)}`}
                             />
                             <div
-                              className="w-5 rounded-full bg-slate-200"
+                              className="w-5 rounded-full bg-[#dce2cd]"
                               style={{ height: `${expenseHeight}px` }}
                               title={`Egresos ${formatPriceARS(point.expense)}`}
                             />
                           </div>
                           <div className="text-center">
-                            <p className="text-sm font-semibold text-slate-900">
+                            <p className="text-sm font-semibold text-[#0f172a]">
                               {point.month}
                             </p>
-                            <p className="mt-1 text-xs text-slate-500">
+                            <p className="mt-1 text-xs text-[#6b7a6b]">
                               {formatPriceARS(point.income)}
                             </p>
                           </div>
@@ -897,26 +911,26 @@ export default function DashboardApp() {
                 </section>
 
                 <section className="grid gap-6">
-                  <article className="rounded-[32px] border border-slate-200 bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.05)]">
+                  <article className="rounded-[32px] border border-[#dce2cd] bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.05)]">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm uppercase tracking-[0.22em] text-emerald-700">
+                        <p className="text-sm uppercase tracking-[0.22em] text-[#6f8f2f]">
                           Tesoreria
                         </p>
-                        <h2 className="mt-2 text-2xl font-semibold text-slate-950">
+                        <h2 className="mt-2 text-2xl font-semibold text-[#173b2d]">
                           Ingresos vs egresos
                         </h2>
                       </div>
-                      <Wallet className="h-5 w-5 text-slate-400" />
+                      <Wallet className="h-5 w-5 text-[#94a494]" />
                     </div>
 
                     <div className="mt-6 grid gap-4">
-                      <div className="rounded-3xl bg-emerald-50 p-4">
+                      <div className="rounded-3xl bg-[#f0f8e4] p-4">
                         <div className="flex items-center gap-3">
-                          <ArrowUpRight className="h-5 w-5 text-emerald-700" />
+                          <ArrowUpRight className="h-5 w-5 text-[#6f8f2f]" />
                           <div>
-                            <p className="text-sm text-emerald-800">Ingresos</p>
-                            <p className="mt-1 text-2xl font-semibold text-emerald-950">
+                            <p className="text-sm text-[#173b2d]">Ingresos</p>
+                            <p className="mt-1 text-2xl font-semibold text-[#173b2d]">
                               {formatPriceARS(snapshot.summary.totalIncome)}
                             </p>
                           </div>
@@ -937,25 +951,25 @@ export default function DashboardApp() {
                     </div>
                   </article>
 
-                  <article className="rounded-[32px] border border-slate-200 bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.05)]">
-                    <p className="text-sm uppercase tracking-[0.22em] text-emerald-700">
+                  <article className="rounded-[32px] border border-[#dce2cd] bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.05)]">
+                    <p className="text-sm uppercase tracking-[0.22em] text-[#6f8f2f]">
                       Egresos del mes
                     </p>
                     <div className="mt-5 grid gap-3">
                       {snapshot.expenseBreakdown.length === 0 ? (
-                        <p className="text-sm text-slate-500">
+                        <p className="text-sm text-[#6b7a6b]">
                           No hay egresos registrados este mes.
                         </p>
                       ) : (
                         snapshot.expenseBreakdown.map((item) => (
                           <div
                             key={item.category}
-                            className="flex items-center justify-between rounded-2xl bg-slate-50 px-4 py-3"
+                            className="flex items-center justify-between rounded-2xl bg-[#f0ede6] px-4 py-3"
                           >
-                            <span className="text-sm font-medium text-slate-700">
+                            <span className="text-sm font-medium text-[#475569]">
                               {item.category}
                             </span>
-                            <span className="text-sm font-semibold text-slate-950">
+                            <span className="text-sm font-semibold text-[#173b2d]">
                               {formatPriceARS(item.total)}
                             </span>
                           </div>
@@ -967,18 +981,18 @@ export default function DashboardApp() {
               </div>
 
               <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr_1fr]">
-                <article className="rounded-[32px] border border-slate-200 bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.05)]">
-                  <p className="text-sm uppercase tracking-[0.22em] text-emerald-700">
+                <article className="rounded-[32px] border border-[#dce2cd] bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.05)]">
+                  <p className="text-sm uppercase tracking-[0.22em] text-[#6f8f2f]">
                     Top stock
                   </p>
                   <div className="mt-5 grid gap-3">
                     {snapshot.topStock.map((item) => (
                       <div
                         key={item.id}
-                        className="rounded-2xl bg-slate-50 px-4 py-3"
+                        className="rounded-2xl bg-[#f0ede6] px-4 py-3"
                       >
-                        <p className="font-medium text-slate-900">{item.name}</p>
-                        <p className="mt-1 text-sm text-slate-500">
+                        <p className="font-medium text-[#0f172a]">{item.name}</p>
+                        <p className="mt-1 text-sm text-[#6b7a6b]">
                           {item.stockQuantity} unidades
                         </p>
                       </div>
@@ -986,13 +1000,13 @@ export default function DashboardApp() {
                   </div>
                 </article>
 
-                <article className="rounded-[32px] border border-slate-200 bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.05)]">
-                  <p className="text-sm uppercase tracking-[0.22em] text-emerald-700">
+                <article className="rounded-[32px] border border-[#dce2cd] bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.05)]">
+                  <p className="text-sm uppercase tracking-[0.22em] text-[#6f8f2f]">
                     Stock bajo
                   </p>
                   <div className="mt-5 grid gap-3">
                     {snapshot.lowStock.length === 0 ? (
-                      <p className="text-sm text-slate-500">
+                      <p className="text-sm text-[#6b7a6b]">
                         No hay alertas de stock bajo.
                       </p>
                     ) : (
@@ -1001,7 +1015,7 @@ export default function DashboardApp() {
                           key={item.id}
                           className="rounded-2xl bg-amber-50 px-4 py-3"
                         >
-                          <p className="font-medium text-slate-900">{item.name}</p>
+                          <p className="font-medium text-[#0f172a]">{item.name}</p>
                           <p className="mt-1 text-sm text-amber-900">
                             {item.stockQuantity} unidades
                           </p>
@@ -1011,29 +1025,29 @@ export default function DashboardApp() {
                   </div>
                 </article>
 
-                <article className="rounded-[32px] border border-slate-200 bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.05)]">
-                  <p className="text-sm uppercase tracking-[0.22em] text-emerald-700">
+                <article className="rounded-[32px] border border-[#dce2cd] bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.05)]">
+                  <p className="text-sm uppercase tracking-[0.22em] text-[#6f8f2f]">
                     Movimientos recientes
                   </p>
                   <div className="mt-5 grid gap-4">
                     {snapshot.recentMovements.map((movement) => (
-                      <div key={movement.id} className="rounded-2xl bg-slate-50 px-4 py-3">
+                      <div key={movement.id} className="rounded-2xl bg-[#f0ede6] px-4 py-3">
                         <div className="flex items-center justify-between gap-3">
-                          <p className="font-medium text-slate-900">
+                          <p className="font-medium text-[#0f172a]">
                             {movement.productName}
                           </p>
                           <span
                             className={`rounded-full px-3 py-1 text-xs font-semibold ${
                               movement.movementType === 'OUT'
                                 ? 'bg-rose-100 text-rose-700'
-                                : 'bg-emerald-100 text-emerald-700'
+                                : 'bg-[#e8f5d0] text-[#6f8f2f]'
                             }`}
                           >
                             {movement.movementType}
                           </span>
                         </div>
-                        <p className="mt-2 text-sm text-slate-600">{movement.reason}</p>
-                        <p className="mt-2 text-xs text-slate-400">
+                        <p className="mt-2 text-sm text-[#475569]">{movement.reason}</p>
+                        <p className="mt-2 text-xs text-[#94a494]">
                           {formatDateTimeLabel(movement.createdAt)} · {movement.quantity} unidades
                         </p>
                       </div>
@@ -1046,14 +1060,14 @@ export default function DashboardApp() {
 
           {activeTab === 'inventory' && (
             <div className="grid gap-6">
-              <div className="rounded-[32px] border border-slate-200 bg-white p-5 shadow-[0_16px_40px_rgba(15,23,42,0.05)]">
+              <div className="rounded-[32px] border border-[#dce2cd] bg-white p-5 shadow-[0_16px_40px_rgba(15,23,42,0.05)]">
                 <label className="relative block">
-                  <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
+                  <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[#94a494]" />
                   <input
                     value={inventorySearch}
                     onChange={(event) => setInventorySearch(event.target.value)}
                     placeholder="Buscar producto por nombre, descripcion o categoria"
-                    className="w-full rounded-full border border-slate-300 bg-slate-50 px-12 py-3 text-sm text-slate-900 outline-none transition focus:border-emerald-500"
+                    className="w-full rounded-full border border-[#dce2cd] bg-[#f8f4ea] px-12 py-3 text-sm text-[#0f172a] outline-none transition focus:border-[#8dc63f]"
                   />
                 </label>
               </div>
@@ -1062,9 +1076,9 @@ export default function DashboardApp() {
                 {filteredProducts.map((product) => (
                   <article
                     key={product.id}
-                    className="overflow-hidden rounded-[30px] border border-slate-200 bg-white shadow-[0_16px_40px_rgba(15,23,42,0.05)]"
+                    className="overflow-hidden rounded-[30px] border border-[#dce2cd] bg-white shadow-[0_16px_40px_rgba(15,23,42,0.05)]"
                   >
-                    <div className="relative h-48 bg-slate-100">
+                    <div className="relative h-48 bg-[#f0ede6]">
                       {productImage(product) ? (
                         <img
                           src={productImage(product)}
@@ -1073,12 +1087,12 @@ export default function DashboardApp() {
                         />
                       ) : (
                         <div className="flex h-full w-full items-center justify-center bg-[radial-gradient(circle_at_top,_rgba(16,185,129,0.22),_transparent_55%),linear-gradient(135deg,_#0f172a_0%,_#111827_52%,_#052e16_100%)]">
-                          <Package className="h-14 w-14 text-emerald-200" />
+                          <Package className="h-14 w-14 text-[#8dc63f]" />
                         </div>
                       )}
 
                       <div className="absolute left-4 top-4 flex flex-wrap gap-2">
-                        <span className="rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-slate-900">
+                        <span className="rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-[#0f172a]">
                           {product.category}
                         </span>
                         {product.featured && (
@@ -1092,10 +1106,10 @@ export default function DashboardApp() {
                     <div className="p-5">
                       <div className="flex items-start justify-between gap-4">
                         <div>
-                          <h3 className="text-xl font-semibold text-slate-950">
+                          <h3 className="text-xl font-semibold text-[#173b2d]">
                             {product.name}
                           </h3>
-                          <p className="mt-2 line-clamp-3 text-sm leading-6 text-slate-600">
+                          <p className="mt-2 line-clamp-3 text-sm leading-6 text-[#475569]">
                             {product.description}
                           </p>
                         </div>
@@ -1103,7 +1117,7 @@ export default function DashboardApp() {
                           className={`rounded-full px-3 py-1 text-xs font-semibold ${
                             product.stockQuantity <= 5
                               ? 'bg-amber-100 text-amber-800'
-                              : 'bg-emerald-100 text-emerald-800'
+                              : 'bg-[#e8f5d0] text-[#173b2d]'
                           }`}
                         >
                           Stock {product.stockQuantity}
@@ -1112,10 +1126,10 @@ export default function DashboardApp() {
 
                       <div className="mt-5 flex items-end justify-between gap-4">
                         <div>
-                          <p className="text-xs uppercase tracking-[0.2em] text-slate-400">
+                          <p className="text-xs uppercase tracking-[0.2em] text-[#94a494]">
                             Precio
                           </p>
-                          <p className="mt-1 text-2xl font-semibold text-slate-950">
+                          <p className="mt-1 text-2xl font-semibold text-[#173b2d]">
                             {formatPriceARS(product.price)}
                           </p>
                         </div>
@@ -1124,14 +1138,14 @@ export default function DashboardApp() {
                           <button
                             type="button"
                             onClick={() => openEditProduct(product)}
-                            className="rounded-full border border-slate-300 p-3 text-slate-600 transition hover:border-emerald-400 hover:text-emerald-700"
+                            className="rounded-full border border-[#dce2cd] p-3 text-[#475569] transition hover:border-[#8dc63f] hover:text-[#6f8f2f]"
                           >
                             <Pencil className="h-4 w-4" />
                           </button>
                           <button
                             type="button"
                             onClick={() => deleteProduct(product)}
-                            className="rounded-full border border-slate-300 p-3 text-slate-600 transition hover:border-rose-300 hover:text-rose-700"
+                            className="rounded-full border border-[#dce2cd] p-3 text-[#475569] transition hover:border-rose-300 hover:text-rose-700"
                           >
                             <Trash2 className="h-4 w-4" />
                           </button>
@@ -1143,8 +1157,8 @@ export default function DashboardApp() {
               </div>
 
               {filteredProducts.length === 0 && (
-                <div className="rounded-[32px] border border-dashed border-slate-300 bg-white px-8 py-16 text-center">
-                  <p className="text-lg font-semibold text-slate-900">
+                <div className="rounded-[32px] border border-dashed border-[#dce2cd] bg-white px-8 py-16 text-center">
+                  <p className="text-lg font-semibold text-[#0f172a]">
                     No hay productos para ese filtro.
                   </p>
                 </div>
@@ -1154,26 +1168,26 @@ export default function DashboardApp() {
 
           {activeTab === 'categories' && (
             <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
-              <article className="rounded-[32px] border border-slate-200 bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.05)]">
-                <p className="text-sm uppercase tracking-[0.22em] text-emerald-700">
+              <article className="rounded-[32px] border border-[#dce2cd] bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.05)]">
+                <p className="text-sm uppercase tracking-[0.22em] text-[#6f8f2f]">
                   Distribucion
                 </p>
-                <h2 className="mt-2 text-2xl font-semibold text-slate-950">
+                <h2 className="mt-2 text-2xl font-semibold text-[#173b2d]">
                   Categorias con mas peso
                 </h2>
                 <div className="mt-6 grid gap-3">
                   {snapshot?.categoryDistribution.map((item) => (
                     <div
                       key={item.category}
-                      className="rounded-2xl bg-slate-50 px-4 py-3"
+                      className="rounded-2xl bg-[#f0ede6] px-4 py-3"
                     >
                       <div className="flex items-center justify-between gap-3">
-                        <p className="font-medium text-slate-900">{item.category}</p>
-                        <span className="text-sm font-semibold text-slate-950">
+                        <p className="font-medium text-[#0f172a]">{item.category}</p>
+                        <span className="text-sm font-semibold text-[#173b2d]">
                           {item.units} unidades
                         </span>
                       </div>
-                      <p className="mt-1 text-sm text-slate-500">
+                      <p className="mt-1 text-sm text-[#6b7a6b]">
                         {item.products} productos
                       </p>
                     </div>
@@ -1181,20 +1195,20 @@ export default function DashboardApp() {
                 </div>
               </article>
 
-              <article className="rounded-[32px] border border-slate-200 bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.05)]">
+              <article className="rounded-[32px] border border-[#dce2cd] bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.05)]">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm uppercase tracking-[0.22em] text-emerald-700">
+                    <p className="text-sm uppercase tracking-[0.22em] text-[#6f8f2f]">
                       Gestion
                     </p>
-                    <h2 className="mt-2 text-2xl font-semibold text-slate-950">
+                    <h2 className="mt-2 text-2xl font-semibold text-[#173b2d]">
                       Categorias cargadas
                     </h2>
                   </div>
                   <button
                     type="button"
                     onClick={openCreateCategory}
-                    className="inline-flex items-center gap-2 rounded-full bg-slate-950 px-4 py-2 text-sm font-semibold text-white transition hover:bg-emerald-800"
+                    className="inline-flex items-center gap-2 rounded-full bg-[#173b2d] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#0f2a1d]"
                   >
                     <Plus className="h-4 w-4" />
                     Crear
@@ -1205,11 +1219,11 @@ export default function DashboardApp() {
                   {categories.map((category) => (
                     <div
                       key={category.id}
-                      className="flex items-start justify-between gap-4 rounded-2xl bg-slate-50 px-4 py-4"
+                      className="flex items-start justify-between gap-4 rounded-2xl bg-[#f0ede6] px-4 py-4"
                     >
                       <div>
-                        <p className="font-semibold text-slate-950">{category.name}</p>
-                        <p className="mt-1 text-sm text-slate-500">
+                        <p className="font-semibold text-[#173b2d]">{category.name}</p>
+                        <p className="mt-1 text-sm text-[#6b7a6b]">
                           {category.description || 'Sin descripcion.'}
                         </p>
                       </div>
@@ -1218,14 +1232,14 @@ export default function DashboardApp() {
                         <button
                           type="button"
                           onClick={() => openEditCategory(category)}
-                          className="rounded-full border border-slate-300 p-3 text-slate-600 transition hover:border-emerald-400 hover:text-emerald-700"
+                          className="rounded-full border border-[#dce2cd] p-3 text-[#475569] transition hover:border-[#8dc63f] hover:text-[#6f8f2f]"
                         >
                           <Pencil className="h-4 w-4" />
                         </button>
                         <button
                           type="button"
                           onClick={() => deleteCategory(category)}
-                          className="rounded-full border border-slate-300 p-3 text-slate-600 transition hover:border-rose-300 hover:text-rose-700"
+                          className="rounded-full border border-[#dce2cd] p-3 text-[#475569] transition hover:border-rose-300 hover:text-rose-700"
                         >
                           <Trash2 className="h-4 w-4" />
                         </button>
@@ -1239,25 +1253,25 @@ export default function DashboardApp() {
 
           {activeTab === 'movements' && (
             <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
-              <article className="rounded-[32px] border border-slate-200 bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.05)]">
-                <p className="text-sm uppercase tracking-[0.22em] text-emerald-700">
+              <article className="rounded-[32px] border border-[#dce2cd] bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.05)]">
+                <p className="text-sm uppercase tracking-[0.22em] text-[#6f8f2f]">
                   Tendencia
                 </p>
-                <h2 className="mt-2 text-2xl font-semibold text-slate-950">
+                <h2 className="mt-2 text-2xl font-semibold text-[#173b2d]">
                   Entradas y salidas de 14 dias
                 </h2>
                 <div className="mt-6 grid gap-3">
                   {snapshot?.movementTrend.map((point) => (
                     <div
                       key={point.day}
-                      className="rounded-2xl bg-slate-50 px-4 py-3"
+                      className="rounded-2xl bg-[#f0ede6] px-4 py-3"
                     >
                       <div className="flex items-center justify-between gap-3">
-                        <p className="font-medium text-slate-900">
+                        <p className="font-medium text-[#0f172a]">
                           {formatDateLabel(point.day)}
                         </p>
                         <div className="flex gap-4 text-sm">
-                          <span className="text-emerald-700">
+                          <span className="text-[#6f8f2f]">
                             IN {point.unitsIn}
                           </span>
                           <span className="text-rose-700">
@@ -1270,20 +1284,20 @@ export default function DashboardApp() {
                 </div>
               </article>
 
-              <article className="rounded-[32px] border border-slate-200 bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.05)]">
+              <article className="rounded-[32px] border border-[#dce2cd] bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.05)]">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm uppercase tracking-[0.22em] text-emerald-700">
+                    <p className="text-sm uppercase tracking-[0.22em] text-[#6f8f2f]">
                       Registro
                     </p>
-                    <h2 className="mt-2 text-2xl font-semibold text-slate-950">
+                    <h2 className="mt-2 text-2xl font-semibold text-[#173b2d]">
                       Ultimos movimientos
                     </h2>
                   </div>
                   <button
                     type="button"
                     onClick={openCreateMovement}
-                    className="inline-flex items-center gap-2 rounded-full bg-slate-950 px-4 py-2 text-sm font-semibold text-white transition hover:bg-emerald-800"
+                    className="inline-flex items-center gap-2 rounded-full bg-[#173b2d] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#0f2a1d]"
                   >
                     <Plus className="h-4 w-4" />
                     Cargar
@@ -1294,14 +1308,14 @@ export default function DashboardApp() {
                   {movements.map((movement) => (
                     <div
                       key={movement.id}
-                      className="rounded-2xl bg-slate-50 px-4 py-4"
+                      className="rounded-2xl bg-[#f0ede6] px-4 py-4"
                     >
                       <div className="flex items-start justify-between gap-4">
                         <div>
-                          <p className="font-semibold text-slate-950">
+                          <p className="font-semibold text-[#173b2d]">
                             {movement.productName}
                           </p>
-                          <p className="mt-1 text-sm text-slate-500">
+                          <p className="mt-1 text-sm text-[#6b7a6b]">
                             {movement.reason}
                           </p>
                         </div>
@@ -1309,16 +1323,16 @@ export default function DashboardApp() {
                           className={`rounded-full px-3 py-1 text-xs font-semibold ${
                             movement.movementType === 'OUT'
                               ? 'bg-rose-100 text-rose-700'
-                              : 'bg-emerald-100 text-emerald-700'
+                              : 'bg-[#e8f5d0] text-[#6f8f2f]'
                           }`}
                         >
                           {movement.movementType} · {movement.quantity}
                         </span>
                       </div>
                       {movement.note && (
-                        <p className="mt-3 text-sm text-slate-600">{movement.note}</p>
+                        <p className="mt-3 text-sm text-[#475569]">{movement.note}</p>
                       )}
-                      <p className="mt-3 text-xs text-slate-400">
+                      <p className="mt-3 text-xs text-[#94a494]">
                         {formatDateTimeLabel(movement.createdAt)}
                       </p>
                     </div>
@@ -1330,17 +1344,17 @@ export default function DashboardApp() {
 
           {activeTab === 'treasury' && (
             <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
-              <article className="rounded-[32px] border border-slate-200 bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.05)]">
-                <p className="text-sm uppercase tracking-[0.22em] text-emerald-700">
+              <article className="rounded-[32px] border border-[#dce2cd] bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.05)]">
+                <p className="text-sm uppercase tracking-[0.22em] text-[#6f8f2f]">
                   Balance
                 </p>
-                <h2 className="mt-2 text-2xl font-semibold text-slate-950">
+                <h2 className="mt-2 text-2xl font-semibold text-[#173b2d]">
                   Caja del mes
                 </h2>
                 <div className="mt-6 grid gap-4">
-                  <div className="rounded-3xl bg-emerald-50 p-5">
-                    <p className="text-sm text-emerald-800">Ingresos</p>
-                    <p className="mt-2 text-3xl font-semibold text-emerald-950">
+                  <div className="rounded-3xl bg-[#f0f8e4] p-5">
+                    <p className="text-sm text-[#173b2d]">Ingresos</p>
+                    <p className="mt-2 text-3xl font-semibold text-[#173b2d]">
                       {snapshot
                         ? formatPriceARS(snapshot.summary.totalIncome)
                         : formatPriceARS(0)}
@@ -1354,8 +1368,8 @@ export default function DashboardApp() {
                         : formatPriceARS(0)}
                     </p>
                   </div>
-                  <div className="rounded-3xl bg-slate-950 p-5 text-white">
-                    <p className="text-sm text-slate-300">Balance</p>
+                  <div className="rounded-3xl bg-[#173b2d] p-5 text-white">
+                    <p className="text-sm text-[#a8c49a]">Balance</p>
                     <p className="mt-2 text-3xl font-semibold">
                       {snapshot
                         ? formatPriceARS(snapshot.summary.treasuryBalance)
@@ -1365,20 +1379,20 @@ export default function DashboardApp() {
                 </div>
               </article>
 
-              <article className="rounded-[32px] border border-slate-200 bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.05)]">
+              <article className="rounded-[32px] border border-[#dce2cd] bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.05)]">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm uppercase tracking-[0.22em] text-emerald-700">
+                    <p className="text-sm uppercase tracking-[0.22em] text-[#6f8f2f]">
                       Registro
                     </p>
-                    <h2 className="mt-2 text-2xl font-semibold text-slate-950">
+                    <h2 className="mt-2 text-2xl font-semibold text-[#173b2d]">
                       Ultimas transacciones
                     </h2>
                   </div>
                   <button
                     type="button"
                     onClick={openCreateTransaction}
-                    className="inline-flex items-center gap-2 rounded-full bg-slate-950 px-4 py-2 text-sm font-semibold text-white transition hover:bg-emerald-800"
+                    className="inline-flex items-center gap-2 rounded-full bg-[#173b2d] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#0f2a1d]"
                   >
                     <Plus className="h-4 w-4" />
                     Cargar
@@ -1389,36 +1403,36 @@ export default function DashboardApp() {
                   {transactions.map((transaction) => (
                     <div
                       key={transaction.id}
-                      className="rounded-2xl bg-slate-50 px-4 py-4"
+                      className="rounded-2xl bg-[#f0ede6] px-4 py-4"
                     >
                       <div className="flex items-start justify-between gap-4">
                         <div>
-                          <p className="font-semibold text-slate-950">
+                          <p className="font-semibold text-[#173b2d]">
                             {transaction.category}
                           </p>
-                          <p className="mt-1 text-sm text-slate-500">
+                          <p className="mt-1 text-sm text-[#6b7a6b]">
                             {transaction.transactionType}
                             {transaction.reference ? ` · ${transaction.reference}` : ''}
                           </p>
                         </div>
 
                         <div className="flex items-center gap-3">
-                          <p className="text-right text-sm font-semibold text-slate-950">
+                          <p className="text-right text-sm font-semibold text-[#173b2d]">
                             {formatPriceARS(transaction.amount)}
                           </p>
                           <button
                             type="button"
                             onClick={() => deleteTransaction(transaction)}
-                            className="rounded-full border border-slate-300 p-3 text-slate-600 transition hover:border-rose-300 hover:text-rose-700"
+                            className="rounded-full border border-[#dce2cd] p-3 text-[#475569] transition hover:border-rose-300 hover:text-rose-700"
                           >
                             <Trash2 className="h-4 w-4" />
                           </button>
                         </div>
                       </div>
                       {transaction.note && (
-                        <p className="mt-3 text-sm text-slate-600">{transaction.note}</p>
+                        <p className="mt-3 text-sm text-[#475569]">{transaction.note}</p>
                       )}
-                      <p className="mt-3 text-xs text-slate-400">
+                      <p className="mt-3 text-xs text-[#94a494]">
                         {formatDateTimeLabel(transaction.occurredAt)}
                       </p>
                     </div>
@@ -1431,21 +1445,21 @@ export default function DashboardApp() {
       </div>
 
       {productModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/55 p-4 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#173b2d]/60 p-4 backdrop-blur-sm">
           <div className="w-full max-w-3xl rounded-[32px] bg-white p-8 shadow-[0_40px_120px_rgba(15,23,42,0.22)]">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="text-sm uppercase tracking-[0.22em] text-emerald-700">
+                <p className="text-sm uppercase tracking-[0.22em] text-[#6f8f2f]">
                   Producto
                 </p>
-                <h2 className="mt-2 text-3xl font-semibold text-slate-950">
+                <h2 className="mt-2 text-3xl font-semibold text-[#173b2d]">
                   {editingProduct ? 'Editar producto' : 'Nuevo producto'}
                 </h2>
               </div>
               <button
                 type="button"
                 onClick={() => setProductModalOpen(false)}
-                className="rounded-full bg-slate-950 p-2 text-white"
+                className="rounded-full bg-[#173b2d] p-2 text-white"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -1454,7 +1468,7 @@ export default function DashboardApp() {
             <form onSubmit={submitProduct} className="mt-8 grid gap-5">
               <div className="grid gap-5 md:grid-cols-2">
                 <label className="grid gap-2">
-                  <span className="text-sm text-slate-600">Nombre</span>
+                  <span className="text-sm text-[#475569]">Nombre</span>
                   <input
                     value={productForm.name}
                     onChange={(event) =>
@@ -1463,13 +1477,13 @@ export default function DashboardApp() {
                         name: event.target.value
                       }))
                     }
-                    className="rounded-2xl border border-slate-300 px-4 py-3 outline-none transition focus:border-emerald-500"
+                    className="rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
                     required
                   />
                 </label>
 
                 <label className="grid gap-2">
-                  <span className="text-sm text-slate-600">Categoria</span>
+                  <span className="text-sm text-[#475569]">Categoria</span>
                   <input
                     list="dashboard-categories"
                     value={productForm.category}
@@ -1479,13 +1493,13 @@ export default function DashboardApp() {
                         category: event.target.value
                       }))
                     }
-                    className="rounded-2xl border border-slate-300 px-4 py-3 outline-none transition focus:border-emerald-500"
+                    className="rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
                     required
                   />
                 </label>
 
                 <label className="grid gap-2">
-                  <span className="text-sm text-slate-600">Precio</span>
+                  <span className="text-sm text-[#475569]">Precio</span>
                   <input
                     type="number"
                     min="0"
@@ -1497,13 +1511,13 @@ export default function DashboardApp() {
                         price: event.target.value
                       }))
                     }
-                    className="rounded-2xl border border-slate-300 px-4 py-3 outline-none transition focus:border-emerald-500"
+                    className="rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
                     required
                   />
                 </label>
 
                 <label className="grid gap-2">
-                  <span className="text-sm text-slate-600">Stock</span>
+                  <span className="text-sm text-[#475569]">Stock</span>
                   <input
                     type="number"
                     min="0"
@@ -1515,14 +1529,14 @@ export default function DashboardApp() {
                         stockQuantity: event.target.value
                       }))
                     }
-                    className="rounded-2xl border border-slate-300 px-4 py-3 outline-none transition focus:border-emerald-500"
+                    className="rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
                     required
                   />
                 </label>
               </div>
 
               <label className="grid gap-2">
-                <span className="text-sm text-slate-600">Descripcion</span>
+                <span className="text-sm text-[#475569]">Descripcion</span>
                 <textarea
                   value={productForm.description}
                   onChange={(event) =>
@@ -1531,13 +1545,13 @@ export default function DashboardApp() {
                       description: event.target.value
                     }))
                   }
-                  className="min-h-32 rounded-2xl border border-slate-300 px-4 py-3 outline-none transition focus:border-emerald-500"
+                  className="min-h-32 rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
                 />
               </label>
 
               <div className="grid gap-5 md:grid-cols-2">
                 <div className="grid gap-2">
-                  <span className="text-sm text-slate-600">Imagen principal</span>
+                  <span className="text-sm text-[#475569]">Imagen principal</span>
                   <div className="flex gap-2">
                     <input
                       value={productForm.image}
@@ -1548,7 +1562,7 @@ export default function DashboardApp() {
                         }))
                       }
                       placeholder="https://..."
-                      className="min-w-0 flex-1 rounded-2xl border border-slate-300 px-4 py-3 outline-none transition focus:border-emerald-500"
+                      className="min-w-0 flex-1 rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
                     />
                     <button
                       type="button"
@@ -1559,7 +1573,7 @@ export default function DashboardApp() {
                           fileInputRef.current.click();
                         }
                       }}
-                      className="flex shrink-0 items-center gap-2 rounded-2xl border border-slate-300 px-3 py-3 text-slate-600 transition hover:border-emerald-500 hover:text-emerald-600 disabled:opacity-50"
+                      className="flex shrink-0 items-center gap-2 rounded-2xl border border-[#dce2cd] px-3 py-3 text-[#475569] transition hover:border-[#8dc63f] hover:text-[#6f8f2f] disabled:opacity-50"
                       title="Subir imagen"
                     >
                       {imageUploading ? (
@@ -1580,7 +1594,7 @@ export default function DashboardApp() {
                 </div>
 
                 <div className="grid gap-2">
-                  <span className="text-sm text-slate-600">Galeria separada por comas</span>
+                  <span className="text-sm text-[#475569]">Galeria separada por comas</span>
                   <div className="flex gap-2">
                     <input
                       value={productForm.images}
@@ -1591,7 +1605,7 @@ export default function DashboardApp() {
                         }))
                       }
                       placeholder="https://..., https://..."
-                      className="min-w-0 flex-1 rounded-2xl border border-slate-300 px-4 py-3 outline-none transition focus:border-emerald-500"
+                      className="min-w-0 flex-1 rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
                     />
                     <button
                       type="button"
@@ -1602,7 +1616,7 @@ export default function DashboardApp() {
                           fileInputRef.current.click();
                         }
                       }}
-                      className="flex shrink-0 items-center gap-2 rounded-2xl border border-slate-300 px-3 py-3 text-slate-600 transition hover:border-emerald-500 hover:text-emerald-600 disabled:opacity-50"
+                      className="flex shrink-0 items-center gap-2 rounded-2xl border border-[#dce2cd] px-3 py-3 text-[#475569] transition hover:border-[#8dc63f] hover:text-[#6f8f2f] disabled:opacity-50"
                       title="Agregar imagen a galería"
                     >
                       {imageUploading ? (
@@ -1628,7 +1642,7 @@ export default function DashboardApp() {
                 }}
               />
 
-              <label className="inline-flex items-center gap-3 rounded-2xl bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700">
+              <label className="inline-flex items-center gap-3 rounded-2xl bg-[#f0ede6] px-4 py-3 text-sm font-medium text-[#475569]">
                 <input
                   type="checkbox"
                   checked={productForm.featured}
@@ -1646,13 +1660,13 @@ export default function DashboardApp() {
                 <button
                   type="button"
                   onClick={() => setProductModalOpen(false)}
-                  className="rounded-full border border-slate-300 px-5 py-3 font-medium text-slate-700 transition hover:border-slate-400"
+                  className="rounded-full border border-[#dce2cd] px-5 py-3 font-medium text-[#475569] transition hover:border-[#8dc63f]"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="rounded-full bg-slate-950 px-6 py-3 font-semibold text-white transition hover:bg-emerald-800"
+                  className="rounded-full bg-[#173b2d] px-6 py-3 font-semibold text-white transition hover:bg-[#0f2a1d]"
                 >
                   Guardar producto
                 </button>
@@ -1663,21 +1677,21 @@ export default function DashboardApp() {
       )}
 
       {categoryModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/55 p-4 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#173b2d]/60 p-4 backdrop-blur-sm">
           <div className="w-full max-w-xl rounded-[32px] bg-white p-8 shadow-[0_40px_120px_rgba(15,23,42,0.22)]">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="text-sm uppercase tracking-[0.22em] text-emerald-700">
+                <p className="text-sm uppercase tracking-[0.22em] text-[#6f8f2f]">
                   Categoria
                 </p>
-                <h2 className="mt-2 text-3xl font-semibold text-slate-950">
+                <h2 className="mt-2 text-3xl font-semibold text-[#173b2d]">
                   {editingCategory ? 'Editar categoria' : 'Nueva categoria'}
                 </h2>
               </div>
               <button
                 type="button"
                 onClick={() => setCategoryModalOpen(false)}
-                className="rounded-full bg-slate-950 p-2 text-white"
+                className="rounded-full bg-[#173b2d] p-2 text-white"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -1685,7 +1699,7 @@ export default function DashboardApp() {
 
             <form onSubmit={submitCategory} className="mt-8 grid gap-5">
               <label className="grid gap-2">
-                <span className="text-sm text-slate-600">Nombre</span>
+                <span className="text-sm text-[#475569]">Nombre</span>
                 <input
                   value={categoryForm.name}
                   onChange={(event) =>
@@ -1694,13 +1708,13 @@ export default function DashboardApp() {
                       name: event.target.value
                     }))
                   }
-                  className="rounded-2xl border border-slate-300 px-4 py-3 outline-none transition focus:border-emerald-500"
+                  className="rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
                   required
                 />
               </label>
 
               <label className="grid gap-2">
-                <span className="text-sm text-slate-600">Descripcion</span>
+                <span className="text-sm text-[#475569]">Descripcion</span>
                 <textarea
                   value={categoryForm.description}
                   onChange={(event) =>
@@ -1709,7 +1723,7 @@ export default function DashboardApp() {
                       description: event.target.value
                     }))
                   }
-                  className="min-h-28 rounded-2xl border border-slate-300 px-4 py-3 outline-none transition focus:border-emerald-500"
+                  className="min-h-28 rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
                 />
               </label>
 
@@ -1717,13 +1731,13 @@ export default function DashboardApp() {
                 <button
                   type="button"
                   onClick={() => setCategoryModalOpen(false)}
-                  className="rounded-full border border-slate-300 px-5 py-3 font-medium text-slate-700 transition hover:border-slate-400"
+                  className="rounded-full border border-[#dce2cd] px-5 py-3 font-medium text-[#475569] transition hover:border-[#8dc63f]"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="rounded-full bg-slate-950 px-6 py-3 font-semibold text-white transition hover:bg-emerald-800"
+                  className="rounded-full bg-[#173b2d] px-6 py-3 font-semibold text-white transition hover:bg-[#0f2a1d]"
                 >
                   Guardar categoria
                 </button>
@@ -1734,21 +1748,21 @@ export default function DashboardApp() {
       )}
 
       {movementModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/55 p-4 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#173b2d]/60 p-4 backdrop-blur-sm">
           <div className="w-full max-w-xl rounded-[32px] bg-white p-8 shadow-[0_40px_120px_rgba(15,23,42,0.22)]">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="text-sm uppercase tracking-[0.22em] text-emerald-700">
+                <p className="text-sm uppercase tracking-[0.22em] text-[#6f8f2f]">
                   Stock
                 </p>
-                <h2 className="mt-2 text-3xl font-semibold text-slate-950">
+                <h2 className="mt-2 text-3xl font-semibold text-[#173b2d]">
                   Nuevo movimiento
                 </h2>
               </div>
               <button
                 type="button"
                 onClick={() => setMovementModalOpen(false)}
-                className="rounded-full bg-slate-950 p-2 text-white"
+                className="rounded-full bg-[#173b2d] p-2 text-white"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -1756,7 +1770,7 @@ export default function DashboardApp() {
 
             <form onSubmit={submitMovement} className="mt-8 grid gap-5">
               <label className="grid gap-2">
-                <span className="text-sm text-slate-600">Producto</span>
+                <span className="text-sm text-[#475569]">Producto</span>
                 <select
                   value={movementForm.productId}
                   onChange={(event) =>
@@ -1765,7 +1779,7 @@ export default function DashboardApp() {
                       productId: event.target.value
                     }))
                   }
-                  className="rounded-2xl border border-slate-300 px-4 py-3 outline-none transition focus:border-emerald-500"
+                  className="rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
                   required
                 >
                   <option value="">Seleccionar</option>
@@ -1779,7 +1793,7 @@ export default function DashboardApp() {
 
               <div className="grid gap-5 md:grid-cols-2">
                 <label className="grid gap-2">
-                  <span className="text-sm text-slate-600">Tipo</span>
+                  <span className="text-sm text-[#475569]">Tipo</span>
                   <select
                     value={movementForm.movementType}
                     onChange={(event) =>
@@ -1788,7 +1802,7 @@ export default function DashboardApp() {
                         movementType: event.target.value as 'IN' | 'OUT'
                       }))
                     }
-                    className="rounded-2xl border border-slate-300 px-4 py-3 outline-none transition focus:border-emerald-500"
+                    className="rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
                   >
                     <option value="IN">Ingreso</option>
                     <option value="OUT">Salida</option>
@@ -1796,7 +1810,7 @@ export default function DashboardApp() {
                 </label>
 
                 <label className="grid gap-2">
-                  <span className="text-sm text-slate-600">Cantidad</span>
+                  <span className="text-sm text-[#475569]">Cantidad</span>
                   <input
                     type="number"
                     min="1"
@@ -1808,14 +1822,14 @@ export default function DashboardApp() {
                         quantity: event.target.value
                       }))
                     }
-                    className="rounded-2xl border border-slate-300 px-4 py-3 outline-none transition focus:border-emerald-500"
+                    className="rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
                     required
                   />
                 </label>
               </div>
 
               <label className="grid gap-2">
-                <span className="text-sm text-slate-600">Motivo</span>
+                <span className="text-sm text-[#475569]">Motivo</span>
                 <input
                   value={movementForm.reason}
                   onChange={(event) =>
@@ -1824,12 +1838,12 @@ export default function DashboardApp() {
                       reason: event.target.value
                     }))
                   }
-                  className="rounded-2xl border border-slate-300 px-4 py-3 outline-none transition focus:border-emerald-500"
+                  className="rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
                 />
               </label>
 
               <label className="grid gap-2">
-                <span className="text-sm text-slate-600">Nota</span>
+                <span className="text-sm text-[#475569]">Nota</span>
                 <textarea
                   value={movementForm.note}
                   onChange={(event) =>
@@ -1838,7 +1852,7 @@ export default function DashboardApp() {
                       note: event.target.value
                     }))
                   }
-                  className="min-h-28 rounded-2xl border border-slate-300 px-4 py-3 outline-none transition focus:border-emerald-500"
+                  className="min-h-28 rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
                 />
               </label>
 
@@ -1846,13 +1860,13 @@ export default function DashboardApp() {
                 <button
                   type="button"
                   onClick={() => setMovementModalOpen(false)}
-                  className="rounded-full border border-slate-300 px-5 py-3 font-medium text-slate-700 transition hover:border-slate-400"
+                  className="rounded-full border border-[#dce2cd] px-5 py-3 font-medium text-[#475569] transition hover:border-[#8dc63f]"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="rounded-full bg-slate-950 px-6 py-3 font-semibold text-white transition hover:bg-emerald-800"
+                  className="rounded-full bg-[#173b2d] px-6 py-3 font-semibold text-white transition hover:bg-[#0f2a1d]"
                 >
                   Registrar movimiento
                 </button>
@@ -1863,21 +1877,21 @@ export default function DashboardApp() {
       )}
 
       {transactionModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/55 p-4 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#173b2d]/60 p-4 backdrop-blur-sm">
           <div className="w-full max-w-2xl rounded-[32px] bg-white p-8 shadow-[0_40px_120px_rgba(15,23,42,0.22)]">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="text-sm uppercase tracking-[0.22em] text-emerald-700">
+                <p className="text-sm uppercase tracking-[0.22em] text-[#6f8f2f]">
                   Tesoreria
                 </p>
-                <h2 className="mt-2 text-3xl font-semibold text-slate-950">
+                <h2 className="mt-2 text-3xl font-semibold text-[#173b2d]">
                   Nueva transaccion
                 </h2>
               </div>
               <button
                 type="button"
                 onClick={() => setTransactionModalOpen(false)}
-                className="rounded-full bg-slate-950 p-2 text-white"
+                className="rounded-full bg-[#173b2d] p-2 text-white"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -1886,7 +1900,7 @@ export default function DashboardApp() {
             <form onSubmit={submitTransaction} className="mt-8 grid gap-5">
               <div className="grid gap-5 md:grid-cols-2">
                 <label className="grid gap-2">
-                  <span className="text-sm text-slate-600">Tipo</span>
+                  <span className="text-sm text-[#475569]">Tipo</span>
                   <select
                     value={transactionForm.transactionType}
                     onChange={(event) =>
@@ -1895,7 +1909,7 @@ export default function DashboardApp() {
                         transactionType: event.target.value as TransactionFormState['transactionType']
                       }))
                     }
-                    className="rounded-2xl border border-slate-300 px-4 py-3 outline-none transition focus:border-emerald-500"
+                    className="rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
                   >
                     <option value="INCOME">Ingreso</option>
                     <option value="EXPENSE">Gasto</option>
@@ -1908,7 +1922,7 @@ export default function DashboardApp() {
                 </label>
 
                 <label className="grid gap-2">
-                  <span className="text-sm text-slate-600">Monto</span>
+                  <span className="text-sm text-[#475569]">Monto</span>
                   <input
                     type="number"
                     min="0"
@@ -1920,7 +1934,7 @@ export default function DashboardApp() {
                         amount: event.target.value
                       }))
                     }
-                    className="rounded-2xl border border-slate-300 px-4 py-3 outline-none transition focus:border-emerald-500"
+                    className="rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
                     required
                   />
                 </label>
@@ -1928,7 +1942,7 @@ export default function DashboardApp() {
 
               <div className="grid gap-5 md:grid-cols-2">
                 <label className="grid gap-2">
-                  <span className="text-sm text-slate-600">Categoria</span>
+                  <span className="text-sm text-[#475569]">Categoria</span>
                   <input
                     value={transactionForm.category}
                     onChange={(event) =>
@@ -1937,13 +1951,13 @@ export default function DashboardApp() {
                         category: event.target.value
                       }))
                     }
-                    className="rounded-2xl border border-slate-300 px-4 py-3 outline-none transition focus:border-emerald-500"
+                    className="rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
                     required
                   />
                 </label>
 
                 <label className="grid gap-2">
-                  <span className="text-sm text-slate-600">Fecha y hora</span>
+                  <span className="text-sm text-[#475569]">Fecha y hora</span>
                   <input
                     type="datetime-local"
                     value={transactionForm.occurredAt}
@@ -1953,14 +1967,14 @@ export default function DashboardApp() {
                         occurredAt: event.target.value
                       }))
                     }
-                    className="rounded-2xl border border-slate-300 px-4 py-3 outline-none transition focus:border-emerald-500"
+                    className="rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
                   />
                 </label>
               </div>
 
               <div className="grid gap-5 md:grid-cols-2">
                 <label className="grid gap-2">
-                  <span className="text-sm text-slate-600">Metodo de pago</span>
+                  <span className="text-sm text-[#475569]">Metodo de pago</span>
                   <input
                     value={transactionForm.paymentMethod}
                     onChange={(event) =>
@@ -1969,12 +1983,12 @@ export default function DashboardApp() {
                         paymentMethod: event.target.value
                       }))
                     }
-                    className="rounded-2xl border border-slate-300 px-4 py-3 outline-none transition focus:border-emerald-500"
+                    className="rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
                   />
                 </label>
 
                 <label className="grid gap-2">
-                  <span className="text-sm text-slate-600">Referencia</span>
+                  <span className="text-sm text-[#475569]">Referencia</span>
                   <input
                     value={transactionForm.reference}
                     onChange={(event) =>
@@ -1983,13 +1997,13 @@ export default function DashboardApp() {
                         reference: event.target.value
                       }))
                     }
-                    className="rounded-2xl border border-slate-300 px-4 py-3 outline-none transition focus:border-emerald-500"
+                    className="rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
                   />
                 </label>
               </div>
 
               <label className="grid gap-2">
-                <span className="text-sm text-slate-600">Nota</span>
+                <span className="text-sm text-[#475569]">Nota</span>
                 <textarea
                   value={transactionForm.note}
                   onChange={(event) =>
@@ -1998,7 +2012,7 @@ export default function DashboardApp() {
                       note: event.target.value
                     }))
                   }
-                  className="min-h-28 rounded-2xl border border-slate-300 px-4 py-3 outline-none transition focus:border-emerald-500"
+                  className="min-h-28 rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
                 />
               </label>
 
@@ -2006,13 +2020,13 @@ export default function DashboardApp() {
                 <button
                   type="button"
                   onClick={() => setTransactionModalOpen(false)}
-                  className="rounded-full border border-slate-300 px-5 py-3 font-medium text-slate-700 transition hover:border-slate-400"
+                  className="rounded-full border border-[#dce2cd] px-5 py-3 font-medium text-[#475569] transition hover:border-[#8dc63f]"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="rounded-full bg-slate-950 px-6 py-3 font-semibold text-white transition hover:bg-emerald-800"
+                  className="rounded-full bg-[#173b2d] px-6 py-3 font-semibold text-white transition hover:bg-[#0f2a1d]"
                 >
                   Registrar transaccion
                 </button>
@@ -2029,7 +2043,7 @@ export default function DashboardApp() {
       </datalist>
 
       {notice && (
-        <div className="fixed bottom-5 left-1/2 z-50 -translate-x-1/2 rounded-full bg-slate-950 px-5 py-3 text-sm font-medium text-white shadow-lg">
+        <div className="fixed bottom-5 left-1/2 z-50 -translate-x-1/2 rounded-full bg-[#173b2d] px-5 py-3 text-sm font-medium text-white shadow-lg">
           {notice}
         </div>
       )}
