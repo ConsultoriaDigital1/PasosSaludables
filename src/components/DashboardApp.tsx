@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   ArrowDownRight,
   ArrowUpRight,
   BarChart3,
   Boxes,
+  ImagePlus,
   LayoutGrid,
   Loader2,
   LogOut,
@@ -176,6 +177,34 @@ export default function DashboardApp() {
   const [movementForm, setMovementForm] = useState<MovementFormState>(emptyMovementForm);
   const [transactionForm, setTransactionForm] =
     useState<TransactionFormState>(emptyTransactionForm);
+  const [imageUploading, setImageUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  async function handleImageUpload(file: File, field: 'image' | 'images') {
+    setImageUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      const response = await fetch('/api/upload-image', {
+        method: 'POST',
+        body: formData
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'Error al subir');
+      setProductForm((current) => {
+        if (field === 'image') {
+          return { ...current, image: data.url };
+        }
+        const existing = current.images.trim();
+        return { ...current, images: existing ? `${existing}, ${data.url}` : data.url };
+      });
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Error al subir la imagen';
+      setNotice(message);
+    } finally {
+      setImageUploading(false);
+    }
+  }
 
   useEffect(() => {
     const savedAuth = window.localStorage.getItem('pss-admin-auth');
@@ -1507,38 +1536,97 @@ export default function DashboardApp() {
               </label>
 
               <div className="grid gap-5 md:grid-cols-2">
-                <label className="grid gap-2">
+                <div className="grid gap-2">
                   <span className="text-sm text-slate-600">Imagen principal</span>
-                  <input
-                    value={productForm.image}
-                    onChange={(event) =>
-                      setProductForm((current) => ({
-                        ...current,
-                        image: event.target.value
-                      }))
-                    }
-                    placeholder="https://..."
-                    className="rounded-2xl border border-slate-300 px-4 py-3 outline-none transition focus:border-emerald-500"
-                  />
-                </label>
+                  <div className="flex gap-2">
+                    <input
+                      value={productForm.image}
+                      onChange={(event) =>
+                        setProductForm((current) => ({
+                          ...current,
+                          image: event.target.value
+                        }))
+                      }
+                      placeholder="https://..."
+                      className="min-w-0 flex-1 rounded-2xl border border-slate-300 px-4 py-3 outline-none transition focus:border-emerald-500"
+                    />
+                    <button
+                      type="button"
+                      disabled={imageUploading}
+                      onClick={() => {
+                        if (fileInputRef.current) {
+                          fileInputRef.current.dataset.field = 'image';
+                          fileInputRef.current.click();
+                        }
+                      }}
+                      className="flex shrink-0 items-center gap-2 rounded-2xl border border-slate-300 px-3 py-3 text-slate-600 transition hover:border-emerald-500 hover:text-emerald-600 disabled:opacity-50"
+                      title="Subir imagen"
+                    >
+                      {imageUploading ? (
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                      ) : (
+                        <ImagePlus className="h-4 w-4" />
+                      )}
+                    </button>
+                  </div>
+                  {productForm.image && (
+                    <img
+                      src={productForm.image}
+                      alt="Vista previa"
+                      className="h-20 w-20 rounded-xl object-cover"
+                      onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                    />
+                  )}
+                </div>
 
-                <label className="grid gap-2">
-                  <span className="text-sm text-slate-600">
-                    Galeria separada por comas
-                  </span>
-                  <input
-                    value={productForm.images}
-                    onChange={(event) =>
-                      setProductForm((current) => ({
-                        ...current,
-                        images: event.target.value
-                      }))
-                    }
-                    placeholder="https://..., https://..."
-                    className="rounded-2xl border border-slate-300 px-4 py-3 outline-none transition focus:border-emerald-500"
-                  />
-                </label>
+                <div className="grid gap-2">
+                  <span className="text-sm text-slate-600">Galeria separada por comas</span>
+                  <div className="flex gap-2">
+                    <input
+                      value={productForm.images}
+                      onChange={(event) =>
+                        setProductForm((current) => ({
+                          ...current,
+                          images: event.target.value
+                        }))
+                      }
+                      placeholder="https://..., https://..."
+                      className="min-w-0 flex-1 rounded-2xl border border-slate-300 px-4 py-3 outline-none transition focus:border-emerald-500"
+                    />
+                    <button
+                      type="button"
+                      disabled={imageUploading}
+                      onClick={() => {
+                        if (fileInputRef.current) {
+                          fileInputRef.current.dataset.field = 'images';
+                          fileInputRef.current.click();
+                        }
+                      }}
+                      className="flex shrink-0 items-center gap-2 rounded-2xl border border-slate-300 px-3 py-3 text-slate-600 transition hover:border-emerald-500 hover:text-emerald-600 disabled:opacity-50"
+                      title="Agregar imagen a galería"
+                    >
+                      {imageUploading ? (
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                      ) : (
+                        <ImagePlus className="h-4 w-4" />
+                      )}
+                    </button>
+                  </div>
+                </div>
               </div>
+
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={(event) => {
+                  const file = event.target.files?.[0];
+                  const field = (event.target.dataset.field as 'image' | 'images') || 'image';
+                  if (file) handleImageUpload(file, field);
+                  event.target.value = '';
+                }}
+              />
 
               <label className="inline-flex items-center gap-3 rounded-2xl bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700">
                 <input
