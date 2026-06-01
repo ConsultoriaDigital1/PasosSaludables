@@ -1454,8 +1454,8 @@ export default function DashboardApp() {
 
       {productModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#173b2d]/60 p-4 backdrop-blur-sm">
-          <div className="w-full max-w-3xl rounded-[32px] bg-white p-8 shadow-[0_40px_120px_rgba(15,23,42,0.22)]">
-            <div className="flex items-start justify-between gap-4">
+          <div className="flex w-full max-w-3xl flex-col rounded-[32px] bg-white shadow-[0_40px_120px_rgba(15,23,42,0.22)]" style={{maxHeight: 'calc(100vh - 2rem)'}}>
+            <div className="flex items-start justify-between gap-4 px-8 pt-8 pb-4">
               <div>
                 <p className="text-sm uppercase tracking-[0.22em] text-[#6f8f2f]">
                   Producto
@@ -1473,7 +1473,7 @@ export default function DashboardApp() {
               </button>
             </div>
 
-            <form onSubmit={submitProduct} className="mt-8 grid gap-5">
+            <form onSubmit={submitProduct} className="flex flex-col gap-5 overflow-y-auto px-8 pb-2">
               <div className="grid gap-5 md:grid-cols-2">
                 <label className="grid gap-2">
                   <span className="text-sm text-[#475569]">Nombre</span>
@@ -1680,7 +1680,7 @@ export default function DashboardApp() {
                 Marcar como destacado
               </label>
 
-              <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
+              <div className="flex flex-col gap-3 pb-6 sm:flex-row sm:justify-end">
                 <button
                   type="button"
                   onClick={() => setProductModalOpen(false)}
