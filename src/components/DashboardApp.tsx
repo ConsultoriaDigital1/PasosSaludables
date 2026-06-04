@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { upload } from '@vercel/blob/client';
 import {
   ArrowDownRight,
   ArrowUpRight,
@@ -186,24 +187,29 @@ export default function DashboardApp() {
   async function handleImageUpload(files: FileList | File[], field: 'image' | 'images') {
     const fileArray = Array.from(files).filter((f) => f.type.startsWith('image/'));
     if (fileArray.length === 0) return;
+    const MAX_SIZE = 15 * 1024 * 1024;
+    const tooBig = fileArray.find((f) => f.size > MAX_SIZE);
+    if (tooBig) {
+      setNotice('El archivo es demasiado grande (máx 15 MB)');
+      return;
+    }
     setImageUploading(true);
     try {
       const toUpload = field === 'image' ? [fileArray[0]] : fileArray;
       for (const file of toUpload) {
-        const formData = new FormData();
-        formData.append('file', file);
-        const response = await fetch('/api/upload-image', {
-          method: 'POST',
-          body: formData
+        const ext = file.name.split('.').pop()?.toLowerCase() || 'jpg';
+        const filename = `products/product_${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
+        const blob = await upload(filename, file, {
+          access: 'public',
+          handleUploadUrl: '/api/upload-image',
+          contentType: file.type
         });
-        const data = await response.json();
-        if (!response.ok) throw new Error(data.error || 'Error al subir');
         setProductForm((current) => {
           if (field === 'image') {
-            return { ...current, image: data.url };
+            return { ...current, image: blob.url };
           }
           const existing = current.images.trim();
-          return { ...current, images: existing ? `${existing}, ${data.url}` : data.url };
+          return { ...current, images: existing ? `${existing}, ${blob.url}` : blob.url };
         });
       }
     } catch (err: unknown) {
@@ -1598,7 +1604,7 @@ export default function DashboardApp() {
                         <p className="text-sm font-medium">
                           {imageUploading ? 'Subiendo...' : 'Arrastrar o hacer clic'}
                         </p>
-                        <p className="text-xs text-[#94a3b8]">PNG, JPG, WEBP — máx 5 MB</p>
+                        <p className="text-xs text-[#94a3b8]">PNG, JPG, WEBP — máx 15 MB</p>
                       </div>
                     )}
                   </div>

@@ -1,49 +1,35 @@
 import type { APIRoute } from 'astro';
-import { put } from '@vercel/blob';
+import { handleUpload, type HandleUploadBody } from '@vercel/blob/client';
 
 export const POST: APIRoute = async ({ request }) => {
+  const body = (await request.json()) as HandleUploadBody;
+
   try {
-    const formData = await request.formData();
-    const file = formData.get('file') as File | null;
-
-    if (!file) {
-      return new Response(JSON.stringify({ error: 'No se proporcionó archivo' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' }
-      });
-    }
-
-    if (!file.type.startsWith('image/')) {
-      return new Response(JSON.stringify({ error: 'Solo se permiten imágenes' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' }
-      });
-    }
-
-    if (file.size > 5 * 1024 * 1024) {
-      return new Response(JSON.stringify({ error: 'El archivo es demasiado grande (máx 5MB)' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' }
-      });
-    }
-
-    const ext = file.name.split('.').pop()?.toLowerCase() || 'jpg';
-    const filename = `products/product_${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
-
-    const blob = await put(filename, file, {
-      access: 'public',
-      contentType: file.type
+    const jsonResponse = await handleUpload({
+      body,
+      request,
+      onBeforeGenerateToken: async () => {
+        return {
+          allowedContentTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/gif'],
+          maximumSizeInBytes: 15 * 1024 * 1024,
+          addRandomSuffix: true,
+        };
+      },
+      onUploadCompleted: async () => {
+        // No-op: la URL ya se devuelve al cliente. (En localhost este callback no se ejecuta.)
+      },
     });
 
-    return new Response(JSON.stringify({ url: blob.url }), {
+    return new Response(JSON.stringify(jsonResponse), {
       status: 200,
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 'Content-Type': 'application/json' },
     });
   } catch (error) {
     console.error('Error al subir imagen:', error);
-    return new Response(JSON.stringify({ error: 'Error al subir la imagen' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' }
+    const message = error instanceof Error ? error.message : 'Error al subir la imagen';
+    return new Response(JSON.stringify({ error: message }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
     });
   }
 };
