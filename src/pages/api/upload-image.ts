@@ -11,7 +11,7 @@ export const POST: APIRoute = async ({ request }) => {
       onBeforeGenerateToken: async () => {
         return {
           allowedContentTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/gif'],
-          maximumSizeInBytes: 15 * 1024 * 1024,
+          maximumSizeInBytes: 50 * 1024 * 1024,
           addRandomSuffix: true,
         };
       },

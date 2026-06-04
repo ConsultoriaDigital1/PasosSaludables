@@ -187,10 +187,10 @@ export default function DashboardApp() {
   async function handleImageUpload(files: FileList | File[], field: 'image' | 'images') {
     const fileArray = Array.from(files).filter((f) => f.type.startsWith('image/'));
     if (fileArray.length === 0) return;
-    const MAX_SIZE = 15 * 1024 * 1024;
+    const MAX_SIZE = 50 * 1024 * 1024;
     const tooBig = fileArray.find((f) => f.size > MAX_SIZE);
     if (tooBig) {
-      setNotice('El archivo es demasiado grande (máx 15 MB)');
+      setNotice('El archivo es demasiado grande (máx 50 MB)');
       return;
     }
     setImageUploading(true);
@@ -1604,7 +1604,7 @@ export default function DashboardApp() {
                         <p className="text-sm font-medium">
                           {imageUploading ? 'Subiendo...' : 'Arrastrar o hacer clic'}
                         </p>
-                        <p className="text-xs text-[#94a3b8]">PNG, JPG, WEBP — máx 15 MB</p>
+                        <p className="text-xs text-[#94a3b8]">PNG, JPG, WEBP — máx 50 MB</p>
                       </div>
                     )}
                   </div>
