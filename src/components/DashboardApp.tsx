@@ -180,9 +180,77 @@ export default function DashboardApp() {
     useState<TransactionFormState>(emptyTransactionForm);
   const [imageUploading, setImageUploading] = useState(false);
   const [draggingMain, setDraggingMain] = useState(false);
-  const [draggingGallery, setDraggingGallery] = useState(false);
   const fileInputMainRef = useRef<HTMLInputElement>(null);
-  const fileInputGalleryRef = useRef<HTMLInputElement>(null);
+
+  async function compressImage(file: File): Promise<File> {
+    // No tocar GIFs (perderían la animación).
+    if (file.type === 'image/gif') return file;
+    const MAX_DIMENSION = 1600;
+    const QUALITY = 0.82;
+    try {
+      const dataUrl = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = () => reject(reader.error);
+        reader.readAsDataURL(file);
+      });
+      const img = await new Promise<HTMLImageElement>((resolve, reject) => {
+        const image = new Image();
+        image.onload = () => resolve(image);
+        image.onerror = () => reject(new Error('No se pudo leer la imagen'));
+        image.src = dataUrl;
+      });
+      let width = img.naturalWidth;
+      let height = img.naturalHeight;
+      if (width > MAX_DIMENSION || height > MAX_DIMENSION) {
+        const scale = Math.min(MAX_DIMENSION / width, MAX_DIMENSION / height);
+        width = Math.round(width * scale);
+        height = Math.round(height * scale);
+      }
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return file;
+      ctx.drawImage(img, 0, 0, width, height);
+      const blob = await new Promise<Blob | null>((resolve) =>
+        canvas.toBlob((b) => resolve(b), 'image/webp', QUALITY)
+      );
+      // Si la compresión no ayuda (o no produce nada), subir el original.
+      if (!blob || blob.size >= file.size) return file;
+      const newName = file.name.replace(/\.[^.]+$/, '') + '.webp';
+      return new File([blob], newName, { type: 'image/webp' });
+    } catch {
+      return file; // Ante cualquier fallo, subir el original sin comprimir.
+    }
+  }
+
+  async function uploadWithRetry(file: File, attempts = 3): Promise<string> {
+    const ext = file.name.split('.').pop()?.toLowerCase() || 'jpg';
+    let lastError: unknown;
+    for (let attempt = 1; attempt <= attempts; attempt++) {
+      try {
+        const filename = `products/product_${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
+        const blob = await upload(filename, file, {
+          access: 'public',
+          handleUploadUrl: '/api/upload-image',
+          contentType: file.type
+        });
+        return blob.url;
+      } catch (err) {
+        lastError = err;
+        // Reintentar solo ante fallos transitorios (red/servidor), no ante rechazos definitivos.
+        const message = err instanceof Error ? err.message.toLowerCase() : '';
+        const isPermanent =
+          message.includes('content type') ||
+          message.includes('too large') ||
+          message.includes('demasiado grande');
+        if (isPermanent || attempt === attempts) break;
+        await new Promise((resolve) => setTimeout(resolve, 800 * attempt));
+      }
+    }
+    throw lastError;
+  }
 
   async function handleImageUpload(files: FileList | File[], field: 'image' | 'images') {
     const fileArray = Array.from(files).filter((f) => f.type.startsWith('image/'));
@@ -190,33 +258,34 @@ export default function DashboardApp() {
     const MAX_SIZE = 50 * 1024 * 1024;
     const tooBig = fileArray.find((f) => f.size > MAX_SIZE);
     if (tooBig) {
-      setNotice('El archivo es demasiado grande (máx 50 MB)');
+      setNotice(`"${tooBig.name}" es demasiado grande (máx 50 MB)`);
       return;
     }
     setImageUploading(true);
+    const failed: string[] = [];
     try {
       const toUpload = field === 'image' ? [fileArray[0]] : fileArray;
       for (const file of toUpload) {
-        const ext = file.name.split('.').pop()?.toLowerCase() || 'jpg';
-        const filename = `products/product_${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
-        const blob = await upload(filename, file, {
-          access: 'public',
-          handleUploadUrl: '/api/upload-image',
-          contentType: file.type
-        });
-        setProductForm((current) => {
-          if (field === 'image') {
-            return { ...current, image: blob.url };
-          }
-          const existing = current.images.trim();
-          return { ...current, images: existing ? `${existing}, ${blob.url}` : blob.url };
-        });
+        try {
+          const compressed = await compressImage(file);
+          const url = await uploadWithRetry(compressed);
+          setProductForm((current) => {
+            if (field === 'image') {
+              return { ...current, image: url };
+            }
+            const existing = current.images.trim();
+            return { ...current, images: existing ? `${existing}, ${url}` : url };
+          });
+        } catch (err) {
+          const reason = err instanceof Error ? err.message : 'error desconocido';
+          failed.push(`${file.name} (${reason})`);
+        }
       }
-    } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : 'Error al subir la imagen';
-      setNotice(message);
     } finally {
       setImageUploading(false);
+      if (failed.length > 0) {
+        setNotice(`No se pudieron subir: ${failed.join('; ')}`);
+      }
     }
   }
 
@@ -1086,13 +1155,13 @@ export default function DashboardApp() {
                 </label>
               </div>
 
-              <div className="grid gap-5 xl:grid-cols-2 2xl:grid-cols-3">
+              <div className="flex flex-col gap-3">
                 {filteredProducts.map((product) => (
                   <article
                     key={product.id}
-                    className="overflow-hidden rounded-[30px] border border-[#dce2cd] bg-white shadow-[0_16px_40px_rgba(15,23,42,0.05)]"
+                    className="flex items-center gap-4 rounded-[20px] border border-[#dce2cd] bg-white p-4 shadow-[0_8px_24px_rgba(15,23,42,0.04)]"
                   >
-                    <div className="relative h-48 bg-[#f0ede6]">
+                    <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-2xl bg-[#f0ede6]">
                       {productImage(product) ? (
                         <img
                           src={productImage(product)}
@@ -1101,70 +1170,64 @@ export default function DashboardApp() {
                         />
                       ) : (
                         <div className="flex h-full w-full items-center justify-center bg-[radial-gradient(circle_at_top,_rgba(16,185,129,0.22),_transparent_55%),linear-gradient(135deg,_#0f172a_0%,_#111827_52%,_#052e16_100%)]">
-                          <Package className="h-14 w-14 text-[#8dc63f]" />
+                          <Package className="h-8 w-8 text-[#8dc63f]" />
                         </div>
                       )}
+                    </div>
 
-                      <div className="absolute left-4 top-4 flex flex-wrap gap-2">
-                        <span className="rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-[#0f172a]">
+                    <div className="min-w-0 flex-1">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <h3 className="truncate text-lg font-semibold text-[#173b2d]">
+                          {product.name}
+                        </h3>
+                        <span className="rounded-full bg-[#f0ede6] px-2.5 py-0.5 text-xs font-semibold text-[#475569]">
                           {product.category}
                         </span>
                         {product.featured && (
-                          <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">
+                          <span className="rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-semibold text-amber-800">
                             Destacado
                           </span>
                         )}
                       </div>
+                      <p className="mt-1 line-clamp-1 text-sm leading-5 text-[#475569]">
+                        {product.description}
+                      </p>
                     </div>
 
-                    <div className="p-5">
-                      <div className="flex items-start justify-between gap-4">
-                        <div>
-                          <h3 className="text-xl font-semibold text-[#173b2d]">
-                            {product.name}
-                          </h3>
-                          <p className="mt-2 line-clamp-3 text-sm leading-6 text-[#475569]">
-                            {product.description}
-                          </p>
-                        </div>
-                        <div
-                          className={`rounded-full px-3 py-1 text-xs font-semibold ${
-                            product.stockQuantity <= 5
-                              ? 'bg-amber-100 text-amber-800'
-                              : 'bg-[#e8f5d0] text-[#173b2d]'
-                          }`}
-                        >
-                          Stock {product.stockQuantity}
-                        </div>
-                      </div>
+                    <div className="hidden flex-shrink-0 text-right sm:block">
+                      <p className="text-xs uppercase tracking-[0.2em] text-[#94a494]">
+                        Precio
+                      </p>
+                      <p className="mt-1 text-lg font-semibold text-[#173b2d]">
+                        {formatPriceARS(product.price)}
+                      </p>
+                    </div>
 
-                      <div className="mt-5 flex items-end justify-between gap-4">
-                        <div>
-                          <p className="text-xs uppercase tracking-[0.2em] text-[#94a494]">
-                            Precio
-                          </p>
-                          <p className="mt-1 text-2xl font-semibold text-[#173b2d]">
-                            {formatPriceARS(product.price)}
-                          </p>
-                        </div>
+                    <div
+                      className={`flex-shrink-0 rounded-full px-3 py-1 text-xs font-semibold ${
+                        product.stockQuantity <= 5
+                          ? 'bg-amber-100 text-amber-800'
+                          : 'bg-[#e8f5d0] text-[#173b2d]'
+                      }`}
+                    >
+                      Stock {product.stockQuantity}
+                    </div>
 
-                        <div className="flex gap-2">
-                          <button
-                            type="button"
-                            onClick={() => openEditProduct(product)}
-                            className="rounded-full border border-[#dce2cd] p-3 text-[#475569] transition hover:border-[#8dc63f] hover:text-[#6f8f2f]"
-                          >
-                            <Pencil className="h-4 w-4" />
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => deleteProduct(product)}
-                            className="rounded-full border border-[#dce2cd] p-3 text-[#475569] transition hover:border-rose-300 hover:text-rose-700"
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </button>
-                        </div>
-                      </div>
+                    <div className="flex flex-shrink-0 gap-2">
+                      <button
+                        type="button"
+                        onClick={() => openEditProduct(product)}
+                        className="rounded-full border border-[#dce2cd] p-2.5 text-[#475569] transition hover:border-[#8dc63f] hover:text-[#6f8f2f]"
+                      >
+                        <Pencil className="h-4 w-4" />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => deleteProduct(product)}
+                        className="rounded-full border border-[#dce2cd] p-2.5 text-[#475569] transition hover:border-rose-300 hover:text-rose-700"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </button>
                     </div>
                   </article>
                 ))}
@@ -1563,83 +1626,37 @@ export default function DashboardApp() {
                 />
               </label>
 
-              <div className="grid gap-5 md:grid-cols-2">
-                {/* Imagen principal */}
-                <div className="grid gap-2">
-                  <span className="text-sm text-[#475569]">Imagen principal</span>
-                  <div
-                    onDragOver={(e) => { e.preventDefault(); setDraggingMain(true); }}
-                    onDragLeave={() => setDraggingMain(false)}
-                    onDrop={(e) => {
-                      e.preventDefault();
-                      setDraggingMain(false);
-                      if (e.dataTransfer.files.length) handleImageUpload(e.dataTransfer.files, 'image');
-                    }}
-                    onClick={() => fileInputMainRef.current?.click()}
-                    className={`relative cursor-pointer rounded-2xl border-2 border-dashed p-5 text-center transition ${draggingMain ? 'border-[#8dc63f] bg-[#f0f7e6]' : 'border-[#dce2cd] hover:border-[#8dc63f] hover:bg-[#fafaf7]'}`}
-                  >
-                    {productForm.image ? (
-                      <div className="relative inline-block">
-                        <img
-                          src={productForm.image}
-                          alt="Vista previa"
-                          className="mx-auto h-28 w-28 rounded-xl object-cover"
-                          onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
-                        />
-                        <button
-                          type="button"
-                          onClick={(e) => { e.stopPropagation(); setProductForm((c) => ({ ...c, image: '' })); }}
-                          className="absolute -right-2 -top-2 rounded-full bg-white p-1 shadow-md transition hover:bg-red-50"
-                        >
-                          <X className="h-3 w-3 text-red-500" />
-                        </button>
-                      </div>
-                    ) : (
-                      <div className="flex flex-col items-center gap-2 text-[#475569]">
-                        {imageUploading ? (
-                          <Loader2 className="h-8 w-8 animate-spin text-[#8dc63f]" />
-                        ) : (
-                          <ImagePlus className="h-8 w-8 text-[#8dc63f]" />
-                        )}
-                        <p className="text-sm font-medium">
-                          {imageUploading ? 'Subiendo...' : 'Arrastrar o hacer clic'}
-                        </p>
-                        <p className="text-xs text-[#94a3b8]">PNG, JPG, WEBP — máx 50 MB</p>
-                      </div>
-                    )}
-                  </div>
-                  <input
-                    value={productForm.image}
-                    onChange={(event) => setProductForm((c) => ({ ...c, image: event.target.value }))}
-                    placeholder="O pegá una URL: https://..."
-                    className="min-w-0 flex-1 rounded-2xl border border-[#dce2cd] px-4 py-3 text-sm outline-none transition focus:border-[#8dc63f]"
-                  />
-                  <input
-                    ref={fileInputMainRef}
-                    type="file"
-                    accept="image/*"
-                    className="hidden"
-                    onChange={(e) => {
-                      if (e.target.files?.length) handleImageUpload(e.target.files, 'image');
-                      e.target.value = '';
-                    }}
-                  />
-                </div>
-
-                {/* Galería */}
-                <div className="grid gap-2">
-                  <span className="text-sm text-[#475569]">Galería</span>
-                  <div
-                    onDragOver={(e) => { e.preventDefault(); setDraggingGallery(true); }}
-                    onDragLeave={() => setDraggingGallery(false)}
-                    onDrop={(e) => {
-                      e.preventDefault();
-                      setDraggingGallery(false);
-                      if (e.dataTransfer.files.length) handleImageUpload(e.dataTransfer.files, 'images');
-                    }}
-                    onClick={() => fileInputGalleryRef.current?.click()}
-                    className={`cursor-pointer rounded-2xl border-2 border-dashed p-5 text-center transition ${draggingGallery ? 'border-[#8dc63f] bg-[#f0f7e6]' : 'border-[#dce2cd] hover:border-[#8dc63f] hover:bg-[#fafaf7]'}`}
-                  >
+              {/* Imagen del producto */}
+              <div className="grid gap-2">
+                <span className="text-sm text-[#475569]">Imagen del producto</span>
+                <div
+                  onDragOver={(e) => { e.preventDefault(); setDraggingMain(true); }}
+                  onDragLeave={() => setDraggingMain(false)}
+                  onDrop={(e) => {
+                    e.preventDefault();
+                    setDraggingMain(false);
+                    if (e.dataTransfer.files.length) handleImageUpload(e.dataTransfer.files, 'image');
+                  }}
+                  onClick={() => fileInputMainRef.current?.click()}
+                  className={`relative cursor-pointer rounded-2xl border-2 border-dashed p-5 text-center transition ${draggingMain ? 'border-[#8dc63f] bg-[#f0f7e6]' : 'border-[#dce2cd] hover:border-[#8dc63f] hover:bg-[#fafaf7]'}`}
+                >
+                  {productForm.image ? (
+                    <div className="relative inline-block">
+                      <img
+                        src={productForm.image}
+                        alt="Vista previa"
+                        className="mx-auto h-28 w-28 rounded-xl object-cover"
+                        onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                      />
+                      <button
+                        type="button"
+                        onClick={(e) => { e.stopPropagation(); setProductForm((c) => ({ ...c, image: '' })); }}
+                        className="absolute -right-2 -top-2 rounded-full bg-white p-1 shadow-md transition hover:bg-red-50"
+                      >
+                        <X className="h-3 w-3 text-red-500" />
+                      </button>
+                    </div>
+                  ) : (
                     <div className="flex flex-col items-center gap-2 text-[#475569]">
                       {imageUploading ? (
                         <Loader2 className="h-8 w-8 animate-spin text-[#8dc63f]" />
@@ -1649,27 +1666,26 @@ export default function DashboardApp() {
                       <p className="text-sm font-medium">
                         {imageUploading ? 'Subiendo...' : 'Arrastrar o hacer clic'}
                       </p>
-                      <p className="text-xs text-[#94a3b8]">Podés soltar varias imágenes a la vez</p>
+                      <p className="text-xs text-[#94a3b8]">PNG, JPG, WEBP — máx 50 MB</p>
                     </div>
-                  </div>
-                  <input
-                    value={productForm.images}
-                    onChange={(event) => setProductForm((c) => ({ ...c, images: event.target.value }))}
-                    placeholder="O pegá URLs separadas por comas"
-                    className="min-w-0 flex-1 rounded-2xl border border-[#dce2cd] px-4 py-3 text-sm outline-none transition focus:border-[#8dc63f]"
-                  />
-                  <input
-                    ref={fileInputGalleryRef}
-                    type="file"
-                    accept="image/*"
-                    multiple
-                    className="hidden"
-                    onChange={(e) => {
-                      if (e.target.files?.length) handleImageUpload(e.target.files, 'images');
-                      e.target.value = '';
-                    }}
-                  />
+                  )}
                 </div>
+                <input
+                  value={productForm.image}
+                  onChange={(event) => setProductForm((c) => ({ ...c, image: event.target.value }))}
+                  placeholder="O pegá una URL: https://..."
+                  className="min-w-0 flex-1 rounded-2xl border border-[#dce2cd] px-4 py-3 text-sm outline-none transition focus:border-[#8dc63f]"
+                />
+                <input
+                  ref={fileInputMainRef}
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={(e) => {
+                    if (e.target.files?.length) handleImageUpload(e.target.files, 'image');
+                    e.target.value = '';
+                  }}
+                />
               </div>
 
               <label className="inline-flex items-center gap-3 rounded-2xl bg-[#f0ede6] px-4 py-3 text-sm font-medium text-[#475569]">
