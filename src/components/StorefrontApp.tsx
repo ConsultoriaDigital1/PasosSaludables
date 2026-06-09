@@ -380,27 +380,32 @@ export default function StorefrontApp({ initialData, loadError = null }: Props) 
 
   const featuredShelf = allProducts.filter((product) => product.featured);
   const FEATURED_PER_VIEW = 3;
-  const featuredMaxIndex = Math.max(0, featuredShelf.length - FEATURED_PER_VIEW);
+  const featuredPageCount = Math.ceil(featuredShelf.length / FEATURED_PER_VIEW);
+  const featuredMaxOffset = Math.max(0, featuredShelf.length - FEATURED_PER_VIEW);
+  const featuredOffset = Math.min(
+    featuredIndex * FEATURED_PER_VIEW,
+    featuredMaxOffset
+  );
 
   useEffect(() => {
-    if (featuredIndex > featuredMaxIndex) {
-      setFeaturedIndex(featuredMaxIndex);
+    if (featuredIndex > featuredPageCount - 1) {
+      setFeaturedIndex(Math.max(0, featuredPageCount - 1));
     }
-  }, [featuredIndex, featuredMaxIndex]);
+  }, [featuredIndex, featuredPageCount]);
 
   useEffect(() => {
-    if (featuredMaxIndex <= 0) {
+    if (featuredPageCount <= 1) {
       return;
     }
 
     const timer = window.setInterval(() => {
       setFeaturedIndex((current) =>
-        current >= featuredMaxIndex ? 0 : current + 1
+        current >= featuredPageCount - 1 ? 0 : current + 1
       );
     }, 5000);
 
     return () => window.clearInterval(timer);
-  }, [featuredMaxIndex]);
+  }, [featuredPageCount]);
 
   const totalItems = getTotalItems();
   const minimumOrderReached = total >= MIN_ORDER_TOTAL;
@@ -717,13 +722,13 @@ export default function StorefrontApp({ initialData, loadError = null }: Props) 
                 </h2>
               </div>
 
-              {featuredMaxIndex > 0 && (
+              {featuredPageCount > 1 && (
                 <div className="flex shrink-0 items-center gap-2">
                   <button
                     type="button"
                     onClick={() =>
                       setFeaturedIndex((current) =>
-                        current <= 0 ? featuredMaxIndex : current - 1
+                        current <= 0 ? featuredPageCount - 1 : current - 1
                       )
                     }
                     className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#cad4b2] bg-white text-[#173b2d] shadow-sm transition hover:border-[#8dc63f] hover:bg-[#edf7d7] active:scale-95"
@@ -735,7 +740,7 @@ export default function StorefrontApp({ initialData, loadError = null }: Props) 
                     type="button"
                     onClick={() =>
                       setFeaturedIndex((current) =>
-                        current >= featuredMaxIndex ? 0 : current + 1
+                        current >= featuredPageCount - 1 ? 0 : current + 1
                       )
                     }
                     className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#cad4b2] bg-white text-[#173b2d] shadow-sm transition hover:border-[#8dc63f] hover:bg-[#edf7d7] active:scale-95"
@@ -752,7 +757,7 @@ export default function StorefrontApp({ initialData, loadError = null }: Props) 
                 className="flex transition-transform duration-700 ease-in-out"
                 style={{
                   transform: `translateX(-${
-                    featuredIndex * (100 / FEATURED_PER_VIEW)
+                    featuredOffset * (100 / FEATURED_PER_VIEW)
                   }%)`
                 }}
               >
@@ -819,9 +824,9 @@ export default function StorefrontApp({ initialData, loadError = null }: Props) 
               </div>
             </div>
 
-            {featuredMaxIndex > 0 && (
+            {featuredPageCount > 1 && (
               <div className="mt-4 flex items-center justify-center gap-2">
-                {Array.from({ length: featuredMaxIndex + 1 }).map((_, dot) => (
+                {Array.from({ length: featuredPageCount }).map((_, dot) => (
                   <button
                     key={dot}
                     type="button"
