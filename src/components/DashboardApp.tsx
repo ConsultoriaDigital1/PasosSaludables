@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { upload } from '@vercel/blob/client';
 import {
   ArrowDownRight,
   ArrowUpRight,
@@ -226,23 +225,27 @@ export default function DashboardApp() {
   }
 
   async function uploadWithRetry(file: File, attempts = 3): Promise<string> {
-    const ext = file.name.split('.').pop()?.toLowerCase() || 'jpg';
     let lastError: unknown;
     for (let attempt = 1; attempt <= attempts; attempt++) {
       try {
-        const filename = `products/product_${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
-        const blob = await upload(filename, file, {
-          access: 'public',
-          handleUploadUrl: '/api/upload-image',
-          contentType: file.type
+        const formData = new FormData();
+        formData.append('file', file);
+        const response = await fetch('/api/upload-image', {
+          method: 'POST',
+          body: formData
         });
-        return blob.url;
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data?.error || 'No se pudo subir la imagen');
+        }
+        return data.url as string;
       } catch (err) {
         lastError = err;
         // Reintentar solo ante fallos transitorios (red/servidor), no ante rechazos definitivos.
         const message = err instanceof Error ? err.message.toLowerCase() : '';
         const isPermanent =
-          message.includes('content type') ||
+          message.includes('tipo de archivo') ||
+          message.includes('no permitido') ||
           message.includes('too large') ||
           message.includes('demasiado grande');
         if (isPermanent || attempt === attempts) break;

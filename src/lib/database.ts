@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import { neon } from '@neondatabase/serverless';
+import postgres from 'postgres';
 import type {
   Category,
   DashboardSnapshot,
@@ -15,7 +15,14 @@ if (!databaseUrl) {
   throw new Error('DATABASE_URL is required');
 }
 
-export const sql = neon(databaseUrl);
+export const sql = postgres(databaseUrl, {
+  max: 10,
+  idle_timeout: 20,
+  // Habilita SSL solo si la cadena de conexion lo pide (p.ej. Neon).
+  ssl: /sslmode=require/.test(databaseUrl) ? 'require' : undefined,
+  // Silencia los NOTICE (p.ej. "column already exists, skipping") de ensureSchema.
+  onnotice: () => {}
+});
 
 let schemaReadyPromise: Promise<void> | null = null;
 

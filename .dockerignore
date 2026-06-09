@@ -1,0 +1,25 @@
+node_modules
+dist
+.astro
+.vercel
+.git
+.github
+.vscode
+.idea
+.claude
+.playwright-cli
+output
+*.log
+.env
+.env.*
+uploads
+# Cruft de desarrollo que no debe entrar a la imagen
+.page.html
+_tmp_*.html
+*.png
+.storefront-module.js
+vercel.json
+scripts/init-db.js
+scripts/fix-featured-now.js
+scripts/add-featured-column.js
+scripts/check-table-structure.js
