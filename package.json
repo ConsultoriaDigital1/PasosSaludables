@@ -5,10 +5,11 @@
   "engines": {
     "node": "20.x"
   },
+  "packageManager": "pnpm@10.33.2",
   "scripts": {
-    "predev": "npm run sync:assets",
-    "prestart": "npm run sync:assets",
-    "prebuild": "npm run sync:assets",
+    "predev": "pnpm run sync:assets",
+    "prestart": "pnpm run sync:assets",
+    "prebuild": "pnpm run sync:assets",
     "dev": "node scripts/run-astro.mjs dev",
     "start": "node scripts/run-astro.mjs dev",
     "build": "node scripts/run-astro.mjs build",
@@ -40,5 +41,12 @@
   "devDependencies": {
     "@types/node": "^20.0.0",
     "typescript": "^5.0.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp",
+      "bufferutil"
+    ]
   }
 }

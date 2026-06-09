@@ -54,7 +54,7 @@ const diagnose = async () => {
     
   } catch (error) {
     console.error('❌ Error en diagnóstico:', error.message);
-    console.log('\n💡 Asegúrate de que el servidor esté ejecutándose con: npm run dev');
+    console.log('\n💡 Asegúrate de que el servidor esté ejecutándose con: pnpm run dev');
   }
 };
 

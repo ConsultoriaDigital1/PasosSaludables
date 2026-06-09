@@ -74,7 +74,7 @@ async function fixFeaturedColumn() {
     console.table(products);
     
     console.log('🎉 Migración completada exitosamente');
-    console.log('🔄 Reinicia el servidor con: npm run dev');
+    console.log('🔄 Reinicia el servidor con: pnpm run dev');
     
   } catch (error) {
     console.error('❌ Error en la migración:', error.message);
