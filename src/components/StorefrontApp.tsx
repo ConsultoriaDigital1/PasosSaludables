@@ -93,6 +93,30 @@ function formatProductPrice(product: Product) {
   return hasPublishedPrice(product) ? formatPriceARS(product.price) : 'Consultar';
 }
 
+type StockTone = 'emerald' | 'amber' | 'rose';
+
+const STOCK_TONE_CLASSES: Record<StockTone, string> = {
+  emerald: 'bg-emerald-100 text-emerald-800',
+  amber: 'bg-amber-100 text-amber-800',
+  rose: 'bg-rose-100 text-rose-700'
+};
+
+function getStockStatus(product: Product): { label: string; tone: StockTone } {
+  if (!isProductAvailable(product)) {
+    return { label: 'Sin stock', tone: 'rose' };
+  }
+
+  if (!hasPublishedPrice(product)) {
+    return { label: 'Consultar precio', tone: 'amber' };
+  }
+
+  if (product.stockQuantity <= 5) {
+    return { label: `Ultimas ${product.stockQuantity}`, tone: 'amber' };
+  }
+
+  return { label: 'Disponible', tone: 'emerald' };
+}
+
 function productMerchandisingScore(product: Product) {
   let score = 0;
 
@@ -511,52 +535,76 @@ export default function StorefrontApp({ initialData, loadError = null }: Props) 
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,_rgba(141,198,63,0.16),_transparent_28%),radial-gradient(circle_at_85%_14%,_rgba(16,185,129,0.14),_transparent_26%),linear-gradient(180deg,_#f8f4ea_0%,_#fbfbf7_55%,_#eef5dc_100%)]" />
 
       <header className="sticky top-0 z-30 border-b border-[#dce2cd]/80 bg-[#f8f4ea]/90 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:px-8">
-          <a
-            href="#como-comprar"
-            className="flex min-w-0 items-center gap-3 rounded-full border border-white/80 bg-white/85 px-2 py-2 pr-4 shadow-[0_18px_40px_rgba(15,23,42,0.06)]"
-          >
-            <img
-              src={brandLogo}
-              alt="Logo Pasos Saludables"
-              className="h-12 w-12 rounded-full object-cover"
-            />
-            <div className="min-w-0">
-              <p className="truncate text-base font-semibold text-slate-950">
-                Pasos Saludables
-              </p>
-              <p className="truncate text-xs uppercase tracking-[0.24em] text-[#6f8f2f]">
-                tienda + stock real
-              </p>
-            </div>
-          </a>
-
-          <button
-            type="button"
-            onClick={openCart}
-            className={`inline-flex items-center gap-2 rounded-full bg-[#173b2d] px-4 py-2.5 text-sm font-semibold text-white shadow-[0_18px_42px_rgba(23,59,45,0.2)] transition duration-300 hover:-translate-y-0.5 hover:bg-[#21503c] ${
-              cartPulse ? 'pss-badge-bump' : ''
-            }`}
-          >
-            <ShoppingCart className="h-4 w-4" />
-            <span>Carrito</span>
-            <span
-              className={`rounded-full px-2 py-0.5 text-xs font-semibold ${
-                cartPulse
-                  ? 'bg-[#8dc63f] text-[#173b2d]'
-                  : 'bg-white/12 text-white'
+        <div className="mx-auto flex max-w-7xl flex-col gap-2.5 px-4 py-2.5 sm:px-6 sm:py-3 lg:px-8 md:gap-3">
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={openCart}
+              className={`inline-flex shrink-0 items-center gap-2 rounded-full bg-[#173b2d] px-3.5 py-2.5 text-sm font-semibold text-white shadow-[0_18px_42px_rgba(23,59,45,0.2)] transition duration-300 hover:-translate-y-0.5 hover:bg-[#21503c] sm:px-4 ${
+                cartPulse ? 'pss-badge-bump' : ''
               }`}
             >
-              {totalItems}
-            </span>
-          </button>
+              <ShoppingCart className="h-4 w-4" />
+              <span className="hidden sm:inline">Carrito</span>
+              <span
+                className={`rounded-full px-2 py-0.5 text-xs font-semibold ${
+                  cartPulse
+                    ? 'bg-[#8dc63f] text-[#173b2d]'
+                    : 'bg-white/12 text-white'
+                }`}
+              >
+                {totalItems}
+              </span>
+            </button>
 
-          <nav className="flex w-full flex-wrap gap-2 md:w-auto md:gap-6">
+            <div className="mx-auto w-full max-w-xl flex-1">
+              <label className="relative block">
+                <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
+                <input
+                  value={search}
+                  onChange={(event) => setSearch(event.target.value)}
+                  placeholder="Buscar producto o categoria"
+                  className="w-full rounded-full border border-[#d6debf] bg-white px-12 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-[#8dc63f] focus:ring-2 focus:ring-[#8dc63f]/25"
+                />
+                {search && (
+                  <button
+                    type="button"
+                    onClick={() => setSearch('')}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1 text-slate-400 transition hover:bg-slate-100 hover:text-slate-700"
+                    aria-label="Limpiar busqueda"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                )}
+              </label>
+            </div>
+
+            <a
+              href="#como-comprar"
+              className="flex min-w-0 shrink-0 items-center gap-2.5 rounded-full border border-white/80 bg-white/85 px-1.5 py-1.5 pr-4 shadow-[0_18px_40px_rgba(15,23,42,0.06)] sm:gap-3 sm:px-2 sm:py-2"
+            >
+              <img
+                src={brandLogo}
+                alt="Logo Pasos Saludables"
+                className="h-10 w-10 rounded-full object-cover sm:h-12 sm:w-12"
+              />
+              <div className="hidden min-w-0 sm:block">
+                <p className="truncate text-sm font-semibold text-slate-950 sm:text-base">
+                  Pasos Saludables
+                </p>
+                <p className="truncate text-[0.65rem] uppercase tracking-[0.2em] text-[#6f8f2f] sm:text-xs sm:tracking-[0.24em]">
+                  tienda + stock real
+                </p>
+              </div>
+            </a>
+          </div>
+
+          <nav className="pss-chip-row -mx-4 flex gap-2 overflow-x-auto px-4 md:mx-0 md:gap-6 md:overflow-visible md:px-0 md:justify-center">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="rounded-full border border-[#dce2cd] bg-white/80 px-4 py-2 text-sm font-medium text-slate-600 transition hover:border-[#8dc63f] hover:text-[#173b2d] md:border-0 md:bg-transparent md:px-0 md:py-0"
+                className="shrink-0 whitespace-nowrap rounded-full border border-[#dce2cd] bg-white/80 px-4 py-2 text-sm font-medium text-slate-600 transition hover:border-[#8dc63f] hover:text-[#173b2d] md:border-0 md:bg-transparent md:px-0 md:py-0"
               >
                 {link.label}
               </a>
@@ -569,47 +617,51 @@ export default function StorefrontApp({ initialData, loadError = null }: Props) 
 
         <section
           id="como-comprar"
-          className="mx-auto max-w-7xl scroll-mt-24 px-4 py-6 sm:px-6 lg:px-8"
+          className="mx-auto max-w-7xl scroll-mt-24 px-4 py-4 sm:px-6 sm:py-6 lg:px-8"
         >
-          <div className="rounded-[36px] border border-[#dce2cd] bg-white/80 p-6 shadow-[0_20px_60px_rgba(15,23,42,0.07)] backdrop-blur md:p-8">
-            <div className="max-w-2xl">
-              <h1 className="font-serif text-3xl text-slate-950 md:text-5xl">
-                Comprar online no tiene que ser un tramite.
-              </h1>
-              <p className="mt-4 text-base leading-7 text-slate-600">
-                Filtras, eliges y cierras el pedido con informacion real.
-              </p>
+          <div className="overflow-hidden rounded-[28px] border border-[#dce2cd] bg-white/80 shadow-[0_20px_60px_rgba(15,23,42,0.07)] backdrop-blur sm:rounded-[36px]">
+            <div className="px-5 pt-6 sm:px-8 sm:pt-8">
+              <div className="max-w-2xl">
+                <h1 className="font-serif text-[1.7rem] leading-tight text-slate-950 sm:text-4xl md:text-5xl">
+                  Comprar online no tiene que ser un tramite.
+                </h1>
+                <p className="mt-3 text-sm leading-6 text-slate-600 sm:text-base sm:leading-7">
+                  Filtras, eliges y cierras el pedido con informacion real.
+                </p>
+              </div>
+
+              {loadError && (
+                <div className="mt-5 rounded-[20px] border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+                  No pudimos cargar todo el stock en este momento.
+                </div>
+              )}
             </div>
 
-            {loadError && (
-              <div className="mt-6 rounded-[24px] border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
-                No pudimos cargar todo el stock en este momento.
-              </div>
-            )}
-
-            <div className="mt-8 grid gap-4 md:grid-cols-3">
+            <div className="mt-6 grid gap-px border-t border-[#e4ead2] bg-[#e4ead2] sm:grid-cols-3">
               {purchaseSteps.map((step, index) => {
                 const Icon = step.icon;
 
                 return (
                   <article
                     key={step.label}
-                    className="rounded-[28px] border border-[#dde5cc] bg-[#fbfaf5] p-5"
+                    className="flex items-start gap-3 bg-[#fbfaf5] px-5 py-4 sm:flex-col sm:gap-0 sm:px-6 sm:py-6"
                   >
-                    <div className="flex items-center justify-between">
-                      <div className="rounded-full bg-[#173b2d] p-3 text-white">
-                        <Icon className="h-5 w-5" />
+                    <div className="flex items-center gap-3 sm:w-full sm:justify-between">
+                      <div className="rounded-full bg-[#173b2d] p-2.5 text-white sm:p-3">
+                        <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
                       </div>
-                      <span className="text-sm font-semibold text-[#6f8f2f]">
+                      <span className="text-xs font-semibold text-[#6f8f2f] sm:text-sm">
                         0{index + 1}
                       </span>
                     </div>
-                    <h3 className="mt-5 text-xl font-semibold text-slate-950">
-                      {step.label}
-                    </h3>
-                    <p className="mt-3 text-sm leading-6 text-slate-600">
-                      {step.detail}
-                    </p>
+                    <div className="min-w-0 flex-1 sm:mt-4">
+                      <h3 className="text-base font-semibold text-slate-950 sm:text-lg">
+                        {step.label}
+                      </h3>
+                      <p className="mt-1 text-xs leading-5 text-slate-600 sm:mt-2 sm:text-sm sm:leading-6">
+                        {step.detail}
+                      </p>
+                    </div>
                   </article>
                 );
               })}
@@ -617,121 +669,126 @@ export default function StorefrontApp({ initialData, loadError = null }: Props) 
           </div>
         </section>
 
-        <section
-          id="destacados"
-          className="mx-auto max-w-7xl scroll-mt-24 px-4 py-10 sm:px-6 lg:px-8"
-        >
-          <div className="mb-8">
-            <h2 className="font-serif text-3xl text-slate-950 md:text-5xl">
-              Productos destacados
-            </h2>
-          </div>
+        {featuredShelf.length > 0 && (
+          <section
+            id="destacados"
+            className="mx-auto max-w-7xl scroll-mt-24 px-4 py-6 sm:px-6 sm:py-8 lg:px-8"
+          >
+            <div className="mb-4 flex items-end justify-between gap-4 sm:mb-6">
+              <div>
+                <p className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-[#6f8f2f]">
+                  <Star className="h-3.5 w-3.5 fill-current text-amber-500" />
+                  Destacados
+                </p>
+                <h2 className="mt-1 font-serif text-2xl text-slate-950 md:text-3xl">
+                  Lo que mas se busca
+                </h2>
+              </div>
+            </div>
 
-          <div className="grid gap-5 lg:grid-cols-4">
-            {featuredShelf.map((product) => {
-              const canPurchase = canPurchaseProduct(product);
-              const available = isProductAvailable(product);
-              const needsConsult = available && !hasPublishedPrice(product);
+            <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+              {featuredShelf.map((product) => {
+                const canPurchase = canPurchaseProduct(product);
+                const status = getStockStatus(product);
 
-              return (
-                <article
-                  key={product.id}
-                  className="group overflow-hidden rounded-[28px] border border-[#dce2cd] bg-white shadow-[0_20px_60px_rgba(15,23,42,0.08)] transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_30px_80px_rgba(15,23,42,0.12)]"
-                >
-                  <div className="relative h-56 overflow-hidden bg-slate-100">
-                    <div className="h-full w-full transition duration-500 group-hover:scale-105">
-                      <ProductArtwork product={product} />
-                    </div>
-                    <div className="absolute left-4 top-4 inline-flex items-center gap-1 rounded-full bg-white/92 px-3 py-1 text-xs font-semibold text-slate-900">
-                      <Star className="h-3.5 w-3.5 fill-current text-amber-500" />
-                      Destacado
-                    </div>
-                    <div
-                      className={`absolute bottom-4 left-4 rounded-full px-3 py-1 text-xs font-semibold ${
-                        canPurchase
-                          ? 'bg-emerald-100 text-emerald-900'
-                          : needsConsult
-                            ? 'bg-amber-100 text-amber-900'
-                            : 'bg-white/90 text-slate-700'
-                      }`}
+                return (
+                  <article
+                    key={product.id}
+                    className="group flex flex-col overflow-hidden rounded-[20px] border border-[#dce2cd] bg-white shadow-[0_12px_36px_rgba(15,23,42,0.07)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_22px_56px_rgba(15,23,42,0.12)] sm:rounded-[24px]"
+                  >
+                    <button
+                      type="button"
+                      onClick={() => setSelectedProduct(product)}
+                      className="relative block aspect-square overflow-hidden bg-slate-100"
+                      aria-label={`Ver ${product.name}`}
                     >
-                      {canPurchase
-                        ? 'Compra directa'
-                        : needsConsult
-                          ? 'Consultar precio'
-                          : 'Stock limitado'}
-                    </div>
-                  </div>
-                  <div className="p-5">
-                    <h3 className="text-xl font-semibold text-slate-950">
-                      {product.name}
-                    </h3>
-                    <div className="mt-5 flex items-end justify-between gap-4">
-                      <div>
-                        <p className="text-2xl font-semibold text-slate-950">
+                      <div className="h-full w-full transition duration-500 group-hover:scale-105">
+                        <ProductArtwork product={product} />
+                      </div>
+                      <span className="absolute left-2.5 top-2.5 inline-flex items-center gap-1 rounded-full bg-white/92 px-2 py-0.5 text-[0.65rem] font-semibold text-amber-700 shadow-sm backdrop-blur sm:left-3 sm:top-3 sm:text-xs">
+                        <Star className="h-3 w-3 fill-current" />
+                        Destacado
+                      </span>
+                    </button>
+
+                    <div className="flex flex-1 flex-col p-3 sm:p-4">
+                      <h3 className="line-clamp-2 min-h-[2.5rem] text-sm font-semibold leading-tight text-slate-950 sm:text-base">
+                        {product.name}
+                      </h3>
+                      <div className="mt-auto flex items-end justify-between gap-2 pt-3">
+                        <p className="text-base font-bold text-slate-950 sm:text-lg">
                           {formatProductPrice(product)}
                         </p>
+                        {canPurchase ? (
+                          <button
+                            type="button"
+                            onClick={() => handleAddToCart(product)}
+                            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#173b2d] text-white shadow-sm transition hover:bg-[#21503c] active:scale-95"
+                            aria-label={`Agregar ${product.name} al carrito`}
+                          >
+                            <Plus className="h-4 w-4" />
+                          </button>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={() => handleConsultProduct(product)}
+                            className="inline-flex h-9 shrink-0 items-center gap-1 rounded-full border border-[#cad4b2] px-3 text-xs font-semibold text-[#173b2d] transition hover:border-[#8dc63f] hover:bg-[#edf7d7]"
+                          >
+                            <ArrowRight className="h-3.5 w-3.5" />
+                            {status.tone === 'rose' ? 'Sin stock' : 'Consultar'}
+                          </button>
+                        )}
                       </div>
-                      {canPurchase ? (
-                        <button
-                          type="button"
-                          onClick={() => handleAddToCart(product)}
-                          className="inline-flex items-center gap-2 rounded-full bg-[#173b2d] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#21503c]"
-                        >
-                          <Plus className="h-4 w-4" />
-                          Agregar
-                        </button>
-                      ) : (
-                        <button
-                          type="button"
-                          onClick={() => handleConsultProduct(product)}
-                          className="inline-flex items-center gap-2 rounded-full border border-[#cad4b2] px-4 py-2 text-sm font-semibold text-[#173b2d] transition hover:border-[#8dc63f] hover:bg-[#edf7d7]"
-                        >
-                          <ArrowRight className="h-4 w-4" />
-                          Consultar
-                        </button>
-                      )}
                     </div>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-
-          {featuredShelf.length === 0 && (
-            <div className="rounded-[30px] border border-dashed border-[#cfd8b6] bg-white/70 px-8 py-16 text-center">
-              <p className="text-lg font-semibold text-slate-900">
-                No hay productos destacados.
-              </p>
+                  </article>
+                );
+              })}
             </div>
-          )}
-        </section>
+          </section>
+        )}
 
         <section
           id="catalogo"
-          className="mx-auto max-w-7xl scroll-mt-24 px-4 py-12 sm:px-6 lg:px-8"
+          className="mx-auto max-w-7xl scroll-mt-24 px-4 py-6 sm:px-6 sm:py-8 lg:px-8"
         >
-          <div className="mb-8 flex flex-col gap-6 xl:flex-row xl:items-end xl:justify-between">
+          <div className="mb-5 flex flex-col gap-4 sm:mb-6 lg:flex-row lg:items-end lg:justify-between">
             <div>
-              <h2 className="font-serif text-3xl text-slate-950 md:text-5xl">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#6f8f2f]">
                 Catalogo
+              </p>
+              <h2 className="mt-1 font-serif text-2xl text-slate-950 md:text-3xl">
+                Todo el stock
+                <span className="ml-2 align-middle text-base font-sans font-medium text-slate-400">
+                  {filteredProducts.length}
+                  {filteredProducts.length === 1 ? ' producto' : ' productos'}
+                </span>
               </h2>
             </div>
 
-            <div className="w-full max-w-xl">
+            <div className="w-full lg:max-w-md">
               <label className="relative block">
                 <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
                 <input
                   value={search}
                   onChange={(event) => setSearch(event.target.value)}
-                  placeholder="Buscar por nombre, descripcion o categoria"
-                  className="w-full rounded-full border border-[#d6debf] bg-white px-12 py-3 text-sm text-slate-900 shadow-sm outline-none transition focus:border-[#8dc63f]"
+                  placeholder="Buscar producto o categoria"
+                  className="w-full rounded-full border border-[#d6debf] bg-white px-12 py-3 text-sm text-slate-900 shadow-sm outline-none transition focus:border-[#8dc63f] focus:ring-2 focus:ring-[#8dc63f]/25"
                 />
+                {search && (
+                  <button
+                    type="button"
+                    onClick={() => setSearch('')}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1 text-slate-400 transition hover:bg-slate-100 hover:text-slate-700"
+                    aria-label="Limpiar busqueda"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                )}
               </label>
             </div>
           </div>
 
-          <div className="mb-8 flex flex-wrap gap-3">
+          <div className="pss-chip-row -mx-4 mb-5 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0 sm:pb-0">
             {visibleCategories.map((category) => {
               const active = activeCategory === category;
 
@@ -740,9 +797,9 @@ export default function StorefrontApp({ initialData, loadError = null }: Props) 
                   key={category}
                   type="button"
                   onClick={() => setActiveCategory(category)}
-                  className={`rounded-full px-4 py-2 text-sm font-medium transition ${
+                  className={`shrink-0 whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition ${
                     active
-                      ? 'bg-[#173b2d] text-white'
+                      ? 'bg-[#173b2d] text-white shadow-sm'
                       : 'border border-[#d6debf] bg-white text-slate-600 hover:border-[#8dc63f] hover:text-[#173b2d]'
                   }`}
                 >
@@ -752,95 +809,77 @@ export default function StorefrontApp({ initialData, loadError = null }: Props) 
             })}
           </div>
 
-          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 xl:grid-cols-4">
             {filteredProducts.map((product) => {
-              const available = isProductAvailable(product);
               const canPurchase = canPurchaseProduct(product);
-              const needsConsult = available && !hasPublishedPrice(product);
+              const needsConsult =
+                isProductAvailable(product) && !hasPublishedPrice(product);
+              const status = getStockStatus(product);
 
               return (
                 <article
                   key={product.id}
-                  className="group overflow-hidden rounded-[30px] border border-[#dce2cd] bg-white shadow-[0_16px_50px_rgba(15,23,42,0.08)] transition duration-300 hover:-translate-y-1"
+                  className="group flex flex-col overflow-hidden rounded-[20px] border border-[#dce2cd] bg-white shadow-[0_12px_36px_rgba(15,23,42,0.07)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_22px_56px_rgba(15,23,42,0.12)] sm:rounded-[24px]"
                 >
-                  <div className="relative h-64 overflow-hidden bg-slate-100">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedProduct(product)}
+                    className="relative block aspect-square overflow-hidden bg-slate-100"
+                    aria-label={`Ver ${product.name}`}
+                  >
                     <div className="h-full w-full transition duration-500 group-hover:scale-105">
                       <ProductArtwork product={product} />
                     </div>
-                    <div className="absolute left-4 top-4 flex flex-wrap gap-2">
-                      {product.featured && (
-                        <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">
-                          Destacado
-                        </span>
-                      )}
-                    </div>
-                  </div>
+                    <span
+                      className={`absolute left-2.5 top-2.5 rounded-full px-2 py-0.5 text-[0.65rem] font-semibold shadow-sm backdrop-blur sm:left-3 sm:top-3 sm:text-xs ${STOCK_TONE_CLASSES[status.tone]}`}
+                    >
+                      {status.label}
+                    </span>
+                    {product.featured && (
+                      <span className="absolute right-2.5 top-2.5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-white/92 text-amber-500 shadow-sm backdrop-blur sm:right-3 sm:top-3">
+                        <Star className="h-3.5 w-3.5 fill-current" />
+                      </span>
+                    )}
+                  </button>
 
-                  <div className="p-6">
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="min-w-0 flex-1">
-                        <h3 className="text-2xl font-semibold text-slate-950">
-                          {product.name}
-                        </h3>
-                      </div>
-                      <div
-                        className={`rounded-full px-3 py-1 text-xs font-semibold ${
-                          canPurchase
-                            ? 'bg-emerald-100 text-emerald-800'
-                            : needsConsult
-                              ? 'bg-amber-100 text-amber-800'
-                              : 'bg-rose-100 text-rose-800'
-                        }`}
-                      >
-                        {canPurchase
-                          ? 'Disponible'
-                          : needsConsult
-                            ? 'Consultar precio'
-                            : 'Sin stock'}
-                      </div>
-                    </div>
+                  <div className="flex flex-1 flex-col p-3 sm:p-4">
+                    {product.category && (
+                      <p className="truncate text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-[#6f8f2f] sm:text-xs">
+                        {product.category}
+                      </p>
+                    )}
+                    <h3 className="mt-1 line-clamp-2 min-h-[2.5rem] text-sm font-semibold leading-tight text-slate-950 sm:text-base">
+                      {product.name}
+                    </h3>
 
-                    <div className="mt-6 flex items-end justify-between gap-4">
-                      <div>
-                        <p className="text-3xl font-semibold text-slate-950">
-                          {formatProductPrice(product)}
-                        </p>
-                      </div>
+                    <div className="mt-auto flex items-end justify-between gap-2 pt-3">
+                      <p className="text-base font-bold text-slate-950 sm:text-lg">
+                        {formatProductPrice(product)}
+                      </p>
 
-                      <div className="flex gap-2">
+                      {canPurchase ? (
                         <button
                           type="button"
-                          onClick={() => setSelectedProduct(product)}
-                          className="rounded-full border border-[#d6debf] px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-[#8dc63f] hover:text-[#173b2d]"
+                          onClick={() => handleAddToCart(product)}
+                          className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#173b2d] text-white shadow-sm transition hover:bg-[#21503c] active:scale-95"
+                          aria-label={`Agregar ${product.name} al carrito`}
                         >
-                          Ver
+                          <Plus className="h-4 w-4" />
                         </button>
-                        {canPurchase ? (
-                          <button
-                            type="button"
-                            onClick={() => handleAddToCart(product)}
-                            className="rounded-full bg-[#173b2d] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#21503c]"
-                          >
-                            Agregar
-                          </button>
-                        ) : needsConsult ? (
-                          <button
-                            type="button"
-                            onClick={() => handleConsultProduct(product)}
-                            className="rounded-full border border-[#cad4b2] px-4 py-2 text-sm font-semibold text-[#173b2d] transition hover:border-[#8dc63f] hover:bg-[#edf7d7]"
-                          >
-                            Consultar
-                          </button>
-                        ) : (
-                          <button
-                            type="button"
-                            disabled
-                            className="rounded-full bg-slate-300 px-4 py-2 text-sm font-semibold text-white"
-                          >
-                            Sin stock
-                          </button>
-                        )}
-                      </div>
+                      ) : needsConsult ? (
+                        <button
+                          type="button"
+                          onClick={() => handleConsultProduct(product)}
+                          className="inline-flex h-9 shrink-0 items-center gap-1 rounded-full border border-[#cad4b2] px-3 text-xs font-semibold text-[#173b2d] transition hover:border-[#8dc63f] hover:bg-[#edf7d7]"
+                        >
+                          <ArrowRight className="h-3.5 w-3.5" />
+                          Consultar
+                        </button>
+                      ) : (
+                        <span className="inline-flex h-9 shrink-0 items-center rounded-full bg-slate-100 px-3 text-xs font-semibold text-slate-400">
+                          Sin stock
+                        </span>
+                      )}
                     </div>
                   </div>
                 </article>
@@ -849,7 +888,7 @@ export default function StorefrontApp({ initialData, loadError = null }: Props) 
           </div>
 
           {filteredProducts.length === 0 && (
-            <div className="rounded-[30px] border border-dashed border-[#cfd8b6] bg-white/70 px-8 py-16 text-center">
+            <div className="rounded-[24px] border border-dashed border-[#cfd8b6] bg-white/70 px-8 py-16 text-center">
               <p className="text-lg font-semibold text-slate-900">
                 No hay productos para ese filtro.
               </p>
@@ -1523,6 +1562,15 @@ export default function StorefrontApp({ initialData, loadError = null }: Props) 
 
         .pss-toast-pop {
           animation: pss-toast-pop 280ms cubic-bezier(0.18, 0.89, 0.32, 1.28);
+        }
+
+        .pss-chip-row {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+
+        .pss-chip-row::-webkit-scrollbar {
+          display: none;
         }
       `}</style>
     </div>
