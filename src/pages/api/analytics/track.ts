@@ -14,7 +14,7 @@ function cleanReferrer(input: unknown, requestUrl: URL): string {
   if (typeof input !== 'string' || !input.trim()) return '';
   try {
     const url = new URL(input.trim());
-    // El trafico interno (navegacion dentro del propio sitio) cuenta como directo.
+    // El trafico interno (navegacion dentro del propio sitio) cuenta como directo..
     if (url.hostname === requestUrl.hostname) return '';
     return url.hostname.slice(0, 120);
   } catch {
