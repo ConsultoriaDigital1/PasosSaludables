@@ -1,0 +1,60 @@
+name: Deploy to VPS
+
+# Cada push a main (o ejecucion manual) sincroniza el codigo al VPS
+# y reconstruye SOLO el contenedor `app`. La base de datos (volumen pgdata)
+# y las imagenes subidas (volumen uploads) NO se tocan: persisten entre deploys.
+# El esquema de la DB se auto-aplica solo al arrancar la app (ensureSchema()).
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+# Evita deploys solapados: si llega un push nuevo mientras corre uno, espera.
+concurrency:
+  group: deploy-vps
+  cancel-in-progress: false
+
+env:
+  VPS_HOST: 72.60.15.125
+  VPS_USER: root
+  VPS_PATH: /opt/pasossaludables
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configurar llave SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H "$VPS_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: Sincronizar codigo al VPS
+        run: |
+          rsync -az --delete \
+            -e "ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes" \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='node_modules' \
+            --exclude='dist' \
+            --exclude='.astro' \
+            --exclude='.vercel' \
+            --exclude='.env' \
+            --exclude='uploads' \
+            --exclude='*.log' \
+            ./ "$VPS_USER@$VPS_HOST:$VPS_PATH/"
+
+      - name: Reconstruir y levantar la app
+        run: |
+          ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes "$VPS_USER@$VPS_HOST" \
+            "cd $VPS_PATH && docker compose up -d --build app && docker image prune -f"
+
+      - name: Verificar que la app responde
+        run: |
+          ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes "$VPS_USER@$VPS_HOST" \
+            "sleep 5 && curl -fsS -o /dev/null -w 'HTTP %{http_code}\n' http://localhost:8090/ || (echo 'La app NO respondio' && docker compose -f $VPS_PATH/docker-compose.yml logs --tail=50 app && exit 1)"

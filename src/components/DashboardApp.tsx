@@ -31,8 +31,9 @@ import {
   formatDateTimeLabel,
   formatPriceARS
 } from '../lib/formatters';
+import AnalyticsPanel from './Admin/AnalyticsPanel';
 
-type TabId = 'overview' | 'inventory' | 'categories' | 'movements' | 'treasury';
+type TabId = 'overview' | 'inventory' | 'categories' | 'movements' | 'treasury' | 'analytics';
 
 interface ProductFormState {
   name: string;
@@ -633,6 +634,11 @@ export default function DashboardApp() {
       id: 'treasury',
       label: 'Tesoreria',
       icon: <Wallet className="h-4 w-4" />
+    },
+    {
+      id: 'analytics',
+      label: 'Analiticz',
+      icon: <BarChart3 className="h-4 w-4" />
     }
   ];
 
@@ -842,6 +848,7 @@ export default function DashboardApp() {
                 {activeTab === 'categories' && 'Estructura de categorias'}
                 {activeTab === 'movements' && 'Entradas y salidas de stock'}
                 {activeTab === 'treasury' && 'Caja y transacciones'}
+                {activeTab === 'analytics' && 'Analiticas de la web'}
               </h1>
             </div>
 
@@ -1521,6 +1528,8 @@ export default function DashboardApp() {
               </article>
             </div>
           )}
+
+          {activeTab === 'analytics' && <AnalyticsPanel />}
         </section>
       </div>
 

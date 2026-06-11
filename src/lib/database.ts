@@ -6,8 +6,12 @@ import type {
   Product,
   StockMovement,
   StorefrontBootstrap,
-  TreasuryTransaction
+  TreasuryTransaction,
+  WebAnalyticsSnapshot
 } from '../types';
+
+// Zona horaria local del negocio: define el corte de "dia" y las horas pico.
+const ANALYTICS_TIMEZONE = process.env.ANALYTICS_TIMEZONE || 'America/Asuncion';
 
 const databaseUrl = process.env.DATABASE_URL;
 
@@ -93,6 +97,31 @@ export async function ensureSchema() {
   await sql`
     ALTER TABLE stock_movements
     ADD COLUMN IF NOT EXISTS batch_code VARCHAR(64)
+  `;
+
+  await sql`
+    CREATE TABLE IF NOT EXISTS analytics_events (
+      id SERIAL PRIMARY KEY,
+      event_type VARCHAR(20) NOT NULL DEFAULT 'pageview',
+      visitor_id VARCHAR(64) NOT NULL,
+      session_id VARCHAR(64) NOT NULL,
+      path TEXT NOT NULL DEFAULT '/',
+      referrer TEXT NOT NULL DEFAULT '',
+      device_type VARCHAR(30),
+      browser VARCHAR(40),
+      os VARCHAR(40),
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `;
+
+  await sql`
+    CREATE INDEX IF NOT EXISTS idx_analytics_events_created_at
+    ON analytics_events (created_at)
+  `;
+
+  await sql`
+    CREATE INDEX IF NOT EXISTS idx_analytics_events_visitor
+    ON analytics_events (visitor_id, created_at)
   `;
 }
 
@@ -941,6 +970,242 @@ export const db = {
           unitsIn: Number(row.units_in ?? 0)
         })),
         recentMovements: recentMovementRows.map(toMovement)
+      };
+    }
+  },
+
+  analytics: {
+    track: async (input: {
+      eventType: 'pageview' | 'heartbeat';
+      visitorId: string;
+      sessionId: string;
+      path: string;
+      referrer: string;
+      deviceType: string;
+      browser: string;
+      os: string;
+    }) => {
+      await ensureSchemaReady();
+
+      await sql`
+        INSERT INTO analytics_events (
+          event_type,
+          visitor_id,
+          session_id,
+          path,
+          referrer,
+          device_type,
+          browser,
+          os
+        )
+        VALUES (
+          ${input.eventType},
+          ${input.visitorId},
+          ${input.sessionId},
+          ${input.path},
+          ${input.referrer},
+          ${input.deviceType},
+          ${input.browser},
+          ${input.os}
+        )
+      `;
+    },
+
+    getStats: async (days = 30): Promise<WebAnalyticsSnapshot> => {
+      await ensureSchemaReady();
+
+      const rangeDays = Math.max(1, Math.min(days, 365));
+      const tz = ANALYTICS_TIMEZONE;
+
+      const [
+        onlineRows,
+        todayRows,
+        totalsRows,
+        sessionRows,
+        dailyRows,
+        hourlyRows,
+        deviceRows,
+        browserRows,
+        osRows,
+        pageRows,
+        referrerRows
+      ] = await Promise.all([
+        sql`
+          SELECT COUNT(DISTINCT visitor_id)::int AS online
+          FROM analytics_events
+          WHERE created_at >= NOW() - INTERVAL '3 minutes'
+        `,
+        sql`
+          SELECT
+            COUNT(*) FILTER (WHERE event_type = 'pageview')::int AS pageviews,
+            COUNT(DISTINCT visitor_id) FILTER (WHERE event_type = 'pageview')::int AS visitors,
+            COUNT(DISTINCT session_id) FILTER (WHERE event_type = 'pageview')::int AS sessions
+          FROM analytics_events
+          WHERE (created_at AT TIME ZONE ${tz})::date = (NOW() AT TIME ZONE ${tz})::date
+        `,
+        sql`
+          SELECT
+            COUNT(*) FILTER (WHERE event_type = 'pageview')::int AS pageviews,
+            COUNT(DISTINCT visitor_id) FILTER (WHERE event_type = 'pageview')::int AS visitors,
+            COUNT(DISTINCT session_id) FILTER (WHERE event_type = 'pageview')::int AS sessions
+          FROM analytics_events
+          WHERE created_at >= NOW() - make_interval(days => ${rangeDays})
+        `,
+        sql`
+          SELECT
+            COALESCE(AVG(pages), 0)::numeric AS avg_pages,
+            COALESCE(AVG(duration_seconds), 0)::numeric AS avg_duration
+          FROM (
+            SELECT
+              session_id,
+              COUNT(*) FILTER (WHERE event_type = 'pageview') AS pages,
+              EXTRACT(EPOCH FROM (MAX(created_at) - MIN(created_at))) AS duration_seconds
+            FROM analytics_events
+            WHERE created_at >= NOW() - make_interval(days => ${rangeDays})
+            GROUP BY session_id
+          ) sessions
+          WHERE pages > 0
+        `,
+        sql`
+          SELECT
+            TO_CHAR(created_at AT TIME ZONE ${tz}, 'YYYY-MM-DD') AS day_key,
+            COUNT(*)::int AS pageviews,
+            COUNT(DISTINCT visitor_id)::int AS visitors
+          FROM analytics_events
+          WHERE event_type = 'pageview'
+            AND created_at >= NOW() - make_interval(days => ${rangeDays})
+          GROUP BY day_key
+          ORDER BY day_key ASC
+        `,
+        sql`
+          SELECT
+            EXTRACT(HOUR FROM created_at AT TIME ZONE ${tz})::int AS hour,
+            COUNT(*)::int AS pageviews,
+            COUNT(DISTINCT visitor_id)::int AS visitors
+          FROM analytics_events
+          WHERE event_type = 'pageview'
+            AND created_at >= NOW() - make_interval(days => ${rangeDays})
+          GROUP BY hour
+          ORDER BY hour ASC
+        `,
+        sql`
+          SELECT
+            COALESCE(NULLIF(device_type, ''), 'Desconocido') AS name,
+            COUNT(DISTINCT visitor_id)::int AS visitors,
+            COUNT(*)::int AS pageviews
+          FROM analytics_events
+          WHERE event_type = 'pageview'
+            AND created_at >= NOW() - make_interval(days => ${rangeDays})
+          GROUP BY name
+          ORDER BY visitors DESC, pageviews DESC
+        `,
+        sql`
+          SELECT
+            COALESCE(NULLIF(browser, ''), 'Desconocido') AS name,
+            COUNT(DISTINCT visitor_id)::int AS visitors,
+            COUNT(*)::int AS pageviews
+          FROM analytics_events
+          WHERE event_type = 'pageview'
+            AND created_at >= NOW() - make_interval(days => ${rangeDays})
+          GROUP BY name
+          ORDER BY visitors DESC, pageviews DESC
+        `,
+        sql`
+          SELECT
+            COALESCE(NULLIF(os, ''), 'Desconocido') AS name,
+            COUNT(DISTINCT visitor_id)::int AS visitors,
+            COUNT(*)::int AS pageviews
+          FROM analytics_events
+          WHERE event_type = 'pageview'
+            AND created_at >= NOW() - make_interval(days => ${rangeDays})
+          GROUP BY name
+          ORDER BY visitors DESC, pageviews DESC
+        `,
+        sql`
+          SELECT
+            path,
+            COUNT(*)::int AS pageviews,
+            COUNT(DISTINCT visitor_id)::int AS visitors
+          FROM analytics_events
+          WHERE event_type = 'pageview'
+            AND created_at >= NOW() - make_interval(days => ${rangeDays})
+          GROUP BY path
+          ORDER BY pageviews DESC
+          LIMIT 8
+        `,
+        sql`
+          SELECT
+            COALESCE(NULLIF(referrer, ''), 'Directo') AS source,
+            COUNT(DISTINCT session_id)::int AS sessions
+          FROM analytics_events
+          WHERE event_type = 'pageview'
+            AND created_at >= NOW() - make_interval(days => ${rangeDays})
+          GROUP BY source
+          ORDER BY sessions DESC
+          LIMIT 8
+        `
+      ]);
+
+      const today = todayRows[0];
+      const totals = totalsRows[0];
+      const sessionStats = sessionRows[0];
+
+      const hourlyMap = new Map(
+        hourlyRows.map((row) => [Number(row.hour), row])
+      );
+
+      return {
+        onlineNow: Number(onlineRows[0]?.online ?? 0),
+        today: {
+          pageviews: Number(today?.pageviews ?? 0),
+          visitors: Number(today?.visitors ?? 0),
+          sessions: Number(today?.sessions ?? 0)
+        },
+        totals: {
+          pageviews: Number(totals?.pageviews ?? 0),
+          visitors: Number(totals?.visitors ?? 0),
+          sessions: Number(totals?.sessions ?? 0)
+        },
+        avgPagesPerSession: Number(sessionStats?.avg_pages ?? 0),
+        avgSessionMinutes: Number(sessionStats?.avg_duration ?? 0) / 60,
+        dailySeries: dailyRows.map((row) => ({
+          day: row.day_key,
+          pageviews: Number(row.pageviews ?? 0),
+          visitors: Number(row.visitors ?? 0)
+        })),
+        hourly: Array.from({ length: 24 }, (_, hour) => {
+          const row = hourlyMap.get(hour);
+          return {
+            hour,
+            pageviews: Number(row?.pageviews ?? 0),
+            visitors: Number(row?.visitors ?? 0)
+          };
+        }),
+        devices: deviceRows.map((row) => ({
+          name: row.name,
+          visitors: Number(row.visitors ?? 0),
+          pageviews: Number(row.pageviews ?? 0)
+        })),
+        browsers: browserRows.map((row) => ({
+          name: row.name,
+          visitors: Number(row.visitors ?? 0),
+          pageviews: Number(row.pageviews ?? 0)
+        })),
+        operatingSystems: osRows.map((row) => ({
+          name: row.name,
+          visitors: Number(row.visitors ?? 0),
+          pageviews: Number(row.pageviews ?? 0)
+        })),
+        topPages: pageRows.map((row) => ({
+          path: row.path,
+          pageviews: Number(row.pageviews ?? 0),
+          visitors: Number(row.visitors ?? 0)
+        })),
+        referrers: referrerRows.map((row) => ({
+          source: row.source,
+          sessions: Number(row.sessions ?? 0)
+        })),
+        rangeDays
       };
     }
   }

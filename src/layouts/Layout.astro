@@ -25,6 +25,57 @@ const {
   </head>
   <body>
     <slot />
+    <script is:inline>
+      (function () {
+        try {
+          if (window.location.pathname.indexOf('/admin') === 0) return;
+
+          var uid = function () {
+            return (
+              Date.now().toString(36) +
+              '-' +
+              Math.random().toString(36).slice(2, 12)
+            );
+          };
+
+          var visitorId = window.localStorage.getItem('pss-visitor-id');
+          if (!visitorId) {
+            visitorId = uid();
+            window.localStorage.setItem('pss-visitor-id', visitorId);
+          }
+
+          var sessionId = window.sessionStorage.getItem('pss-session-id');
+          if (!sessionId) {
+            sessionId = uid();
+            window.sessionStorage.setItem('pss-session-id', sessionId);
+          }
+
+          var send = function (type) {
+            fetch('/api/analytics/track', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              keepalive: true,
+              body: JSON.stringify({
+                type: type,
+                visitorId: visitorId,
+                sessionId: sessionId,
+                path: window.location.pathname,
+                referrer: document.referrer || ''
+              })
+            }).catch(function () {});
+          };
+
+          send('pageview');
+
+          // Latido cada 60s mientras la pestana este visible: alimenta el "online ahora".
+          window.setInterval(function () {
+            if (!document.hidden) send('heartbeat');
+          }, 60000);
+        } catch (error) {
+          /* el tracking nunca debe romper la pagina */
+        }
+      })();
+    </script>
   </body>
 </html>
 

@@ -119,6 +119,57 @@ export interface StorefrontBootstrap {
   featuredProducts: Product[];
 }
 
+export interface WebAnalyticsTotals {
+  pageviews: number;
+  visitors: number;
+  sessions: number;
+}
+
+export interface WebAnalyticsDailyPoint {
+  day: string;
+  pageviews: number;
+  visitors: number;
+}
+
+export interface WebAnalyticsHourlyPoint {
+  hour: number;
+  pageviews: number;
+  visitors: number;
+}
+
+export interface WebAnalyticsShareItem {
+  name: string;
+  visitors: number;
+  pageviews: number;
+}
+
+export interface WebAnalyticsPageItem {
+  path: string;
+  pageviews: number;
+  visitors: number;
+}
+
+export interface WebAnalyticsReferrerItem {
+  source: string;
+  sessions: number;
+}
+
+export interface WebAnalyticsSnapshot {
+  onlineNow: number;
+  today: WebAnalyticsTotals;
+  totals: WebAnalyticsTotals;
+  avgPagesPerSession: number;
+  avgSessionMinutes: number;
+  dailySeries: WebAnalyticsDailyPoint[];
+  hourly: WebAnalyticsHourlyPoint[];
+  devices: WebAnalyticsShareItem[];
+  browsers: WebAnalyticsShareItem[];
+  operatingSystems: WebAnalyticsShareItem[];
+  topPages: WebAnalyticsPageItem[];
+  referrers: WebAnalyticsReferrerItem[];
+  rangeDays: number;
+}
+
 export interface DashboardSnapshot {
   summary: DashboardSummary;
   monthlyFinance: MonthlyFinancePoint[];
