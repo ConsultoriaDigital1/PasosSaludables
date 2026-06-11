@@ -22,10 +22,12 @@ function cleanReferrer(input: unknown, requestUrl: URL): string {
   }
 }
 
+const EVENT_TYPES = ['pageview', 'heartbeat', 'add_to_cart'] as const;
+
 export const POST: APIRoute = async ({ request }) => {
   try {
     const body = await request.json().catch(() => null);
-    const eventType = body?.type === 'heartbeat' ? 'heartbeat' : 'pageview';
+    const eventType = EVENT_TYPES.includes(body?.type) ? body.type : 'pageview';
     const visitorId = typeof body?.visitorId === 'string' ? body.visitorId.trim() : '';
     const sessionId = typeof body?.sessionId === 'string' ? body.sessionId.trim() : '';
 
@@ -39,6 +41,10 @@ export const POST: APIRoute = async ({ request }) => {
       return new Response(JSON.stringify({ ok: true }), { status: 200 });
     }
 
+    const productId = Number(body?.productId);
+    const productName =
+      typeof body?.productName === 'string' ? body.productName.trim().slice(0, 200) : '';
+
     await db.analytics.track({
       eventType,
       visitorId,
@@ -47,7 +53,12 @@ export const POST: APIRoute = async ({ request }) => {
       referrer: cleanReferrer(body?.referrer, new URL(request.url)),
       deviceType: parsed.deviceType,
       browser: parsed.browser,
-      os: parsed.os
+      os: parsed.os,
+      productId:
+        eventType === 'add_to_cart' && Number.isInteger(productId) && productId > 0
+          ? productId
+          : null,
+      productName: eventType === 'add_to_cart' ? productName : ''
     });
 
     return new Response(JSON.stringify({ ok: true }), {

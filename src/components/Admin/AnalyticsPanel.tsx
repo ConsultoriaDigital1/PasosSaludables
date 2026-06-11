@@ -403,13 +403,24 @@ export default function AnalyticsPanel() {
         </ChartCard>
       </div>
 
-      <div className="grid gap-6 xl:grid-cols-2">
+      <div className="grid gap-6 xl:grid-cols-3">
+        <ChartCard label="Carrito" title="Mas agregados al carrito">
+          <RankList
+            items={stats.cartTopProducts.map((product) => ({
+              label: product.name,
+              value: product.adds,
+              detail: product.adds === 1 ? 'vez' : 'veces'
+            }))}
+            emptyMessage="Todavia nadie agrego productos al carrito."
+          />
+        </ChartCard>
+
         <ChartCard label="Contenido" title="Paginas mas visitadas">
           <RankList
             items={stats.topPages.map((page) => ({
               label: page.path,
               value: page.pageviews,
-              detail: 'vistas'
+              detail: page.pageviews === 1 ? 'vista' : 'vistas'
             }))}
             emptyMessage="Todavia no hay paginas registradas."
           />
@@ -420,7 +431,7 @@ export default function AnalyticsPanel() {
             items={stats.referrers.map((referrer) => ({
               label: referrer.source,
               value: referrer.sessions,
-              detail: 'visitas'
+              detail: referrer.sessions === 1 ? 'visita' : 'visitas'
             }))}
             emptyMessage="Todavia no hay fuentes registradas."
           />

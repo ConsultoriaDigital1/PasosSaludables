@@ -14,6 +14,44 @@ function calculateTotal(items: CartItem[]) {
   return items.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
 }
 
+function trackAddToCart(product: Product) {
+  if (typeof window === 'undefined') return;
+
+  try {
+    const uid = () =>
+      `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 12)}`;
+
+    let visitorId = window.localStorage.getItem('pss-visitor-id');
+    if (!visitorId) {
+      visitorId = uid();
+      window.localStorage.setItem('pss-visitor-id', visitorId);
+    }
+
+    let sessionId = window.sessionStorage.getItem('pss-session-id');
+    if (!sessionId) {
+      sessionId = uid();
+      window.sessionStorage.setItem('pss-session-id', sessionId);
+    }
+
+    void fetch('/api/analytics/track', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      keepalive: true,
+      body: JSON.stringify({
+        type: 'add_to_cart',
+        visitorId,
+        sessionId,
+        path: window.location.pathname,
+        referrer: '',
+        productId: product.id,
+        productName: product.name
+      })
+    }).catch(() => {});
+  } catch {
+    // El tracking nunca debe romper el carrito.
+  }
+}
+
 export const useCartStore = create<CartStore>()(
   persist(
     (set, get) => ({
@@ -24,6 +62,8 @@ export const useCartStore = create<CartStore>()(
         if (quantity <= 0) {
           return;
         }
+
+        trackAddToCart(product);
 
         set((state) => {
           const existing = state.items.find((item) => item.product.id === product.id);

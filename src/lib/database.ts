@@ -123,6 +123,16 @@ export async function ensureSchema() {
     CREATE INDEX IF NOT EXISTS idx_analytics_events_visitor
     ON analytics_events (visitor_id, created_at)
   `;
+
+  await sql`
+    ALTER TABLE analytics_events
+    ADD COLUMN IF NOT EXISTS product_id INTEGER
+  `;
+
+  await sql`
+    ALTER TABLE analytics_events
+    ADD COLUMN IF NOT EXISTS product_name TEXT
+  `;
 }
 
 async function ensureSchemaReady() {
@@ -976,7 +986,7 @@ export const db = {
 
   analytics: {
     track: async (input: {
-      eventType: 'pageview' | 'heartbeat';
+      eventType: 'pageview' | 'heartbeat' | 'add_to_cart';
       visitorId: string;
       sessionId: string;
       path: string;
@@ -984,6 +994,8 @@ export const db = {
       deviceType: string;
       browser: string;
       os: string;
+      productId?: number | null;
+      productName?: string;
     }) => {
       await ensureSchemaReady();
 
@@ -996,7 +1008,9 @@ export const db = {
           referrer,
           device_type,
           browser,
-          os
+          os,
+          product_id,
+          product_name
         )
         VALUES (
           ${input.eventType},
@@ -1006,7 +1020,9 @@ export const db = {
           ${input.referrer},
           ${input.deviceType},
           ${input.browser},
-          ${input.os}
+          ${input.os},
+          ${input.productId ?? null},
+          ${input.productName ?? ''}
         )
       `;
     },
@@ -1028,7 +1044,8 @@ export const db = {
         browserRows,
         osRows,
         pageRows,
-        referrerRows
+        referrerRows,
+        cartRows
       ] = await Promise.all([
         sql`
           SELECT COUNT(DISTINCT visitor_id)::int AS online
@@ -1143,6 +1160,18 @@ export const db = {
           GROUP BY source
           ORDER BY sessions DESC
           LIMIT 8
+        `,
+        sql`
+          SELECT
+            COALESCE(NULLIF(product_name, ''), CONCAT('Producto #', product_id::text)) AS name,
+            COUNT(*)::int AS adds,
+            COUNT(DISTINCT visitor_id)::int AS visitors
+          FROM analytics_events
+          WHERE event_type = 'add_to_cart'
+            AND created_at >= NOW() - make_interval(days => ${rangeDays})
+          GROUP BY name
+          ORDER BY adds DESC
+          LIMIT 8
         `
       ]);
 
@@ -1204,6 +1233,11 @@ export const db = {
         referrers: referrerRows.map((row) => ({
           source: row.source,
           sessions: Number(row.sessions ?? 0)
+        })),
+        cartTopProducts: cartRows.map((row) => ({
+          name: row.name,
+          adds: Number(row.adds ?? 0),
+          visitors: Number(row.visitors ?? 0)
         })),
         rangeDays
       };

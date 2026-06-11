@@ -154,6 +154,12 @@ export interface WebAnalyticsReferrerItem {
   sessions: number;
 }
 
+export interface WebAnalyticsCartItem {
+  name: string;
+  adds: number;
+  visitors: number;
+}
+
 export interface WebAnalyticsSnapshot {
   onlineNow: number;
   today: WebAnalyticsTotals;
@@ -167,6 +173,7 @@ export interface WebAnalyticsSnapshot {
   operatingSystems: WebAnalyticsShareItem[];
   topPages: WebAnalyticsPageItem[];
   referrers: WebAnalyticsReferrerItem[];
+  cartTopProducts: WebAnalyticsCartItem[];
   rangeDays: number;
 }
 
