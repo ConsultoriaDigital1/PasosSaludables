@@ -19,8 +19,6 @@ env:
   VPS_HOST: 72.60.15.125
   VPS_USER: root
   VPS_PATH: /opt/pasossaludables
-  # Opciones SSH comunes: no aborta por host desconocido, timeout claro.
-  SSH_OPTS: "-i ~/.ssh/deploy_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new -o ConnectTimeout=25"
 
 jobs:
   deploy:
@@ -38,15 +36,16 @@ jobs:
             echo "::error::El secreto VPS_SSH_KEY esta vacio o no existe. Cargalo en Settings > Secrets > Actions."
             exit 1
           fi
-          # No es fatal: con accept-new el host se agrega solo en la primera conexion.
-          ssh-keyscan -T 10 "$VPS_HOST" >> ~/.ssh/known_hosts 2>/dev/null || true
+          # IMPORTANTE: ruta absoluta ($HOME), nunca ~ dentro de variables.
+          SSH="ssh -i $HOME/.ssh/deploy_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new -o ConnectTimeout=25"
           echo "Probando conexion SSH al VPS..."
-          ssh $SSH_OPTS "$VPS_USER@$VPS_HOST" "echo Conectado OK a \$(hostname)"
+          $SSH "$VPS_USER@$VPS_HOST" "echo Conectado OK a \$(hostname)"
 
       - name: Sincronizar codigo al VPS
         run: |
+          SSH="ssh -i $HOME/.ssh/deploy_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new -o ConnectTimeout=25"
           rsync -az --delete \
-            -e "ssh $SSH_OPTS" \
+            -e "$SSH" \
             --exclude='.git' \
             --exclude='.github' \
             --exclude='node_modules' \
@@ -60,7 +59,8 @@ jobs:
 
       - name: Reconstruir y levantar la app
         run: |
-          ssh $SSH_OPTS "$VPS_USER@$VPS_HOST" "\
+          SSH="ssh -i $HOME/.ssh/deploy_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new -o ConnectTimeout=25"
+          $SSH "$VPS_USER@$VPS_HOST" "\
             cd $VPS_PATH && \
             docker compose up -d --build app && \
             docker image prune -f && \
@@ -69,7 +69,8 @@ jobs:
 
       - name: Verificar que la app responde
         run: |
-          ssh $SSH_OPTS "$VPS_USER@$VPS_HOST" "\
+          SSH="ssh -i $HOME/.ssh/deploy_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new -o ConnectTimeout=25"
+          $SSH "$VPS_USER@$VPS_HOST" "\
             sleep 5 && \
             curl -fsS -o /dev/null -w 'App responde: HTTP %{http_code}\n' http://localhost:8090/ || \
             (echo '::error::La app NO respondio tras el deploy' && cd $VPS_PATH && docker compose logs --tail=50 app && exit 1)"
