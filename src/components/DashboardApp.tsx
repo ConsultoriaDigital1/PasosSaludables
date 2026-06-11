@@ -12,7 +12,6 @@ import {
   Pencil,
   Plus,
   Search,
-  ShieldCheck,
   Tags,
   Trash2,
   Wallet,
@@ -661,106 +660,77 @@ export default function DashboardApp() {
 
   if (!authenticated) {
     return (
-      <div className="relative min-h-screen overflow-hidden bg-[#f8f4ea]">
+      <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#f8f4ea] px-4 py-12">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(141,198,63,0.12),_transparent_40%),radial-gradient(circle_at_bottom_left,_rgba(23,59,45,0.08),_transparent_40%)]" />
-        <div className="relative mx-auto grid min-h-screen max-w-6xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1fr_0.9fr] lg:px-8">
-          <div className="flex flex-col justify-center">
-            <div className="mb-8 flex items-center gap-3">
+
+        <div className="relative w-full max-w-sm">
+          <div className="rounded-[32px] border border-[#dce2cd] bg-white/85 p-8 shadow-[0_20px_60px_rgba(23,59,45,0.12)] backdrop-blur">
+            <div className="flex flex-col items-center text-center">
               <img
                 src="/pasossaludablesstock-logo.jpeg"
                 alt="Pasos Saludables"
-                className="h-16 w-auto rounded-2xl object-contain"
+                className="h-20 w-auto rounded-2xl object-contain"
               />
+              <h1 className="mt-5 text-2xl font-semibold text-[#173b2d]">
+                Panel de administración
+              </h1>
+              <p className="mt-2 text-sm leading-6 text-[#475569]">
+                Ingresá con tus credenciales para continuar.
+              </p>
             </div>
-            <span className="inline-flex w-fit items-center gap-2 rounded-full border border-[#8dc63f]/40 bg-[#8dc63f]/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-[#6f8f2f]">
-              <ShieldCheck className="h-4 w-4" />
-              Acceso interno
-            </span>
-            <h1 className="mt-6 font-serif text-5xl leading-[0.98] tracking-tight text-[#173b2d] md:text-6xl">
-              Panel de administración de stock y operaciones.
-            </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-[#475569]">
-              Inventario, bajo stock, movimientos y caja integrados en una sola
-              vista. Gestioná todo desde un solo lugar.
-            </p>
 
-            <div className="mt-10 grid gap-4 sm:grid-cols-3">
-              <div className="rounded-[28px] border border-[#dce2cd] bg-white/70 p-5 backdrop-blur">
-                <p className="text-sm text-[#6f8f2f]">DB activa</p>
-                <p className="mt-3 text-2xl font-semibold text-[#173b2d]">PasosSaludablesStock</p>
-              </div>
-              <div className="rounded-[28px] border border-[#dce2cd] bg-white/70 p-5 backdrop-blur">
-                <p className="text-sm text-[#6f8f2f]">Stack</p>
-                <p className="mt-3 text-2xl font-semibold text-[#173b2d]">Astro + React</p>
-              </div>
-              <div className="rounded-[28px] border border-[#dce2cd] bg-white/70 p-5 backdrop-blur">
-                <p className="text-sm text-[#6f8f2f]">Foco</p>
-                <p className="mt-3 text-2xl font-semibold text-[#173b2d]">Inventario real</p>
-              </div>
-            </div>
+            <form onSubmit={handleLogin} className="mt-7 grid gap-4">
+              <label className="grid gap-2">
+                <span className="text-sm font-medium text-[#173b2d]">Usuario</span>
+                <input
+                  value={loginForm.username}
+                  onChange={(event) =>
+                    setLoginForm((current) => ({
+                      ...current,
+                      username: event.target.value
+                    }))
+                  }
+                  className="rounded-2xl border border-[#dce2cd] bg-[#f8f4ea] px-4 py-3 text-[#0f172a] outline-none transition placeholder:text-[#a0a89a] focus:border-[#8dc63f] focus:ring-2 focus:ring-[#8dc63f]/20"
+                  placeholder="usuario"
+                />
+              </label>
+
+              <label className="grid gap-2">
+                <span className="text-sm font-medium text-[#173b2d]">Contraseña</span>
+                <input
+                  type="password"
+                  value={loginForm.password}
+                  onChange={(event) =>
+                    setLoginForm((current) => ({
+                      ...current,
+                      password: event.target.value
+                    }))
+                  }
+                  className="rounded-2xl border border-[#dce2cd] bg-[#f8f4ea] px-4 py-3 text-[#0f172a] outline-none transition placeholder:text-[#a0a89a] focus:border-[#8dc63f] focus:ring-2 focus:ring-[#8dc63f]/20"
+                  placeholder="••••••••"
+                />
+              </label>
+
+              <button
+                type="submit"
+                disabled={loginLoading}
+                className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-[#8dc63f] px-6 py-3 font-semibold text-[#173b2d] transition hover:bg-[#7db52e] disabled:cursor-not-allowed disabled:opacity-70"
+              >
+                {loginLoading && <Loader2 className="h-4 w-4 animate-spin" />}
+                Entrar
+              </button>
+            </form>
           </div>
 
-          <div className="flex items-center">
-            <div className="w-full rounded-[32px] border border-[#dce2cd] bg-white/80 p-8 shadow-[0_20px_60px_rgba(23,59,45,0.12)] backdrop-blur">
-              <div className="flex justify-center mb-6">
-                <img
-                  src="/pasossaludablesstock-logo.jpeg"
-                  alt="Pasos Saludables"
-                  className="h-20 w-auto rounded-2xl object-contain"
-                />
-              </div>
-              <p className="text-sm uppercase tracking-[0.22em] text-[#6f8f2f]">
-                Ingreso
-              </p>
-              <h2 className="mt-3 text-3xl font-semibold text-[#173b2d]">
-                Entrar al panel
-              </h2>
-              <p className="mt-3 text-sm leading-6 text-[#475569]">
-                Usa las credenciales del administrador para acceder.
-              </p>
-
-              <form onSubmit={handleLogin} className="mt-8 grid gap-5">
-                <label className="grid gap-2">
-                  <span className="text-sm font-medium text-[#173b2d]">Usuario</span>
-                  <input
-                    value={loginForm.username}
-                    onChange={(event) =>
-                      setLoginForm((current) => ({
-                        ...current,
-                        username: event.target.value
-                      }))
-                    }
-                    className="rounded-2xl border border-[#dce2cd] bg-[#f8f4ea] px-4 py-3 text-[#0f172a] outline-none transition placeholder:text-[#a0a89a] focus:border-[#8dc63f] focus:ring-2 focus:ring-[#8dc63f]/20"
-                    placeholder="usuario"
-                  />
-                </label>
-
-                <label className="grid gap-2">
-                  <span className="text-sm font-medium text-[#173b2d]">Contraseña</span>
-                  <input
-                    type="password"
-                    value={loginForm.password}
-                    onChange={(event) =>
-                      setLoginForm((current) => ({
-                        ...current,
-                        password: event.target.value
-                      }))
-                    }
-                    className="rounded-2xl border border-[#dce2cd] bg-[#f8f4ea] px-4 py-3 text-[#0f172a] outline-none transition placeholder:text-[#a0a89a] focus:border-[#8dc63f] focus:ring-2 focus:ring-[#8dc63f]/20"
-                    placeholder="••••••••"
-                  />
-                </label>
-
-                <button
-                  type="submit"
-                  disabled={loginLoading}
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#8dc63f] px-6 py-3 font-semibold text-[#173b2d] transition hover:bg-[#7db52e] disabled:cursor-not-allowed disabled:opacity-70"
-                >
-                  {loginLoading && <Loader2 className="h-4 w-4 animate-spin" />}
-                  Entrar
-                </button>
-              </form>
-            </div>
+          <div className="mt-8 flex flex-col items-center gap-2 text-center opacity-80">
+            <span className="text-[11px] uppercase tracking-[0.28em] text-[#94a494]">
+              Desarrollado por
+            </span>
+            <img
+              src="/consultoriadigital-logo.webp"
+              alt="Consultoría Digital"
+              className="h-8 w-auto object-contain"
+            />
           </div>
         </div>
 
