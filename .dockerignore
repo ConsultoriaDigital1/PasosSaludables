@@ -18,8 +18,4 @@ uploads
 _tmp_*.html
 *.png
 .storefront-module.js
-vercel.json
-scripts/init-db.js
-scripts/fix-featured-now.js
-scripts/add-featured-column.js
-scripts/check-table-structure.js
+output

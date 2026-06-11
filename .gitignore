@@ -30,3 +30,10 @@ Thumbs.db
 .idea/
 *.swp
 *.swo
+
+# Cruft de desarrollo / pruebas (no debe volver al repo)
+/output/
+/.playwright-cli/
+/.page.html
+/_tmp_*.html
+/output-*.png
