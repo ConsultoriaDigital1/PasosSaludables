@@ -1,0 +1,162 @@
+---
+// Maqueta V3 "Mosaico": los botones dejan de ser pastillas y se convierten
+// en una botonera bento (un tile grande + tiles chicos) dentro del hero.
+// En mobile el mosaico pasa a grilla de 2 columnas.
+import Layout from '../../layouts/Layout.astro';
+import CampoFondo from '../../components/disenos/CampoFondo.astro';
+import ControlesDiseno from '../../components/disenos/ControlesDiseno.astro';
+import { productosDemo, pasosDemo } from '../../components/disenos/demo';
+import { formatPriceARS } from '../../lib/formatters';
+
+const brandLogo = '/pasossaludablesstock-logo.jpeg';
+---
+
+<Layout
+  title="Diseño V3 · Mosaico — Pasos Saludables"
+  description="Maqueta de rediseño V3: botonera bento sobre campo difuminado"
+>
+  <CampoFondo />
+
+  <div class="relative z-10 min-h-screen pb-24 text-slate-950">
+    <header class="sticky top-0 z-30">
+      <div class="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
+        <a href="#" class="flex items-center gap-2.5 rounded-full border border-white/70 bg-white/75 py-1.5 pl-1.5 pr-4 shadow-[0_14px_36px_rgba(23,59,45,0.12)] backdrop-blur">
+          <img src={brandLogo} alt="Logo Pasos Saludables" class="h-9 w-9 rounded-full object-cover" />
+          <span class="text-sm font-bold">Pasos Saludables</span>
+        </a>
+
+        <button type="button" class="inline-flex items-center gap-2 rounded-full border border-white/70 bg-white/75 px-4 py-2.5 text-sm font-bold text-[#173b2d] shadow-[0_14px_36px_rgba(23,59,45,0.12)] backdrop-blur transition hover:border-[#8dc63f]">
+          <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"></path></svg>
+          <span class="rounded-full bg-[#8dc63f] px-2 py-0.5 text-xs text-[#10301f]">3</span>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero con botonera bento -->
+      <section class="mx-auto max-w-5xl px-4 pb-12 pt-10 sm:px-6 sm:pt-16">
+        <div class="rounded-[32px] border border-white/70 bg-white/60 p-6 shadow-[0_30px_80px_rgba(23,59,45,0.16)] backdrop-blur-xl sm:p-10">
+          <span class="inline-flex items-center gap-2 rounded-full bg-[#173b2d] px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-[#a5d95d] sm:text-xs">
+            <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path></svg>
+            Tienda paraguaya · stock real
+          </span>
+
+          <h1 class="mt-5 max-w-2xl font-serif text-[2.2rem] leading-[1.07] text-[#14231a] sm:text-5xl">
+            Elegí tu camino: todo el campo, <em class="text-[#578124]">a un toque</em>.
+          </h1>
+
+          <!-- Distribución V3: mosaico bento — 1 tile protagonista + 3 tiles de apoyo -->
+          <div class="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4 sm:grid-rows-2 sm:gap-4">
+            <a href="#catalogo" class="group relative col-span-2 flex min-h-[10rem] flex-col justify-between overflow-hidden rounded-[24px] bg-gradient-to-br from-[#0e2f1e] via-[#173b2d] to-[#2c6a45] p-5 text-white shadow-[0_24px_60px_rgba(23,59,45,0.3)] transition hover:-translate-y-1 sm:row-span-2 sm:min-h-0">
+              <span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-[#8dc63f] text-[#10301f]">
+                <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 9.4 7.55 4.24"></path><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path></svg>
+              </span>
+              <div>
+                <h2 class="font-serif text-2xl sm:text-3xl">Ver catálogo</h2>
+                <p class="mt-1 flex items-center gap-1.5 text-sm text-white/70">
+                  120+ productos con stock real
+                  <svg viewBox="0 0 24 24" class="h-4 w-4 transition group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                </p>
+              </div>
+              <div class="pointer-events-none absolute -right-10 -top-10 h-36 w-36 rounded-full bg-[#8dc63f]/20 blur-2xl"></div>
+            </a>
+
+            <a href="#destacados" class="group flex flex-col justify-between gap-4 rounded-[24px] border border-white/80 bg-white/85 p-4 shadow-sm backdrop-blur transition hover:-translate-y-1 hover:border-[#8dc63f] sm:col-span-2">
+              <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[#fdf3d0] text-amber-600">
+                <svg viewBox="0 0 24 24" class="h-4 w-4" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M12 2l2.9 6.26 6.6.57-5 4.46 1.5 6.71L12 16.77 6 20l1.5-6.71-5-4.46 6.6-.57L12 2z"></path></svg>
+              </span>
+              <p class="text-sm font-bold text-[#14231a]">Destacados<span class="mt-0.5 block text-xs font-semibold text-slate-500">lo que más se busca</span></p>
+            </a>
+
+            <a href="#como-comprar" class="group flex flex-col justify-between gap-4 rounded-[24px] border border-white/80 bg-white/85 p-4 shadow-sm backdrop-blur transition hover:-translate-y-1 hover:border-[#8dc63f]">
+              <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[#edf7d7] text-[#578124]">
+                <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 18H3c-.6 0-1-.4-1-1V7c0-.6.4-1 1-1h10c.6 0 1 .4 1 1v11"></path><path d="M14 9h4l4 4v4c0 .6-.4 1-1 1h-2"></path><circle cx="7" cy="18" r="2"></circle><circle cx="17" cy="18" r="2"></circle></svg>
+              </span>
+              <p class="text-sm font-bold text-[#14231a]">Cómo comprar<span class="mt-0.5 block text-xs font-semibold text-slate-500">3 pasos simples</span></p>
+            </a>
+
+            <a href="#" class="group flex flex-col justify-between gap-4 rounded-[24px] bg-[#8dc63f] p-4 shadow-[0_20px_46px_rgba(141,198,63,0.4)] transition hover:-translate-y-1 hover:bg-[#9fd348]">
+              <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[#10301f]/12 text-[#10301f]">
+                <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg>
+              </span>
+              <p class="text-sm font-bold text-[#10301f]">WhatsApp<span class="mt-0.5 block text-xs font-semibold text-[#10301f]/70">pedí directo</span></p>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Cómo comprar -->
+      <section id="como-comprar" class="mx-auto max-w-5xl scroll-mt-24 px-4 py-8 sm:px-6">
+        <div class="grid gap-3 sm:grid-cols-3 sm:gap-4">
+          {
+            pasosDemo.map((paso) => (
+              <article class="flex items-start gap-4 rounded-[24px] border border-white/70 bg-white/70 p-5 shadow-[0_16px_44px_rgba(23,59,45,0.1)] backdrop-blur transition hover:-translate-y-1">
+                <span class="font-serif text-3xl text-[#8dc63f]">{paso.numero}</span>
+                <div>
+                  <h3 class="text-base font-bold text-[#14231a]">{paso.titulo}</h3>
+                  <p class="mt-1 text-sm leading-6 text-slate-600">{paso.detalle}</p>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <!-- Destacados -->
+      <section id="destacados" class="mx-auto max-w-5xl scroll-mt-24 px-4 py-8 sm:px-6">
+        <div class="mb-5 flex items-end justify-between gap-4">
+          <h2 id="catalogo" class="scroll-mt-24 font-serif text-2xl text-[#14231a] sm:text-3xl">Lo que más se busca</h2>
+          <a href="#" class="inline-flex items-center gap-1.5 text-sm font-bold text-[#578124] transition hover:text-[#173b2d]">
+            Ver todo
+            <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+          </a>
+        </div>
+
+        <!-- Las tarjetas también respiran el mosaico: alturas alternadas en desktop -->
+        <div class="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
+          {
+            productosDemo.map((producto, indice) => (
+              <article class={`group overflow-hidden rounded-[24px] border border-white/70 bg-white/80 shadow-[0_14px_40px_rgba(23,59,45,0.1)] backdrop-blur transition hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(23,59,45,0.16)] ${indice % 3 === 1 ? 'lg:translate-y-4' : ''}`}>
+                <div class="relative flex aspect-square items-center justify-center" style={`background: ${producto.tinte}`}>
+                  <svg viewBox="0 0 24 24" class="h-12 w-12 text-white/80 transition duration-500 group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path></svg>
+                  {producto.etiqueta && (
+                    <span class="absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-[0.65rem] font-bold text-[#578124] shadow-sm">
+                      {producto.etiqueta}
+                    </span>
+                  )}
+                  <button type="button" class="absolute bottom-3 right-3 inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-[#173b2d] opacity-100 shadow transition hover:bg-white active:scale-95 sm:translate-y-2 sm:opacity-0 sm:group-hover:translate-y-0 sm:group-hover:opacity-100" aria-label={`Agregar ${producto.nombre}`}>
+                    <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+                  </button>
+                </div>
+                <div class="p-4">
+                  <h3 class="line-clamp-2 text-sm font-bold leading-tight text-[#14231a]">{producto.nombre}</h3>
+                  <p class="mt-1.5 text-base font-extrabold text-[#173b2d]">{formatPriceARS(producto.precio)}</p>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <!-- Franja final -->
+      <section class="mx-auto max-w-5xl px-4 py-12 sm:px-6">
+        <div class="flex flex-col items-center justify-between gap-5 rounded-[28px] border border-white/70 bg-white/70 px-6 py-8 text-center shadow-[0_20px_56px_rgba(23,59,45,0.14)] backdrop-blur-xl sm:flex-row sm:text-left">
+          <div>
+            <h2 class="font-serif text-2xl text-[#14231a]">¿Dudas con tu pedido?</h2>
+            <p class="mt-1 text-sm text-slate-600">Atención humana, sin bots: respondemos en el día.</p>
+          </div>
+          <a href="#" class="inline-flex shrink-0 items-center gap-2 rounded-full bg-[#173b2d] px-7 py-3.5 text-sm font-bold text-white shadow-[0_20px_46px_rgba(23,59,45,0.3)] transition hover:-translate-y-0.5 hover:bg-[#21503c]">
+            <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg>
+            Hablar por WhatsApp
+          </a>
+        </div>
+      </section>
+
+      <footer class="pb-8 pt-2 text-center text-xs font-semibold text-slate-500">
+        Pasos Saludables · Maqueta V3 «Mosaico» · botonera bento
+      </footer>
+    </main>
+  </div>
+
+  <ControlesDiseno actual={3} />
+</Layout>

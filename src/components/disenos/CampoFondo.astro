@@ -1,0 +1,153 @@
+---
+// Fondo compartido de las maquetas: un campo (cielo, sol, cerros y pastizal) difuminado.
+// Cada capa declara data-depth; el script de ControlesDiseno la traslada al hacer scroll
+// cuando el parallax esta activado. Sin parallax, queda como fondo fijo difuminado.
+---
+
+<div class="campo-fondo" aria-hidden="true">
+  <div class="campo-cielo"></div>
+
+  <div class="campo-capa" data-depth="0.05">
+    <div class="campo-sol"></div>
+  </div>
+
+  <div class="campo-capa" data-depth="0.10">
+    <div class="campo-borroso" style="--blur: 9px">
+      <svg class="campo-svg" style="height: 56%" viewBox="0 0 1440 360" preserveAspectRatio="none">
+        <path
+          fill="#cfe3ab"
+          d="M0,220 C180,140 340,240 520,190 C700,140 860,230 1040,180 C1220,130 1330,210 1440,170 L1440,360 L0,360 Z"
+        ></path>
+      </svg>
+      <div class="campo-base" style="background: #cfe3ab"></div>
+    </div>
+  </div>
+
+  <div class="campo-capa" data-depth="0.20">
+    <div class="campo-borroso" style="--blur: 6px">
+      <svg class="campo-svg" style="height: 44%" viewBox="0 0 1440 360" preserveAspectRatio="none">
+        <path
+          fill="#a9cd77"
+          d="M0,260 C200,180 380,270 560,230 C760,185 920,275 1120,225 C1280,185 1370,245 1440,215 L1440,360 L0,360 Z"
+        ></path>
+      </svg>
+      <div class="campo-base" style="background: #a9cd77"></div>
+    </div>
+  </div>
+
+  <div class="campo-capa" data-depth="0.26">
+    <div class="campo-bokeh" style="left: 12%; bottom: 17%; width: 26px; height: 26px; background: #f5e08a"></div>
+    <div class="campo-bokeh" style="left: 28%; bottom: 9%; width: 18px; height: 18px; background: #ffffff"></div>
+    <div class="campo-bokeh" style="left: 47%; bottom: 21%; width: 14px; height: 14px; background: #e9f6cd"></div>
+    <div class="campo-bokeh" style="left: 64%; bottom: 12%; width: 22px; height: 22px; background: #f5e08a"></div>
+    <div class="campo-bokeh" style="left: 83%; bottom: 18%; width: 16px; height: 16px; background: #ffffff"></div>
+  </div>
+
+  <div class="campo-capa" data-depth="0.32">
+    <div class="campo-borroso" style="--blur: 3px">
+      <svg class="campo-svg" style="height: 32%" viewBox="0 0 1440 360" preserveAspectRatio="none">
+        <path
+          fill="#7fb548"
+          d="M0,300 C240,240 420,320 640,285 C860,250 1040,325 1240,285 C1340,265 1400,290 1440,280 L1440,360 L0,360 Z"
+        ></path>
+        <ellipse cx="220" cy="330" rx="90" ry="26" fill="#6da63e"></ellipse>
+        <ellipse cx="1180" cy="335" rx="120" ry="30" fill="#6da63e"></ellipse>
+        <ellipse cx="720" cy="348" rx="150" ry="30" fill="#74ad42"></ellipse>
+      </svg>
+      <div class="campo-base" style="background: #7fb548"></div>
+    </div>
+  </div>
+
+  <div class="campo-velo"></div>
+</div>
+
+<style>
+  .campo-fondo {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .campo-cielo {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, #f6fbec 0%, #eef7d9 42%, #e3f1c6 100%);
+  }
+
+  /* Cada capa sobresale del viewport para que el parallax nunca deje bordes a la vista. */
+  .campo-capa {
+    position: absolute;
+    top: -40px;
+    right: -6%;
+    bottom: -300px;
+    left: -6%;
+    will-change: transform;
+  }
+
+  .campo-borroso {
+    position: absolute;
+    inset: 0;
+    filter: blur(var(--blur, 4px));
+  }
+
+  .campo-svg {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 300px;
+    width: 100%;
+  }
+
+  .campo-base {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 302px;
+  }
+
+  .campo-sol {
+    position: absolute;
+    top: 10%;
+    right: 14%;
+    width: 230px;
+    height: 230px;
+    border-radius: 999px;
+    background: radial-gradient(
+      circle,
+      rgba(255, 244, 190, 0.95) 0%,
+      rgba(255, 238, 160, 0.45) 45%,
+      transparent 70%
+    );
+    filter: blur(16px);
+  }
+
+  .campo-bokeh {
+    position: absolute;
+    border-radius: 999px;
+    opacity: 0.55;
+    filter: blur(6px);
+  }
+
+  .campo-velo {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.34) 0%,
+      rgba(255, 255, 255, 0.1) 45%,
+      rgba(243, 248, 235, 0.5) 100%
+    );
+  }
+
+  @media (max-width: 640px) {
+    .campo-sol {
+      top: 6%;
+      right: 4%;
+      width: 150px;
+      height: 150px;
+    }
+  }
+</style>

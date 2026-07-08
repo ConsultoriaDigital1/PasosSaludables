@@ -1,0 +1,428 @@
+---
+// Fondo "realista" de la maqueta V5: un campo con mas detalle que CampoFondo.
+// Nubes a la deriva, sol con halo, pajaros, cerros con arboledas, surcos de
+// cultivo en perspectiva y una franja de pasto con flores en primer plano.
+// Profundidad de foco: lo lejano esta mas difuminado y lavado; lo cercano,
+// mas nitido y saturado. Cada capa declara data-depth para el parallax.
+---
+
+<div class="campo-fondo" aria-hidden="true">
+  <div class="campo-cielo"></div>
+
+  <!-- Nubes a la deriva -->
+  <div class="campo-capa" data-depth="0.03">
+    <div class="campo-nube campo-nube--1">
+      <span style="left: 0; top: 18px; width: 130px; height: 44px"></span>
+      <span style="left: 70px; top: 0; width: 110px; height: 52px"></span>
+      <span style="left: 150px; top: 22px; width: 120px; height: 40px"></span>
+    </div>
+    <div class="campo-nube campo-nube--2">
+      <span style="left: 0; top: 14px; width: 100px; height: 34px"></span>
+      <span style="left: 55px; top: 0; width: 90px; height: 42px"></span>
+      <span style="left: 115px; top: 16px; width: 95px; height: 32px"></span>
+    </div>
+    <div class="campo-nube campo-nube--3">
+      <span style="left: 0; top: 10px; width: 80px; height: 26px"></span>
+      <span style="left: 45px; top: 0; width: 70px; height: 32px"></span>
+    </div>
+  </div>
+
+  <!-- Sol con halo -->
+  <div class="campo-capa" data-depth="0.05">
+    <div class="campo-sol"></div>
+    <div class="campo-sol-nucleo"></div>
+  </div>
+
+  <!-- Pajaros -->
+  <div class="campo-capa" data-depth="0.07">
+    <svg class="campo-pajaros" viewBox="0 0 1440 400" preserveAspectRatio="xMidYMid slice">
+      <g fill="none" stroke="#3d5a44" stroke-width="2.4" stroke-linecap="round" opacity="0.55">
+        <path d="M310,120 q9,-11 18,0 q9,-11 18,0"></path>
+        <path d="M370,96 q7,-9 14,0 q7,-9 14,0"></path>
+        <path d="M425,132 q6,-7 12,0 q6,-7 12,0"></path>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Cerros lejanos: lavados por la bruma, muy fuera de foco -->
+  <div class="campo-capa" data-depth="0.09">
+    <div class="campo-borroso" style="--blur: 11px">
+      <svg class="campo-svg" style="height: 58%" viewBox="0 0 1440 360" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="v5-lejos" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#dceabc"></stop>
+            <stop offset="100%" stop-color="#cfe0ad"></stop>
+          </linearGradient>
+        </defs>
+        <path
+          fill="url(#v5-lejos)"
+          d="M0,205 C140,150 260,215 400,180 C540,145 660,205 800,175 C940,145 1060,200 1200,170 C1310,148 1380,190 1440,168 L1440,360 L0,360 Z"
+        ></path>
+        <!-- linea de arboles en el horizonte: bumps chiquitos sobre la cresta -->
+        <path
+          fill="#c3d89c"
+          d="M0,205 C140,150 260,215 400,180 C540,145 660,205 800,175 C940,145 1060,200 1200,170 C1310,148 1380,190 1440,168 L1440,200 C1380,215 1310,178 1200,198 C1060,226 940,175 800,203 C660,231 540,175 400,208 C260,241 140,180 0,233 Z"
+          opacity="0.5"
+        ></path>
+      </svg>
+      <div class="campo-base" style="background: #cfe0ad"></div>
+    </div>
+  </div>
+
+  <!-- Bruma del horizonte -->
+  <div class="campo-capa" data-depth="0.12">
+    <div class="campo-bruma"></div>
+  </div>
+
+  <!-- Cerros medios con arboledas -->
+  <div class="campo-capa" data-depth="0.17">
+    <div class="campo-borroso" style="--blur: 6px">
+      <svg class="campo-svg" style="height: 46%" viewBox="0 0 1440 360" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="v5-medio" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#b3d383"></stop>
+            <stop offset="100%" stop-color="#98bf60"></stop>
+          </linearGradient>
+        </defs>
+        <path
+          fill="url(#v5-medio)"
+          d="M0,235 C190,165 360,250 540,210 C720,170 880,255 1060,210 C1220,170 1350,230 1440,200 L1440,360 L0,360 Z"
+        ></path>
+        <!-- arboledas: copas superpuestas -->
+        <g fill="#5c8f3a" opacity="0.85">
+          <ellipse cx="150" cy="230" rx="34" ry="22"></ellipse>
+          <ellipse cx="185" cy="238" rx="26" ry="17"></ellipse>
+          <ellipse cx="122" cy="240" rx="22" ry="14"></ellipse>
+          <ellipse cx="620" cy="212" rx="30" ry="20"></ellipse>
+          <ellipse cx="652" cy="220" rx="24" ry="15"></ellipse>
+          <ellipse cx="1010" cy="222" rx="36" ry="23"></ellipse>
+          <ellipse cx="1048" cy="230" rx="26" ry="16"></ellipse>
+          <ellipse cx="978" cy="233" rx="20" ry="12"></ellipse>
+          <ellipse cx="1320" cy="212" rx="28" ry="18"></ellipse>
+          <ellipse cx="1350" cy="220" rx="20" ry="13"></ellipse>
+        </g>
+        <g fill="#517f33" opacity="0.7">
+          <ellipse cx="320" cy="248" rx="18" ry="10"></ellipse>
+          <ellipse cx="780" cy="240" rx="16" ry="9"></ellipse>
+          <ellipse cx="1180" cy="238" rx="18" ry="10"></ellipse>
+        </g>
+      </svg>
+      <div class="campo-base" style="background: #98bf60"></div>
+    </div>
+  </div>
+
+  <!-- Campo cultivado: surcos en perspectiva -->
+  <div class="campo-capa" data-depth="0.24">
+    <div class="campo-borroso" style="--blur: 3.5px">
+      <svg class="campo-svg" style="height: 36%" viewBox="0 0 1440 360" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="v5-cerca" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#8abc50"></stop>
+            <stop offset="100%" stop-color="#6da63e"></stop>
+          </linearGradient>
+        </defs>
+        <path
+          fill="url(#v5-cerca)"
+          d="M0,282 C220,232 430,300 660,268 C880,238 1080,305 1290,270 C1360,258 1410,272 1440,265 L1440,360 L0,360 Z"
+        ></path>
+        <!-- surcos que convergen hacia el horizonte -->
+        <g fill="none" stroke="#5f9636" stroke-width="5" opacity="0.4" stroke-linecap="round">
+          <path d="M700,290 C560,310 380,335 140,360"></path>
+          <path d="M712,292 C640,318 540,342 380,360"></path>
+          <path d="M724,293 C700,322 660,345 600,360"></path>
+          <path d="M736,293 C760,322 800,345 860,360"></path>
+          <path d="M748,292 C830,318 930,342 1090,360"></path>
+          <path d="M760,290 C900,310 1080,335 1320,360"></path>
+        </g>
+        <ellipse cx="240" cy="330" rx="110" ry="26" fill="#63a038" opacity="0.55"></ellipse>
+        <ellipse cx="1200" cy="335" rx="130" ry="30" fill="#63a038" opacity="0.55"></ellipse>
+      </svg>
+      <div class="campo-base" style="background: #6da63e"></div>
+    </div>
+  </div>
+
+  <!-- Polen / bokeh flotante -->
+  <div class="campo-capa" data-depth="0.28">
+    <div class="campo-bokeh campo-flota-1" style="left: 14%; bottom: 18%; width: 22px; height: 22px; background: #f5e08a"></div>
+    <div class="campo-bokeh campo-flota-2" style="left: 31%; bottom: 10%; width: 14px; height: 14px; background: #ffffff"></div>
+    <div class="campo-bokeh campo-flota-3" style="left: 52%; bottom: 22%; width: 12px; height: 12px; background: #eef8d2"></div>
+    <div class="campo-bokeh campo-flota-1" style="left: 68%; bottom: 12%; width: 18px; height: 18px; background: #f5e08a"></div>
+    <div class="campo-bokeh campo-flota-2" style="left: 86%; bottom: 19%; width: 15px; height: 15px; background: #ffffff"></div>
+  </div>
+
+  <!-- Primer plano: pasto alto y flores, casi en foco -->
+  <div class="campo-capa" data-depth="0.34">
+    <div class="campo-borroso" style="--blur: 2px">
+      <svg class="campo-svg" style="height: 22%" viewBox="0 0 1440 200" preserveAspectRatio="none">
+        <path
+          fill="#5f9636"
+          d="M0,120 C260,88 520,132 760,105 C1000,80 1220,128 1440,100 L1440,200 L0,200 Z"
+        ></path>
+        <g class="campo-pasto" fill="none" stroke="#4e8030" stroke-width="6" stroke-linecap="round">
+          <path d="M60,200 C58,160 66,130 84,105"></path>
+          <path d="M95,200 C97,165 90,140 74,118"></path>
+          <path d="M240,200 C238,168 246,142 262,122"></path>
+          <path d="M420,200 C424,158 416,128 398,104"></path>
+          <path d="M455,200 C457,170 450,148 436,130"></path>
+          <path d="M690,200 C688,162 696,132 714,110"></path>
+          <path d="M940,200 C944,160 936,130 918,106"></path>
+          <path d="M975,200 C977,168 970,144 956,124"></path>
+          <path d="M1150,200 C1148,166 1156,140 1172,118"></path>
+          <path d="M1370,200 C1374,160 1366,132 1350,110"></path>
+        </g>
+        <!-- margaritas -->
+        <g class="campo-pasto">
+          <g transform="translate(150,128)">
+            <circle r="7" cx="-9" cy="0" fill="#ffffff"></circle><circle r="7" cx="9" cy="0" fill="#ffffff"></circle><circle r="7" cx="0" cy="-9" fill="#ffffff"></circle><circle r="7" cx="0" cy="9" fill="#ffffff"></circle><circle r="6" cx="0" cy="0" fill="#f2c94c"></circle>
+          </g>
+          <g transform="translate(540,140)">
+            <circle r="6" cx="-8" cy="0" fill="#ffffff"></circle><circle r="6" cx="8" cy="0" fill="#ffffff"></circle><circle r="6" cx="0" cy="-8" fill="#ffffff"></circle><circle r="6" cx="0" cy="8" fill="#ffffff"></circle><circle r="5" cx="0" cy="0" fill="#f2c94c"></circle>
+          </g>
+          <g transform="translate(1050,135)">
+            <circle r="7" cx="-9" cy="0" fill="#ffffff"></circle><circle r="7" cx="9" cy="0" fill="#ffffff"></circle><circle r="7" cx="0" cy="-9" fill="#ffffff"></circle><circle r="7" cx="0" cy="9" fill="#ffffff"></circle><circle r="6" cx="0" cy="0" fill="#f2c94c"></circle>
+          </g>
+          <!-- amapolas -->
+          <circle cx="330" cy="145" r="9" fill="#e05a4e"></circle>
+          <circle cx="330" cy="145" r="3.5" fill="#7a2c24"></circle>
+          <circle cx="840" cy="150" r="8" fill="#e05a4e"></circle>
+          <circle cx="840" cy="150" r="3" fill="#7a2c24"></circle>
+          <circle cx="1280" cy="142" r="9" fill="#e05a4e"></circle>
+          <circle cx="1280" cy="142" r="3.5" fill="#7a2c24"></circle>
+        </g>
+      </svg>
+      <div class="campo-base" style="background: #5f9636"></div>
+    </div>
+  </div>
+
+  <div class="campo-velo"></div>
+</div>
+
+<style>
+  .campo-fondo {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .campo-cielo {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      #eaf4fb 0%,
+      #eff7e2 34%,
+      #eaf4d2 62%,
+      #e0eec2 100%
+    );
+  }
+
+  /* Cada capa sobresale del viewport para que el parallax nunca deje bordes a la vista. */
+  .campo-capa {
+    position: absolute;
+    top: -40px;
+    right: -6%;
+    bottom: -300px;
+    left: -6%;
+    will-change: transform;
+  }
+
+  .campo-borroso {
+    position: absolute;
+    inset: 0;
+    filter: blur(var(--blur, 4px));
+  }
+
+  .campo-svg {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 300px;
+    width: 100%;
+  }
+
+  .campo-base {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 302px;
+  }
+
+  .campo-sol {
+    position: absolute;
+    top: 7%;
+    right: 12%;
+    width: 300px;
+    height: 300px;
+    border-radius: 999px;
+    background: radial-gradient(
+      circle,
+      rgba(255, 241, 176, 0.9) 0%,
+      rgba(255, 232, 140, 0.4) 42%,
+      transparent 68%
+    );
+    filter: blur(14px);
+  }
+
+  .campo-sol-nucleo {
+    position: absolute;
+    top: calc(7% + 108px);
+    right: calc(12% + 108px);
+    width: 84px;
+    height: 84px;
+    border-radius: 999px;
+    background: radial-gradient(circle, #fffbe8 0%, #ffedaa 70%, rgba(255, 237, 170, 0) 100%);
+    filter: blur(3px);
+  }
+
+  .campo-nube {
+    position: absolute;
+    filter: blur(9px);
+    opacity: 0.85;
+  }
+
+  .campo-nube span {
+    position: absolute;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.92);
+  }
+
+  .campo-nube--1 {
+    top: 9%;
+    left: 6%;
+    width: 280px;
+    height: 80px;
+    animation: nube-deriva 130s linear infinite alternate;
+  }
+
+  .campo-nube--2 {
+    top: 20%;
+    left: 44%;
+    width: 220px;
+    height: 60px;
+    opacity: 0.7;
+    animation: nube-deriva 170s linear infinite alternate-reverse;
+  }
+
+  .campo-nube--3 {
+    top: 6%;
+    left: 72%;
+    width: 130px;
+    height: 40px;
+    opacity: 0.6;
+    animation: nube-deriva 150s linear infinite alternate;
+  }
+
+  @keyframes nube-deriva {
+    from {
+      margin-left: 0;
+    }
+    to {
+      margin-left: 140px;
+    }
+  }
+
+  .campo-pajaros {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    filter: blur(0.6px);
+  }
+
+  .campo-bruma {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 34%;
+    height: 22%;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.4) 55%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  }
+
+  .campo-bokeh {
+    position: absolute;
+    border-radius: 999px;
+    opacity: 0.55;
+    filter: blur(5px);
+  }
+
+  .campo-flota-1 {
+    animation: bokeh-flota 7s ease-in-out infinite alternate;
+  }
+
+  .campo-flota-2 {
+    animation: bokeh-flota 9s ease-in-out infinite alternate-reverse;
+  }
+
+  .campo-flota-3 {
+    animation: bokeh-flota 11s ease-in-out infinite alternate;
+  }
+
+  @keyframes bokeh-flota {
+    from {
+      margin-bottom: 0;
+    }
+    to {
+      margin-bottom: 26px;
+    }
+  }
+
+  /* Vaiven suave del pasto en primer plano */
+  .campo-pasto {
+    animation: pasto-vaiven 6s ease-in-out infinite alternate;
+    transform-origin: 50% 100%;
+  }
+
+  @keyframes pasto-vaiven {
+    from {
+      transform: rotate(-0.5deg);
+    }
+    to {
+      transform: rotate(0.6deg);
+    }
+  }
+
+  .campo-velo {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.26) 0%,
+      rgba(255, 255, 255, 0.06) 42%,
+      rgba(243, 248, 235, 0.42) 100%
+    );
+  }
+
+  @media (max-width: 640px) {
+    .campo-sol {
+      top: 5%;
+      right: 2%;
+      width: 190px;
+      height: 190px;
+    }
+
+    .campo-sol-nucleo {
+      top: calc(5% + 65px);
+      right: calc(2% + 65px);
+      width: 60px;
+      height: 60px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .campo-nube,
+    .campo-flota-1,
+    .campo-flota-2,
+    .campo-flota-3,
+    .campo-pasto {
+      animation: none;
+    }
+  }
+</style>

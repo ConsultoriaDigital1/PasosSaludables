@@ -16,10 +16,16 @@ const {
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#8dc63f" />
+    <meta name="theme-color" content="#173b2d" />
     <link rel="icon" type="image/jpeg" href="/pasossaludablesstock-logo.jpeg" />
     <link rel="shortcut icon" href="/pasossaludablesstock-logo.jpeg" />
     <link rel="apple-touch-icon" href="/pasossaludablesstock-logo.jpeg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Plus+Jakarta+Sans:wght@400..800&display=swap"
+      rel="stylesheet"
+    />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
@@ -86,14 +92,15 @@ const {
 
   html {
     scroll-behavior: smooth;
+    /* Escala compacta sin usar zoom: zoom rompe los calculos de posicion de Recharts. */
+    font-size: 15px;
   }
 
   body {
     margin: 0;
-    zoom: 0.9;
-    background: #f8f4ea;
-    color: #0f172a;
-    font-family: 'Trebuchet MS', 'Segoe UI Variable', 'Gill Sans', sans-serif;
+    background: #f3f8eb;
+    color: #14231a;
+    font-family: 'Plus Jakarta Sans', 'Segoe UI Variable', 'Segoe UI', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
@@ -104,10 +111,34 @@ const {
   h4,
   h5,
   h6 {
-    font-family: Georgia, 'Times New Roman', serif;
+    font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
   }
 
   * {
     box-sizing: border-box;
+  }
+
+  ::selection {
+    background: #8dc63f;
+    color: #10301f;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #c6d8a8;
+    border: 2px solid #f3f8eb;
+    border-radius: 999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #8dc63f;
   }
 </style>

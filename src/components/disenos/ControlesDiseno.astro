@@ -1,0 +1,229 @@
+---
+// Barra flotante de las maquetas: navegar entre versiones y prender/apagar el parallax.
+// Tambien contiene el motor de parallax: traslada todo elemento con data-depth al hacer scroll.
+interface Props {
+  actual: number;
+}
+
+const { actual } = Astro.props;
+const versiones = [1, 2, 3, 4, 5];
+---
+
+<nav class="controles" aria-label="Controles de la maqueta">
+  <a href="/disenos" class="controles__inicio" aria-label="Volver al selector de diseños">
+    <span class="controles__inicio-corto">←</span><span class="controles__inicio-largo">Diseños</span>
+  </a>
+
+  <div class="controles__versiones">
+    {
+      versiones.map((v) => (
+        <a
+          href={`/disenos/v${v}`}
+          class={v === actual ? 'controles__version controles__version--activa' : 'controles__version'}
+          aria-current={v === actual ? 'page' : undefined}
+        >
+          V{v}
+        </a>
+      ))
+    }
+  </div>
+
+  <button id="parallax-toggle" type="button" aria-pressed="false">
+    Parallax <span data-estado>OFF</span>
+  </button>
+</nav>
+
+<style>
+  .controles {
+    position: fixed;
+    bottom: 0.9rem;
+    left: 50%;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.4rem 0.55rem;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 999px;
+    background: rgba(15, 42, 29, 0.88);
+    box-shadow: 0 18px 44px rgba(15, 42, 29, 0.35);
+    backdrop-filter: blur(10px);
+    transform: translateX(-50%);
+    white-space: nowrap;
+  }
+
+  .controles__inicio {
+    color: #c8e89a;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 0.35rem 0.55rem;
+    text-decoration: none;
+  }
+
+  .controles__inicio:hover {
+    color: #ffffff;
+  }
+
+  .controles__versiones {
+    display: flex;
+    gap: 0.25rem;
+  }
+
+  .controles__version {
+    border-radius: 999px;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 0.35rem 0.6rem;
+    text-decoration: none;
+    transition: background 160ms ease, color 160ms ease;
+  }
+
+  .controles__version:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+  }
+
+  .controles__version--activa {
+    background: #8dc63f;
+    color: #10301f;
+  }
+
+  #parallax-toggle {
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 999px;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.85);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 0.4rem 0.75rem;
+    transition: border-color 160ms ease, color 160ms ease;
+  }
+
+  #parallax-toggle:hover {
+    border-color: #8dc63f;
+    color: #ffffff;
+  }
+
+  #parallax-toggle [data-estado] {
+    display: inline-block;
+    min-width: 2rem;
+    margin-left: 0.25rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.14);
+    color: #ffffff;
+    padding: 0.1rem 0.35rem;
+    text-align: center;
+  }
+
+  :global(html[data-parallax='on']) #parallax-toggle [data-estado] {
+    background: #8dc63f;
+    color: #10301f;
+  }
+
+  .controles__inicio-corto {
+    display: none;
+  }
+
+  @media (max-width: 480px) {
+    .controles {
+      gap: 0.3rem;
+      padding: 0.3rem 0.4rem;
+    }
+
+    .controles__inicio {
+      padding: 0.3rem 0.35rem;
+    }
+
+    .controles__inicio-corto {
+      display: inline;
+    }
+
+    .controles__inicio-largo {
+      display: none;
+    }
+
+    .controles__version {
+      padding: 0.3rem 0.45rem;
+    }
+
+    #parallax-toggle {
+      padding: 0.35rem 0.55rem;
+    }
+  }
+</style>
+
+<script>
+  const CLAVE = 'pss-disenos-parallax';
+  // Desplazamiento asintotico: las capas nunca se corren mas de MAX px,
+  // asi el fondo jamas deja bordes visibles por mas largo que sea el scroll.
+  const MAX = 520;
+
+  const raiz = document.documentElement;
+  const capas = Array.from(
+    document.querySelectorAll<HTMLElement>('[data-depth]')
+  );
+  const boton = document.getElementById('parallax-toggle');
+  const estado = boton?.querySelector('[data-estado]');
+
+  const parametro = new URLSearchParams(window.location.search).get('parallax');
+  const guardado = window.localStorage.getItem(CLAVE);
+  const prefiereQuieto = window.matchMedia(
+    '(prefers-reduced-motion: reduce)'
+  ).matches;
+
+  let activo: boolean;
+  if (parametro === 'on' || parametro === 'off') {
+    activo = parametro === 'on';
+  } else if (guardado === 'on' || guardado === 'off') {
+    activo = guardado === 'on';
+  } else {
+    activo = !prefiereQuieto;
+  }
+
+  function cuadro() {
+    if (raiz.dataset.parallax !== 'on') {
+      return;
+    }
+
+    const y = window.scrollY;
+    const efectivo = MAX * (1 - Math.exp(-y / MAX));
+
+    for (const capa of capas) {
+      const profundidad = Number.parseFloat(capa.dataset.depth || '0');
+      capa.style.transform = `translate3d(0, ${(-efectivo * profundidad).toFixed(1)}px, 0)`;
+    }
+  }
+
+  function aplicar() {
+    raiz.dataset.parallax = activo ? 'on' : 'off';
+    window.localStorage.setItem(CLAVE, activo ? 'on' : 'off');
+
+    if (boton) {
+      boton.setAttribute('aria-pressed', String(activo));
+    }
+
+    if (estado) {
+      estado.textContent = activo ? 'ON' : 'OFF';
+    }
+
+    if (activo) {
+      cuadro();
+    } else {
+      for (const capa of capas) {
+        capa.style.transform = '';
+      }
+    }
+  }
+
+  window.addEventListener('scroll', cuadro, { passive: true });
+
+  boton?.addEventListener('click', () => {
+    activo = !activo;
+    aplicar();
+  });
+
+  aplicar();
+</script>

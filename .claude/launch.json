@@ -4,8 +4,9 @@
     {
       "name": "storefront",
       "runtimeExecutable": "node",
-      "runtimeArgs": [".claude/dev-server.mjs", "--port", "4321"],
-      "port": 4321
+      "runtimeArgs": [".claude/dev-server.mjs"],
+      "port": 4321,
+      "autoPort": true
     }
   ]
 }

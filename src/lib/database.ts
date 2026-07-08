@@ -784,7 +784,7 @@ export const db = {
 
       const [products, featuredProducts, categories, summaryRows] = await Promise.all([
         db.products.getAll(),
-        db.products.getFeatured(4),
+        db.products.getFeatured(50),
         db.categories.getAll(),
         sql`
           SELECT

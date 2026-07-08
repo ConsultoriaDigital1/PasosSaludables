@@ -1,4 +1,5 @@
 import { spawn } from 'node:child_process';
+import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -24,21 +25,27 @@ const viteEsbuildBin = path.join(
 // Astro/Vite inherit it and esbuild then tries to execute an invalid path.
 delete env.ESBUILD_BINARY_PATH;
 
-if (process.platform === 'win32') {
+// Solo forzamos el binario si realmente existe en esa ruta; si no, dejamos
+// que esbuild resuelva el suyo (evita el warning "Ignoring bad configuration").
+if (process.platform === 'win32' && existsSync(viteEsbuildBin)) {
   env.ESBUILD_BINARY_PATH = viteEsbuildBin;
 }
 
-if (nodeMajor !== 20) {
+if (!Number.isFinite(nodeMajor) || nodeMajor < 20) {
   console.error(
     [
-      `[run-astro] Este proyecto necesita Node 20.x para levantar Astro/Vite en Windows.`,
+      `[run-astro] Este proyecto necesita Node 20.x o superior para levantar Astro/Vite en Windows.`,
       `[run-astro] Version detectada: ${process.version}.`,
       `[run-astro] Con Node ${nodeMajor || 'desconocido'} suele explotar con "The service is no longer running" o "spawn EPERM" de esbuild.`,
-      `[run-astro] Cambia a Node 20 y volve a correr el comando.`,
+      `[run-astro] Cambia a Node 20+ y volve a correr el comando.`,
       `[run-astro] Si PowerShell bloquea npm.ps1, usa: npm.cmd run ${command}`
     ].join('\n')
   );
   process.exit(1);
+} else if (nodeMajor > 20) {
+  console.warn(
+    `[run-astro] Aviso: usando Node ${process.version} (el proyecto se probó con Node 20.x). Si esbuild falla con "The service is no longer running" o "spawn EPERM", cambia a Node 20.`
+  );
 }
 
 const child = spawn(process.execPath, [astroBin, command, ...rest], {

@@ -1,0 +1,113 @@
+---
+// Selector de maquetas: 4 propuestas de rediseño de la storefront.
+// Cada una puede abrirse con o sin efecto parallax (?parallax=on|off);
+// dentro de cada maqueta también hay un toggle flotante para alternar en vivo.
+import Layout from '../../layouts/Layout.astro';
+import CampoFondo from '../../components/disenos/CampoFondo.astro';
+
+const versiones = [
+  {
+    numero: 5,
+    nombre: 'Horizonte',
+    resumen: 'La combinada: hero centrado de V1 + navbar transparente + vitrina y barra mobile de V2, sobre un campo realista con nubes, arboledas, surcos y flores.',
+    botones: 'Fila centrada de CTAs · barra de acciones fija abajo en mobile',
+    tinte: 'linear-gradient(135deg, #173b2d 0%, #578124 55%, #a0cd60 100%)',
+    destacada: true
+  },
+  {
+    numero: 1,
+    nombre: 'Aire',
+    resumen: 'Hero centrado sobre el campo. Botones en fila horizontal centrada; en mobile se apilan a lo ancho.',
+    botones: 'CTA sólido + secundario vidrio + WhatsApp circular',
+    tinte: 'linear-gradient(135deg, #173b2d 0%, #2c6a45 100%)'
+  },
+  {
+    numero: 2,
+    nombre: 'Sendero',
+    resumen: 'Hero dividido: texto + vitrina flotante. Botones apilados en columna vertical con icono y flecha.',
+    botones: 'Columna de 3 botones anchos · barra de acciones fija abajo en mobile',
+    tinte: 'linear-gradient(135deg, #578124 0%, #a0cd60 100%)'
+  },
+  {
+    numero: 3,
+    nombre: 'Mosaico',
+    resumen: 'Panel de vidrio con botonera bento: un tile protagonista para el catálogo y tiles de apoyo.',
+    botones: 'Mosaico 2×2 de tiles con icono · grilla 2 columnas en mobile',
+    tinte: 'linear-gradient(135deg, #8a6d1f 0%, #d9b344 100%)'
+  },
+  {
+    numero: 4,
+    nombre: 'Editorial',
+    resumen: 'Tipografía gigante y acciones como enlaces subrayados dentro del texto. Casi sin botones clásicos.',
+    botones: 'Banda CTA ancha + botón flotante de WhatsApp (FAB)',
+    tinte: 'linear-gradient(135deg, #0f2a1d 0%, #71a52c 100%)'
+  }
+];
+---
+
+<Layout
+  title="Rediseño · 4 propuestas — Pasos Saludables"
+  description="Cuatro maquetas de rediseño de la storefront, cada una con y sin efecto parallax"
+>
+  <CampoFondo />
+
+  <div class="relative z-10 min-h-screen px-4 pb-16 pt-12 text-slate-950 sm:px-6 sm:pt-16">
+    <div class="mx-auto max-w-5xl">
+      <header class="text-center">
+        <p class="text-xs font-bold uppercase tracking-[0.3em] text-[#578124]">Pasos Saludables · rediseño 2026</p>
+        <h1 class="mt-4 font-serif text-4xl text-[#14231a] sm:text-5xl">4 propuestas sobre el campo</h1>
+        <p class="mx-auto mt-4 max-w-2xl text-sm leading-7 text-slate-700 sm:text-base">
+          Todas comparten el fondo de campo difuminado y el diseño mobile, pero cada una
+          distribuye los botones de forma distinta. Abrí cada versión
+          <strong>con o sin parallax</strong>, o alternalo en vivo con el toggle flotante.
+        </p>
+      </header>
+
+      <div class="mt-10 grid gap-5 sm:grid-cols-2">
+        {
+          versiones.map((version) => (
+            <article class={`group overflow-hidden rounded-[28px] border bg-white/70 shadow-[0_20px_56px_rgba(23,59,45,0.14)] backdrop-blur-xl transition hover:-translate-y-1 hover:shadow-[0_30px_72px_rgba(23,59,45,0.2)] ${version.destacada ? 'border-[#8dc63f] sm:col-span-2' : 'border-white/70'}`}>
+              <a href={`/disenos/v${version.numero}`} class="relative flex h-28 items-end justify-between p-5" style={`background: ${version.tinte}`}>
+                <span class="font-serif text-4xl text-white">V{version.numero}</span>
+                <span class="flex items-center gap-2">
+                  {version.destacada && (
+                    <span class="rounded-full bg-[#8dc63f] px-3 py-1 text-xs font-bold text-[#10301f] shadow-sm">Nueva · combinada</span>
+                  )}
+                  <span class="rounded-full bg-white/90 px-3 py-1 text-xs font-bold text-[#173b2d] shadow-sm">«{version.nombre}»</span>
+                </span>
+                <span class="pointer-events-none absolute -right-8 -top-10 h-28 w-28 rounded-full bg-white/15 blur-xl"></span>
+              </a>
+
+              <div class="p-5">
+                <p class="text-sm leading-6 text-slate-700">{version.resumen}</p>
+                <p class="mt-3 rounded-xl bg-[#edf7d7]/80 px-3 py-2 text-xs font-semibold text-[#578124]">
+                  Botones: {version.botones}
+                </p>
+
+                <div class="mt-4 flex gap-2">
+                  <a
+                    href={`/disenos/v${version.numero}?parallax=on`}
+                    class="flex flex-1 items-center justify-center gap-1.5 rounded-full bg-[#173b2d] px-4 py-2.5 text-xs font-bold text-white transition hover:bg-[#21503c]"
+                  >
+                    <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 12 5-3-5-3v6Z"></path><path d="M8 6h14"></path><path d="M8 12h14"></path><path d="M8 18h14"></path><path d="m2 21 5-3-5-3v6Z"></path></svg>
+                    Con parallax
+                  </a>
+                  <a
+                    href={`/disenos/v${version.numero}?parallax=off`}
+                    class="flex flex-1 items-center justify-center gap-1.5 rounded-full border border-[#c6d8a8] bg-white/80 px-4 py-2.5 text-xs font-bold text-[#173b2d] transition hover:border-[#8dc63f] hover:bg-[#edf7d7]"
+                  >
+                    Sin parallax
+                  </a>
+                </div>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+
+      <p class="mt-10 text-center text-xs font-semibold text-slate-500">
+        Maquetas con datos de muestra: no tocan la base de datos ni la tienda actual (<a href="/" class="underline decoration-[#8dc63f] decoration-2 underline-offset-2">volver a la tienda</a>).
+      </p>
+    </div>
+  </div>
+</Layout>

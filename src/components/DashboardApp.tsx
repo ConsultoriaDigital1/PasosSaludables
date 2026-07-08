@@ -3,15 +3,19 @@ import {
   ArrowDownRight,
   ArrowUpRight,
   BarChart3,
+  Bell,
   Boxes,
   ImagePlus,
   LayoutGrid,
   Loader2,
   LogOut,
+  Menu,
   Package,
   Pencil,
   Plus,
   Search,
+  Star,
+  Store,
   Tags,
   Trash2,
   Wallet,
@@ -30,9 +34,26 @@ import {
   formatDateTimeLabel,
   formatPriceARS
 } from '../lib/formatters';
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Legend,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis
+} from 'recharts';
 import AnalyticsPanel from './Admin/AnalyticsPanel';
 
-type TabId = 'overview' | 'inventory' | 'categories' | 'movements' | 'treasury' | 'analytics';
+type TabId =
+  | 'overview'
+  | 'inventory'
+  | 'featured'
+  | 'categories'
+  | 'movements'
+  | 'treasury'
+  | 'analytics';
 
 interface ProductFormState {
   name: string;
@@ -114,7 +135,7 @@ async function getJson<T>(url: string, init?: RequestInit): Promise<T> {
   const data = await response.json();
 
   if (!response.ok) {
-    throw new Error(data?.error || data?.message || 'La solicitud fallo');
+    throw new Error(data?.error || data?.message || 'La solicitud falló');
   }
 
   return data as T;
@@ -159,12 +180,14 @@ export default function DashboardApp() {
   const [loginLoading, setLoginLoading] = useState(false);
   const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState<TabId>('overview');
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [snapshot, setSnapshot] = useState<DashboardSnapshot | null>(null);
   const [movements, setMovements] = useState<StockMovement[]>([]);
   const [transactions, setTransactions] = useState<TreasuryTransaction[]>([]);
   const [inventorySearch, setInventorySearch] = useState('');
+  const [featuredSearch, setFeaturedSearch] = useState('');
   const [notice, setNotice] = useState('');
   const [productModalOpen, setProductModalOpen] = useState(false);
   const [categoryModalOpen, setCategoryModalOpen] = useState(false);
@@ -360,9 +383,9 @@ export default function DashboardApp() {
 
       window.localStorage.setItem('pss-admin-auth', '1');
       setAuthenticated(true);
-      setNotice('Sesion iniciada.');
+      setNotice('Sesión iniciada.');
     } catch (error) {
-      setNotice(error instanceof Error ? error.message : 'Credenciales invalidas');
+      setNotice(error instanceof Error ? error.message : 'Credenciales inválidas');
     } finally {
       setLoginLoading(false);
     }
@@ -374,7 +397,7 @@ export default function DashboardApp() {
     setSnapshot(null);
     setProducts([]);
     setCategories([]);
-    setNotice('Sesion cerrada.');
+    setNotice('Sesión cerrada.');
   }
 
   function openCreateProduct() {
@@ -459,6 +482,33 @@ export default function DashboardApp() {
     }
   }
 
+  async function toggleFeatured(product: Product) {
+    try {
+      await getJson(`/api/products/${product.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: product.name,
+          description: product.description,
+          category: product.category,
+          price: product.price,
+          stockQuantity: product.stockQuantity,
+          image: product.image,
+          images: product.images,
+          featured: !product.featured
+        })
+      });
+      setNotice(
+        product.featured ? 'Producto quitado de destacados.' : 'Producto agregado a destacados.'
+      );
+      await loadAll();
+    } catch (error) {
+      setNotice(error instanceof Error ? error.message : 'No se pudo actualizar el destacado');
+    }
+  }
+
   async function deleteProduct(product: Product) {
     if (!window.confirm(`Eliminar "${product.name}"?`)) {
       return;
@@ -487,7 +537,7 @@ export default function DashboardApp() {
           },
           body: JSON.stringify(categoryForm)
         });
-        setNotice('Categoria actualizada.');
+        setNotice('Categoría actualizada.');
       } else {
         await getJson('/api/categories', {
           method: 'POST',
@@ -496,7 +546,7 @@ export default function DashboardApp() {
           },
           body: JSON.stringify(categoryForm)
         });
-        setNotice('Categoria creada.');
+        setNotice('Categoría creada.');
       }
 
       setCategoryModalOpen(false);
@@ -555,15 +605,15 @@ export default function DashboardApp() {
       });
 
       setTransactionModalOpen(false);
-      setNotice('Transaccion registrada.');
+      setNotice('Transacción registrada.');
       await loadAll();
     } catch (error) {
-      setNotice(error instanceof Error ? error.message : 'No se pudo registrar la transaccion');
+      setNotice(error instanceof Error ? error.message : 'No se pudo registrar la transacción');
     }
   }
 
   async function deleteTransaction(transaction: TreasuryTransaction) {
-    if (!window.confirm(`Eliminar la transaccion #${transaction.id}?`)) {
+    if (!window.confirm(`Eliminar la transacción #${transaction.id}?`)) {
       return;
     }
 
@@ -571,10 +621,10 @@ export default function DashboardApp() {
       await getJson(`/api/treasury/transactions/${transaction.id}`, {
         method: 'DELETE'
       });
-      setNotice('Transaccion eliminada.');
+      setNotice('Transacción eliminada.');
       await loadAll();
     } catch (error) {
-      setNotice(error instanceof Error ? error.message : 'No se pudo eliminar la transaccion');
+      setNotice(error instanceof Error ? error.message : 'No se pudo eliminar la transacción');
     }
   }
 
@@ -587,7 +637,7 @@ export default function DashboardApp() {
       await getJson(`/api/categories/${category.id}`, {
         method: 'DELETE'
       });
-      setNotice('Categoria eliminada.');
+      setNotice('Categoría eliminada.');
       await loadAll();
     } catch (error) {
       setNotice(error instanceof Error ? error.message : 'No se pudo eliminar la categoria');
@@ -608,10 +658,26 @@ export default function DashboardApp() {
     );
   });
 
+  const featuredProducts = products.filter((product) => product.featured);
+
+  const featuredCandidates = products.filter((product) => {
+    const query = featuredSearch.trim().toLowerCase();
+
+    if (!query) {
+      return true;
+    }
+
+    return (
+      product.name.toLowerCase().includes(query) ||
+      product.category.toLowerCase().includes(query) ||
+      product.description.toLowerCase().includes(query)
+    );
+  });
+
   const tabs: { id: TabId; label: string; icon: React.ReactNode }[] = [
     {
       id: 'overview',
-      label: 'Overview',
+      label: 'Resumen',
       icon: <LayoutGrid className="h-4 w-4" />
     },
     {
@@ -620,8 +686,13 @@ export default function DashboardApp() {
       icon: <Boxes className="h-4 w-4" />
     },
     {
+      id: 'featured',
+      label: 'Destacados',
+      icon: <Star className="h-4 w-4" />
+    },
+    {
       id: 'categories',
-      label: 'Categorias',
+      label: 'Categorías',
       icon: <Tags className="h-4 w-4" />
     },
     {
@@ -631,28 +702,88 @@ export default function DashboardApp() {
     },
     {
       id: 'treasury',
-      label: 'Tesoreria',
+      label: 'Tesorería',
       icon: <Wallet className="h-4 w-4" />
     },
     {
       id: 'analytics',
-      label: 'Analiticz',
+      label: 'Analíticas',
       icon: <BarChart3 className="h-4 w-4" />
     }
   ];
 
-  const financeMax = snapshot
-    ? Math.max(
-        1,
-        ...snapshot.monthlyFinance.map((point) =>
-          Math.max(point.income, point.expense)
-        )
-      )
-    : 1;
+  const activeTabLabel = tabs.find((tab) => tab.id === activeTab)?.label ?? '';
+
+  function renderSidebar(onNavigate?: () => void) {
+    return (
+      <>
+        <div className="flex items-center gap-3 border-b border-white/10 px-5 py-5">
+          <img
+            src="/pasossaludablesstock-logo.jpeg"
+            alt="Pasos Saludables Stock"
+            className="h-11 w-11 shrink-0 rounded-2xl object-cover ring-2 ring-[#8dc63f]/50"
+          />
+          <div>
+            <p className="text-sm font-semibold text-white">Pasos Saludables</p>
+            <p className="text-[11px] uppercase tracking-[0.24em] text-[#8dc63f]">
+              Panel admin
+            </p>
+          </div>
+        </div>
+
+        <nav className="flex-1 space-y-1 overflow-y-auto p-3">
+          {tabs.map((tab) => {
+            const active = activeTab === tab.id;
+
+            return (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => {
+                  setActiveTab(tab.id);
+                  onNavigate?.();
+                }}
+                className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition ${
+                  active
+                    ? 'bg-[#8dc63f] text-[#10301f] shadow-[0_10px_24px_rgba(141,198,63,0.35)]'
+                    : 'text-white/65 hover:bg-white/10 hover:text-white'
+                }`}
+              >
+                {tab.icon}
+                {tab.label}
+              </button>
+            );
+          })}
+        </nav>
+
+        <div className="space-y-1 border-t border-white/10 p-3">
+          <a
+            href="/"
+            target="_blank"
+            rel="noreferrer"
+            onClick={onNavigate}
+            className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-white/65 transition hover:bg-white/10 hover:text-white"
+          >
+            <Store className="h-[18px] w-[18px]" /> Ver tienda
+          </a>
+          <button
+            type="button"
+            onClick={() => {
+              handleLogout();
+              onNavigate?.();
+            }}
+            className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-white/65 transition hover:bg-white/10 hover:text-rose-200"
+          >
+            <LogOut className="h-[18px] w-[18px]" /> Cerrar sesión
+          </button>
+        </div>
+      </>
+    );
+  }
 
   if (!ready) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#f8f4ea]">
+      <div className="flex min-h-screen items-center justify-center bg-[#f3f8eb]">
         <Loader2 className="h-8 w-8 animate-spin text-[#8dc63f]" />
       </div>
     );
@@ -660,11 +791,11 @@ export default function DashboardApp() {
 
   if (!authenticated) {
     return (
-      <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#f8f4ea] px-4 py-12">
+      <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#f3f8eb] px-4 py-12">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(141,198,63,0.12),_transparent_40%),radial-gradient(circle_at_bottom_left,_rgba(23,59,45,0.08),_transparent_40%)]" />
 
         <div className="relative w-full max-w-sm">
-          <div className="rounded-[32px] border border-[#dce2cd] bg-white/85 p-8 shadow-[0_20px_60px_rgba(23,59,45,0.12)] backdrop-blur">
+          <div className="rounded-[28px] border border-[#dce8c8] bg-white/85 p-8 shadow-[0_20px_60px_rgba(23,59,45,0.12)] backdrop-blur">
             <div className="flex flex-col items-center text-center">
               <img
                 src="/pasossaludablesstock-logo.jpeg"
@@ -674,7 +805,7 @@ export default function DashboardApp() {
               <h1 className="mt-5 text-2xl font-semibold text-[#173b2d]">
                 Panel de administración
               </h1>
-              <p className="mt-2 text-sm leading-6 text-[#475569]">
+              <p className="mt-2 text-sm leading-6 text-[#4b5c4f]">
                 Ingresá con tus credenciales para continuar.
               </p>
             </div>
@@ -690,7 +821,7 @@ export default function DashboardApp() {
                       username: event.target.value
                     }))
                   }
-                  className="rounded-2xl border border-[#dce2cd] bg-[#f8f4ea] px-4 py-3 text-[#0f172a] outline-none transition placeholder:text-[#a0a89a] focus:border-[#8dc63f] focus:ring-2 focus:ring-[#8dc63f]/20"
+                  className="rounded-2xl border border-[#dce8c8] bg-[#f3f8eb] px-4 py-3 text-[#14231a] outline-none transition placeholder:text-[#a0a89a] focus:border-[#8dc63f] focus:ring-2 focus:ring-[#8dc63f]/20"
                   placeholder="usuario"
                 />
               </label>
@@ -706,7 +837,7 @@ export default function DashboardApp() {
                       password: event.target.value
                     }))
                   }
-                  className="rounded-2xl border border-[#dce2cd] bg-[#f8f4ea] px-4 py-3 text-[#0f172a] outline-none transition placeholder:text-[#a0a89a] focus:border-[#8dc63f] focus:ring-2 focus:ring-[#8dc63f]/20"
+                  className="rounded-2xl border border-[#dce8c8] bg-[#f3f8eb] px-4 py-3 text-[#14231a] outline-none transition placeholder:text-[#a0a89a] focus:border-[#8dc63f] focus:ring-2 focus:ring-[#8dc63f]/20"
                   placeholder="••••••••"
                 />
               </label>
@@ -744,81 +875,114 @@ export default function DashboardApp() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f8f4ea] text-[#0f172a]">
-      <div className="mx-auto flex min-h-screen max-w-[1500px] flex-col lg:flex-row">
-        <aside className="border-b border-[#dce2cd] bg-white/90 px-4 py-5 backdrop-blur lg:min-h-screen lg:w-80 lg:border-b-0 lg:border-r lg:px-6 lg:py-8">
+    <div className="flex min-h-screen bg-[#f1f4f5] text-[#14231a]">
+      {/* Sidebar de escritorio (fija, a página completa) */}
+      <aside className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col bg-gradient-to-b from-[#10301f] to-[#173b2d] text-white lg:flex">
+        {renderSidebar()}
+      </aside>
+
+      {/* Drawer móvil + backdrop */}
+      <div
+        className={`fixed inset-0 z-40 lg:hidden ${
+          sidebarOpen ? '' : 'pointer-events-none'
+        }`}
+      >
+        <div
+          onClick={() => setSidebarOpen(false)}
+          className={`absolute inset-0 bg-black/50 transition-opacity ${
+            sidebarOpen ? 'opacity-100' : 'opacity-0'
+          }`}
+        />
+        <aside
+          className={`absolute left-0 top-0 flex h-full w-72 max-w-[82%] flex-col bg-gradient-to-b from-[#10301f] to-[#173b2d] text-white shadow-2xl transition-transform ${
+            sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+          }`}
+        >
+          <button
+            type="button"
+            onClick={() => setSidebarOpen(false)}
+            aria-label="Cerrar menú"
+            className="absolute right-3 top-4 rounded-lg p-1.5 text-white/70 hover:bg-white/10"
+          >
+            <X className="h-5 w-5" />
+          </button>
+          {renderSidebar(() => setSidebarOpen(false))}
+        </aside>
+      </div>
+
+      <div className="flex min-w-0 flex-1 flex-col">
+        {/* Topbar */}
+        <header className="sticky top-0 z-20 flex items-center justify-between gap-4 border-b border-black/5 bg-white px-4 py-3 md:px-6">
           <div className="flex items-center gap-3">
-            <img
-              src="/pasossaludablesstock-logo.jpeg"
-              alt="Pasos Saludables Stock"
-              className="h-11 w-auto rounded-xl object-contain"
-            />
-            <div>
-              <p className="font-semibold text-[#173b2d]">Pasos Saludables</p>
-              <p className="text-xs uppercase tracking-[0.28em] text-[#6f8f2f]">
-                Dashboard
+            <button
+              type="button"
+              onClick={() => setSidebarOpen(true)}
+              aria-label="Abrir menú"
+              className="shrink-0 rounded-lg p-2 text-[#173b2d]/60 transition hover:bg-black/5 lg:hidden"
+            >
+              <Menu className="h-5 w-5" />
+            </button>
+            <div className="leading-tight">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#6f8f2f]">
+                Panel admin
+              </p>
+              <p className="text-sm font-semibold text-[#173b2d]">
+                {activeTabLabel}
               </p>
             </div>
           </div>
 
-          <div className="mt-8 grid gap-2">
-            {tabs.map((tab) => {
-              const active = activeTab === tab.id;
-
-              return (
-                <button
-                  key={tab.id}
-                  type="button"
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-3 rounded-2xl px-4 py-3 text-left text-sm font-medium transition ${
-                    active
-                      ? 'bg-[#173b2d] text-white shadow-sm'
-                      : 'text-[#475569] hover:bg-[#f0ede6] hover:text-[#173b2d]'
-                  }`}
-                >
-                  {tab.icon}
-                  {tab.label}
-                </button>
-              );
-            })}
+          <div className="flex items-center gap-3">
+            <a
+              href="https://consultoriadigital.io/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden items-center gap-2 rounded-2xl bg-[#173b2d] px-4 py-1.5 shadow-lg ring-1 ring-[#8dc63f]/30 transition hover:ring-[#8dc63f]/60 md:inline-flex"
+            >
+              <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white">
+                Desarrollado por
+              </span>
+              <img
+                src="/consultoriadigital-logo.webp"
+                alt="Consultoría Digital"
+                className="h-6 w-auto object-contain"
+              />
+            </a>
+            <button
+              type="button"
+              className="relative rounded-lg p-2 text-[#173b2d]/60 transition hover:bg-black/5"
+            >
+              <Bell className="h-5 w-5" />
+              <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-[#8dc63f]" />
+            </button>
+            <div className="flex items-center gap-2">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#8dc63f] text-sm font-bold text-[#10301f]">
+                A
+              </div>
+              <div className="hidden text-sm leading-tight sm:block">
+                <p className="font-semibold text-[#173b2d]">Admin</p>
+                <p className="text-xs text-[#173b2d]/50">
+                  Administrador · Pasos Saludables
+                </p>
+              </div>
+            </div>
           </div>
+        </header>
 
-          <div className="mt-8 rounded-[28px] bg-[#173b2d] p-5 text-white">
-            <p className="text-sm uppercase tracking-[0.22em] text-[#8dc63f]">
-              Origen de datos
-            </p>
-            <p className="mt-3 text-2xl font-semibold">
-              Base PasosSaludablesStock
-            </p>
-            <p className="mt-3 text-sm leading-6 text-[#a8c49a]">
-              Productos, categorias, movimientos y tesoreria salen de la misma
-              base.
-            </p>
-          </div>
-
-          <button
-            type="button"
-            onClick={handleLogout}
-            className="mt-8 inline-flex items-center gap-2 rounded-full border border-[#dce2cd] px-4 py-2 text-sm font-medium text-[#475569] transition hover:border-rose-300 hover:text-rose-700"
-          >
-            <LogOut className="h-4 w-4" />
-            Cerrar sesion
-          </button>
-        </aside>
-
-        <section className="flex-1 px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
+        <main className="min-w-0 flex-1 p-4 sm:p-6 lg:p-8">
           <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div>
               <p className="text-sm uppercase tracking-[0.24em] text-[#6f8f2f]">
-                Operacion
+                Operación
               </p>
               <h1 className="mt-2 font-serif text-4xl tracking-tight text-[#173b2d] md:text-5xl">
                 {activeTab === 'overview' && 'Lectura completa del negocio'}
                 {activeTab === 'inventory' && 'Inventario y productos'}
-                {activeTab === 'categories' && 'Estructura de categorias'}
+                {activeTab === 'featured' && 'Carrusel de destacados'}
+                {activeTab === 'categories' && 'Estructura de categorías'}
                 {activeTab === 'movements' && 'Entradas y salidas de stock'}
                 {activeTab === 'treasury' && 'Caja y transacciones'}
-                {activeTab === 'analytics' && 'Analiticas de la web'}
+                {activeTab === 'analytics' && 'Analíticas de la web'}
               </h1>
             </div>
 
@@ -860,21 +1024,21 @@ export default function DashboardApp() {
                   className="inline-flex items-center gap-2 rounded-full bg-[#8dc63f] px-5 py-3 text-sm font-semibold text-[#173b2d] transition hover:bg-[#7db52e]"
                 >
                   <Plus className="h-4 w-4" />
-                  Nueva transaccion
+                  Nueva transacción
                 </button>
               )}
             </div>
           </div>
 
           {loading && !snapshot ? (
-            <div className="flex h-72 items-center justify-center rounded-[32px] border border-[#dce2cd] bg-white">
+            <div className="flex h-72 items-center justify-center rounded-[28px] border border-[#dce8c8] bg-white">
               <Loader2 className="h-8 w-8 animate-spin text-[#8dc63f]" />
             </div>
           ) : null}
 
           {snapshot && activeTab === 'overview' && (
             <div className="grid gap-6">
-              <div className="grid gap-4 xl:grid-cols-5">
+              <div className="grid grid-cols-2 gap-4 lg:grid-cols-3 xl:grid-cols-5">
                 {[
                   {
                     label: 'Inventario valorizado',
@@ -891,7 +1055,7 @@ export default function DashboardApp() {
                   {
                     label: 'Productos',
                     value: formatCompactNumber(snapshot.summary.totalProducts),
-                    detail: `${snapshot.summary.totalCategories} categorias`,
+                    detail: `${snapshot.summary.totalCategories} categorías`,
                     accent: 'slate'
                   },
                   {
@@ -909,7 +1073,7 @@ export default function DashboardApp() {
                 ].map((card) => (
                   <article
                     key={card.label}
-                    className="rounded-[30px] border border-[#dce2cd] bg-white p-5 shadow-[0_16px_40px_rgba(15,23,42,0.06)]"
+                    className="min-w-0 rounded-[26px] border border-[#dce8c8] bg-white p-5 shadow-[0_16px_40px_rgba(23,59,45,0.06)]"
                   >
                     <p className="text-sm text-[#6b7a6b]">{card.label}</p>
                     <p className="mt-3 text-3xl font-semibold text-[#173b2d]">
@@ -921,7 +1085,7 @@ export default function DashboardApp() {
               </div>
 
               <div className="grid gap-6 xl:grid-cols-[1.2fr_0.8fr]">
-                <section className="rounded-[32px] border border-[#dce2cd] bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.05)]">
+                <section className="rounded-[28px] border border-[#dce8c8] bg-white p-6 shadow-[0_16px_40px_rgba(23,59,45,0.05)]">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm uppercase tracking-[0.22em] text-[#6f8f2f]">
@@ -934,51 +1098,74 @@ export default function DashboardApp() {
                     <BarChart3 className="h-5 w-5 text-[#94a494]" />
                   </div>
 
-                  <div className="mt-8 grid gap-4 sm:grid-cols-6">
-                    {snapshot.monthlyFinance.map((point) => {
-                      const incomeHeight = Math.max(
-                        8,
-                        (point.income / financeMax) * 180
-                      );
-                      const expenseHeight = Math.max(
-                        8,
-                        (point.expense / financeMax) * 180
-                      );
-
-                      return (
-                        <div key={point.month} className="flex flex-col items-center gap-3">
-                          <div className="flex h-48 items-end gap-2">
-                            <div
-                              className="w-5 rounded-full bg-[#8dc63f]"
-                              style={{ height: `${incomeHeight}px` }}
-                              title={`Ingresos ${formatPriceARS(point.income)}`}
-                            />
-                            <div
-                              className="w-5 rounded-full bg-[#dce2cd]"
-                              style={{ height: `${expenseHeight}px` }}
-                              title={`Egresos ${formatPriceARS(point.expense)}`}
-                            />
-                          </div>
-                          <div className="text-center">
-                            <p className="text-sm font-semibold text-[#0f172a]">
-                              {point.month}
-                            </p>
-                            <p className="mt-1 text-xs text-[#6b7a6b]">
-                              {formatPriceARS(point.income)}
-                            </p>
-                          </div>
-                        </div>
-                      );
-                    })}
+                  <div className="mt-6 h-72 min-w-0">
+                    {snapshot.monthlyFinance.length === 0 ? (
+                      <div className="flex h-full items-center justify-center rounded-3xl bg-[#f3f8eb]">
+                        <p className="text-sm text-[#6b7a6b]">
+                          Sin movimientos financieros todavía.
+                        </p>
+                      </div>
+                    ) : (
+                      <ResponsiveContainer width="100%" height="100%">
+                        <BarChart data={snapshot.monthlyFinance} barGap={4}>
+                          <CartesianGrid
+                            strokeDasharray="4 4"
+                            stroke="#e3ecd2"
+                            vertical={false}
+                          />
+                          <XAxis
+                            dataKey="month"
+                            tick={{ fontSize: 12, fill: '#6b7a6b' }}
+                            axisLine={false}
+                            tickLine={false}
+                          />
+                          <YAxis
+                            tick={{ fontSize: 12, fill: '#6b7a6b' }}
+                            axisLine={false}
+                            tickLine={false}
+                            width={52}
+                            tickFormatter={(value) =>
+                              formatCompactNumber(Number(value))
+                            }
+                          />
+                          <Tooltip
+                            contentStyle={{
+                              borderRadius: 16,
+                              border: '1px solid #dce8c8',
+                              boxShadow: '0 16px 40px rgba(23,59,45,0.14)',
+                              fontSize: 13
+                            }}
+                            formatter={(value, name) => [
+                              formatPriceARS(Number(value)),
+                              name
+                            ]}
+                            cursor={{ fill: 'rgba(141,198,63,0.08)' }}
+                          />
+                          <Legend wrapperStyle={{ fontSize: 13 }} />
+                          <Bar
+                            dataKey="income"
+                            name="Ingresos"
+                            fill="#8dc63f"
+                            radius={[6, 6, 0, 0]}
+                          />
+                          <Bar
+                            dataKey="expense"
+                            name="Egresos"
+                            fill="#173b2d"
+                            radius={[6, 6, 0, 0]}
+                          />
+                        </BarChart>
+                      </ResponsiveContainer>
+                    )}
                   </div>
                 </section>
 
                 <section className="grid gap-6">
-                  <article className="rounded-[32px] border border-[#dce2cd] bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.05)]">
+                  <article className="rounded-[28px] border border-[#dce8c8] bg-white p-6 shadow-[0_16px_40px_rgba(23,59,45,0.05)]">
                     <div className="flex items-center justify-between">
                       <div>
                         <p className="text-sm uppercase tracking-[0.22em] text-[#6f8f2f]">
-                          Tesoreria
+                          Tesorería
                         </p>
                         <h2 className="mt-2 text-2xl font-semibold text-[#173b2d]">
                           Ingresos vs egresos
@@ -1014,7 +1201,7 @@ export default function DashboardApp() {
                     </div>
                   </article>
 
-                  <article className="rounded-[32px] border border-[#dce2cd] bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.05)]">
+                  <article className="rounded-[28px] border border-[#dce8c8] bg-white p-6 shadow-[0_16px_40px_rgba(23,59,45,0.05)]">
                     <p className="text-sm uppercase tracking-[0.22em] text-[#6f8f2f]">
                       Egresos del mes
                     </p>
@@ -1027,9 +1214,9 @@ export default function DashboardApp() {
                         snapshot.expenseBreakdown.map((item) => (
                           <div
                             key={item.category}
-                            className="flex items-center justify-between rounded-2xl bg-[#f0ede6] px-4 py-3"
+                            className="flex items-center justify-between rounded-2xl bg-[#eef4e0] px-4 py-3"
                           >
-                            <span className="text-sm font-medium text-[#475569]">
+                            <span className="text-sm font-medium text-[#4b5c4f]">
                               {item.category}
                             </span>
                             <span className="text-sm font-semibold text-[#173b2d]">
@@ -1044,7 +1231,7 @@ export default function DashboardApp() {
               </div>
 
               <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr_1fr]">
-                <article className="rounded-[32px] border border-[#dce2cd] bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.05)]">
+                <article className="rounded-[28px] border border-[#dce8c8] bg-white p-6 shadow-[0_16px_40px_rgba(23,59,45,0.05)]">
                   <p className="text-sm uppercase tracking-[0.22em] text-[#6f8f2f]">
                     Top stock
                   </p>
@@ -1052,9 +1239,9 @@ export default function DashboardApp() {
                     {snapshot.topStock.map((item) => (
                       <div
                         key={item.id}
-                        className="rounded-2xl bg-[#f0ede6] px-4 py-3"
+                        className="rounded-2xl bg-[#eef4e0] px-4 py-3"
                       >
-                        <p className="font-medium text-[#0f172a]">{item.name}</p>
+                        <p className="font-medium text-[#14231a]">{item.name}</p>
                         <p className="mt-1 text-sm text-[#6b7a6b]">
                           {item.stockQuantity} unidades
                         </p>
@@ -1063,7 +1250,7 @@ export default function DashboardApp() {
                   </div>
                 </article>
 
-                <article className="rounded-[32px] border border-[#dce2cd] bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.05)]">
+                <article className="rounded-[28px] border border-[#dce8c8] bg-white p-6 shadow-[0_16px_40px_rgba(23,59,45,0.05)]">
                   <p className="text-sm uppercase tracking-[0.22em] text-[#6f8f2f]">
                     Stock bajo
                   </p>
@@ -1078,7 +1265,7 @@ export default function DashboardApp() {
                           key={item.id}
                           className="rounded-2xl bg-amber-50 px-4 py-3"
                         >
-                          <p className="font-medium text-[#0f172a]">{item.name}</p>
+                          <p className="font-medium text-[#14231a]">{item.name}</p>
                           <p className="mt-1 text-sm text-amber-900">
                             {item.stockQuantity} unidades
                           </p>
@@ -1088,15 +1275,15 @@ export default function DashboardApp() {
                   </div>
                 </article>
 
-                <article className="rounded-[32px] border border-[#dce2cd] bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.05)]">
+                <article className="rounded-[28px] border border-[#dce8c8] bg-white p-6 shadow-[0_16px_40px_rgba(23,59,45,0.05)]">
                   <p className="text-sm uppercase tracking-[0.22em] text-[#6f8f2f]">
                     Movimientos recientes
                   </p>
                   <div className="mt-5 grid gap-4">
                     {snapshot.recentMovements.map((movement) => (
-                      <div key={movement.id} className="rounded-2xl bg-[#f0ede6] px-4 py-3">
+                      <div key={movement.id} className="rounded-2xl bg-[#eef4e0] px-4 py-3">
                         <div className="flex items-center justify-between gap-3">
-                          <p className="font-medium text-[#0f172a]">
+                          <p className="font-medium text-[#14231a]">
                             {movement.productName}
                           </p>
                           <span
@@ -1109,7 +1296,7 @@ export default function DashboardApp() {
                             {movement.movementType}
                           </span>
                         </div>
-                        <p className="mt-2 text-sm text-[#475569]">{movement.reason}</p>
+                        <p className="mt-2 text-sm text-[#4b5c4f]">{movement.reason}</p>
                         <p className="mt-2 text-xs text-[#94a494]">
                           {formatDateTimeLabel(movement.createdAt)} · {movement.quantity} unidades
                         </p>
@@ -1123,14 +1310,14 @@ export default function DashboardApp() {
 
           {activeTab === 'inventory' && (
             <div className="grid gap-6">
-              <div className="rounded-[32px] border border-[#dce2cd] bg-white p-5 shadow-[0_16px_40px_rgba(15,23,42,0.05)]">
+              <div className="rounded-[28px] border border-[#dce8c8] bg-white p-5 shadow-[0_16px_40px_rgba(23,59,45,0.05)]">
                 <label className="relative block">
                   <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[#94a494]" />
                   <input
                     value={inventorySearch}
                     onChange={(event) => setInventorySearch(event.target.value)}
-                    placeholder="Buscar producto por nombre, descripcion o categoria"
-                    className="w-full rounded-full border border-[#dce2cd] bg-[#f8f4ea] px-12 py-3 text-sm text-[#0f172a] outline-none transition focus:border-[#8dc63f]"
+                    placeholder="Buscar producto por nombre, descripción o categoria"
+                    className="w-full rounded-full border border-[#dce8c8] bg-[#f3f8eb] px-12 py-3 text-sm text-[#14231a] outline-none transition focus:border-[#8dc63f]"
                   />
                 </label>
               </div>
@@ -1139,9 +1326,9 @@ export default function DashboardApp() {
                 {filteredProducts.map((product) => (
                   <article
                     key={product.id}
-                    className="flex items-center gap-4 rounded-[20px] border border-[#dce2cd] bg-white p-4 shadow-[0_8px_24px_rgba(15,23,42,0.04)]"
+                    className="flex items-center gap-4 rounded-[20px] border border-[#dce8c8] bg-white p-4 shadow-[0_8px_24px_rgba(23,59,45,0.04)]"
                   >
-                    <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-2xl bg-[#f0ede6]">
+                    <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-2xl bg-[#eef4e0]">
                       {productImage(product) ? (
                         <img
                           src={productImage(product)}
@@ -1149,7 +1336,7 @@ export default function DashboardApp() {
                           className="h-full w-full object-cover"
                         />
                       ) : (
-                        <div className="flex h-full w-full items-center justify-center bg-[radial-gradient(circle_at_top,_rgba(16,185,129,0.22),_transparent_55%),linear-gradient(135deg,_#0f172a_0%,_#111827_52%,_#052e16_100%)]">
+                        <div className="flex h-full w-full items-center justify-center bg-[radial-gradient(circle_at_top,_rgba(16,185,129,0.22),_transparent_55%),linear-gradient(135deg,_#14231a_0%,_#111827_52%,_#052e16_100%)]">
                           <Package className="h-8 w-8 text-[#8dc63f]" />
                         </div>
                       )}
@@ -1160,7 +1347,7 @@ export default function DashboardApp() {
                         <h3 className="truncate text-lg font-semibold text-[#173b2d]">
                           {product.name}
                         </h3>
-                        <span className="rounded-full bg-[#f0ede6] px-2.5 py-0.5 text-xs font-semibold text-[#475569]">
+                        <span className="rounded-full bg-[#eef4e0] px-2.5 py-0.5 text-xs font-semibold text-[#4b5c4f]">
                           {product.category}
                         </span>
                         {product.featured && (
@@ -1169,7 +1356,7 @@ export default function DashboardApp() {
                           </span>
                         )}
                       </div>
-                      <p className="mt-1 line-clamp-1 text-sm leading-5 text-[#475569]">
+                      <p className="mt-1 line-clamp-1 text-sm leading-5 text-[#4b5c4f]">
                         {product.description}
                       </p>
                     </div>
@@ -1197,14 +1384,14 @@ export default function DashboardApp() {
                       <button
                         type="button"
                         onClick={() => openEditProduct(product)}
-                        className="rounded-full border border-[#dce2cd] p-2.5 text-[#475569] transition hover:border-[#8dc63f] hover:text-[#6f8f2f]"
+                        className="rounded-full border border-[#dce8c8] p-2.5 text-[#4b5c4f] transition hover:border-[#8dc63f] hover:text-[#6f8f2f]"
                       >
                         <Pencil className="h-4 w-4" />
                       </button>
                       <button
                         type="button"
                         onClick={() => deleteProduct(product)}
-                        className="rounded-full border border-[#dce2cd] p-2.5 text-[#475569] transition hover:border-rose-300 hover:text-rose-700"
+                        className="rounded-full border border-[#dce8c8] p-2.5 text-[#4b5c4f] transition hover:border-rose-300 hover:text-rose-700"
                       >
                         <Trash2 className="h-4 w-4" />
                       </button>
@@ -1214,8 +1401,8 @@ export default function DashboardApp() {
               </div>
 
               {filteredProducts.length === 0 && (
-                <div className="rounded-[32px] border border-dashed border-[#dce2cd] bg-white px-8 py-16 text-center">
-                  <p className="text-lg font-semibold text-[#0f172a]">
+                <div className="rounded-[28px] border border-dashed border-[#dce8c8] bg-white px-8 py-16 text-center">
+                  <p className="text-lg font-semibold text-[#14231a]">
                     No hay productos para ese filtro.
                   </p>
                 </div>
@@ -1223,23 +1410,184 @@ export default function DashboardApp() {
             </div>
           )}
 
+          {activeTab === 'featured' && (
+            <div className="grid gap-6">
+              <div className="rounded-[28px] border border-[#dce8c8] bg-white p-6 shadow-[0_16px_40px_rgba(23,59,45,0.05)]">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <div>
+                    <p className="text-sm uppercase tracking-[0.22em] text-[#6f8f2f]">
+                      Carrusel de la web
+                    </p>
+                    <h2 className="mt-2 text-2xl font-semibold text-[#173b2d]">
+                      Productos destacados
+                    </h2>
+                    <p className="mt-1 text-sm text-[#6b7a6b]">
+                      Elegí qué productos aparecen en el carrusel de destacados de la tienda.
+                    </p>
+                  </div>
+                  <span className="rounded-full bg-amber-100 px-4 py-2 text-sm font-semibold text-amber-800">
+                    {featuredProducts.length} en el carrusel
+                  </span>
+                </div>
+
+                <div className="mt-6 grid gap-3">
+                  {featuredProducts.length === 0 ? (
+                    <div className="rounded-2xl border border-dashed border-[#dce8c8] bg-[#f3f8eb] px-6 py-10 text-center">
+                      <Star className="mx-auto h-8 w-8 text-[#94a494]" />
+                      <p className="mt-3 text-sm font-medium text-[#4b5c4f]">
+                        Todavía no hay productos destacados. Agregalos desde la lista de abajo.
+                      </p>
+                    </div>
+                  ) : (
+                    featuredProducts.map((product) => (
+                      <article
+                        key={product.id}
+                        className="flex items-center gap-4 rounded-[20px] border border-amber-200 bg-amber-50/50 p-4"
+                      >
+                        <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-2xl bg-[#eef4e0]">
+                          {productImage(product) ? (
+                            <img
+                              src={productImage(product)}
+                              alt={product.name}
+                              className="h-full w-full object-cover"
+                            />
+                          ) : (
+                            <div className="flex h-full w-full items-center justify-center">
+                              <Package className="h-6 w-6 text-[#8dc63f]" />
+                            </div>
+                          )}
+                        </div>
+
+                        <div className="min-w-0 flex-1">
+                          <h3 className="truncate text-base font-semibold text-[#173b2d]">
+                            {product.name}
+                          </h3>
+                          <p className="mt-0.5 text-sm text-[#6b7a6b]">
+                            {product.category} · {formatPriceARS(product.price)}
+                          </p>
+                        </div>
+
+                        <button
+                          type="button"
+                          onClick={() => toggleFeatured(product)}
+                          className="inline-flex flex-shrink-0 items-center gap-2 rounded-full border border-rose-200 px-4 py-2 text-sm font-semibold text-rose-700 transition hover:border-rose-300 hover:bg-rose-50"
+                        >
+                          <X className="h-4 w-4" />
+                          Quitar
+                        </button>
+                      </article>
+                    ))
+                  )}
+                </div>
+              </div>
+
+              <div className="rounded-[28px] border border-[#dce8c8] bg-white p-6 shadow-[0_16px_40px_rgba(23,59,45,0.05)]">
+                <h2 className="text-2xl font-semibold text-[#173b2d]">
+                  Agregar productos al carrusel
+                </h2>
+                <p className="mt-1 text-sm text-[#6b7a6b]">
+                  Buscá un producto y agregalo o quitalo del carrusel de destacados.
+                </p>
+
+                <label className="relative mt-5 block">
+                  <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[#94a494]" />
+                  <input
+                    value={featuredSearch}
+                    onChange={(event) => setFeaturedSearch(event.target.value)}
+                    placeholder="Buscar producto por nombre, descripción o categoria"
+                    className="w-full rounded-full border border-[#dce8c8] bg-[#f3f8eb] px-12 py-3 text-sm text-[#14231a] outline-none transition focus:border-[#8dc63f]"
+                  />
+                </label>
+
+                <div className="mt-6 flex flex-col gap-3">
+                  {featuredCandidates.map((product) => (
+                    <article
+                      key={product.id}
+                      className="flex items-center gap-4 rounded-[20px] border border-[#dce8c8] bg-white p-4"
+                    >
+                      <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-2xl bg-[#eef4e0]">
+                        {productImage(product) ? (
+                          <img
+                            src={productImage(product)}
+                            alt={product.name}
+                            className="h-full w-full object-cover"
+                          />
+                        ) : (
+                          <div className="flex h-full w-full items-center justify-center">
+                            <Package className="h-6 w-6 text-[#8dc63f]" />
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="min-w-0 flex-1">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <h3 className="truncate text-base font-semibold text-[#173b2d]">
+                            {product.name}
+                          </h3>
+                          {product.featured && (
+                            <span className="rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-semibold text-amber-800">
+                              En el carrusel
+                            </span>
+                          )}
+                        </div>
+                        <p className="mt-0.5 text-sm text-[#6b7a6b]">
+                          {product.category} · {formatPriceARS(product.price)}
+                        </p>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => toggleFeatured(product)}
+                        className={`inline-flex flex-shrink-0 items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition ${
+                          product.featured
+                            ? 'border border-rose-200 text-rose-700 hover:border-rose-300 hover:bg-rose-50'
+                            : 'bg-[#8dc63f] text-[#173b2d] hover:bg-[#7db52e]'
+                        }`}
+                      >
+                        {product.featured ? (
+                          <>
+                            <X className="h-4 w-4" />
+                            Quitar
+                          </>
+                        ) : (
+                          <>
+                            <Star className="h-4 w-4" />
+                            Destacar
+                          </>
+                        )}
+                      </button>
+                    </article>
+                  ))}
+
+                  {featuredCandidates.length === 0 && (
+                    <div className="rounded-[20px] border border-dashed border-[#dce8c8] bg-[#f3f8eb] px-6 py-10 text-center">
+                      <p className="text-sm font-medium text-[#4b5c4f]">
+                        No hay productos para ese filtro.
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
           {activeTab === 'categories' && (
             <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
-              <article className="rounded-[32px] border border-[#dce2cd] bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.05)]">
+              <article className="rounded-[28px] border border-[#dce8c8] bg-white p-6 shadow-[0_16px_40px_rgba(23,59,45,0.05)]">
                 <p className="text-sm uppercase tracking-[0.22em] text-[#6f8f2f]">
-                  Distribucion
+                  Distribución
                 </p>
                 <h2 className="mt-2 text-2xl font-semibold text-[#173b2d]">
-                  Categorias con mas peso
+                  Categorías con más peso
                 </h2>
                 <div className="mt-6 grid gap-3">
                   {snapshot?.categoryDistribution.map((item) => (
                     <div
                       key={item.category}
-                      className="rounded-2xl bg-[#f0ede6] px-4 py-3"
+                      className="rounded-2xl bg-[#eef4e0] px-4 py-3"
                     >
                       <div className="flex items-center justify-between gap-3">
-                        <p className="font-medium text-[#0f172a]">{item.category}</p>
+                        <p className="font-medium text-[#14231a]">{item.category}</p>
                         <span className="text-sm font-semibold text-[#173b2d]">
                           {item.units} unidades
                         </span>
@@ -1252,14 +1600,14 @@ export default function DashboardApp() {
                 </div>
               </article>
 
-              <article className="rounded-[32px] border border-[#dce2cd] bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.05)]">
+              <article className="rounded-[28px] border border-[#dce8c8] bg-white p-6 shadow-[0_16px_40px_rgba(23,59,45,0.05)]">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm uppercase tracking-[0.22em] text-[#6f8f2f]">
                       Gestion
                     </p>
                     <h2 className="mt-2 text-2xl font-semibold text-[#173b2d]">
-                      Categorias cargadas
+                      Categorías cargadas
                     </h2>
                   </div>
                   <button
@@ -1276,12 +1624,12 @@ export default function DashboardApp() {
                   {categories.map((category) => (
                     <div
                       key={category.id}
-                      className="flex items-start justify-between gap-4 rounded-2xl bg-[#f0ede6] px-4 py-4"
+                      className="flex items-start justify-between gap-4 rounded-2xl bg-[#eef4e0] px-4 py-4"
                     >
                       <div>
                         <p className="font-semibold text-[#173b2d]">{category.name}</p>
                         <p className="mt-1 text-sm text-[#6b7a6b]">
-                          {category.description || 'Sin descripcion.'}
+                          {category.description || 'Sin descripción.'}
                         </p>
                       </div>
 
@@ -1289,14 +1637,14 @@ export default function DashboardApp() {
                         <button
                           type="button"
                           onClick={() => openEditCategory(category)}
-                          className="rounded-full border border-[#dce2cd] p-3 text-[#475569] transition hover:border-[#8dc63f] hover:text-[#6f8f2f]"
+                          className="rounded-full border border-[#dce8c8] p-3 text-[#4b5c4f] transition hover:border-[#8dc63f] hover:text-[#6f8f2f]"
                         >
                           <Pencil className="h-4 w-4" />
                         </button>
                         <button
                           type="button"
                           onClick={() => deleteCategory(category)}
-                          className="rounded-full border border-[#dce2cd] p-3 text-[#475569] transition hover:border-rose-300 hover:text-rose-700"
+                          className="rounded-full border border-[#dce8c8] p-3 text-[#4b5c4f] transition hover:border-rose-300 hover:text-rose-700"
                         >
                           <Trash2 className="h-4 w-4" />
                         </button>
@@ -1310,7 +1658,7 @@ export default function DashboardApp() {
 
           {activeTab === 'movements' && (
             <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
-              <article className="rounded-[32px] border border-[#dce2cd] bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.05)]">
+              <article className="rounded-[28px] border border-[#dce8c8] bg-white p-6 shadow-[0_16px_40px_rgba(23,59,45,0.05)]">
                 <p className="text-sm uppercase tracking-[0.22em] text-[#6f8f2f]">
                   Tendencia
                 </p>
@@ -1321,10 +1669,10 @@ export default function DashboardApp() {
                   {snapshot?.movementTrend.map((point) => (
                     <div
                       key={point.day}
-                      className="rounded-2xl bg-[#f0ede6] px-4 py-3"
+                      className="rounded-2xl bg-[#eef4e0] px-4 py-3"
                     >
                       <div className="flex items-center justify-between gap-3">
-                        <p className="font-medium text-[#0f172a]">
+                        <p className="font-medium text-[#14231a]">
                           {formatDateLabel(point.day)}
                         </p>
                         <div className="flex gap-4 text-sm">
@@ -1341,14 +1689,14 @@ export default function DashboardApp() {
                 </div>
               </article>
 
-              <article className="rounded-[32px] border border-[#dce2cd] bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.05)]">
+              <article className="rounded-[28px] border border-[#dce8c8] bg-white p-6 shadow-[0_16px_40px_rgba(23,59,45,0.05)]">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm uppercase tracking-[0.22em] text-[#6f8f2f]">
                       Registro
                     </p>
                     <h2 className="mt-2 text-2xl font-semibold text-[#173b2d]">
-                      Ultimos movimientos
+                      Últimos movimientos
                     </h2>
                   </div>
                   <button
@@ -1365,7 +1713,7 @@ export default function DashboardApp() {
                   {movements.map((movement) => (
                     <div
                       key={movement.id}
-                      className="rounded-2xl bg-[#f0ede6] px-4 py-4"
+                      className="rounded-2xl bg-[#eef4e0] px-4 py-4"
                     >
                       <div className="flex items-start justify-between gap-4">
                         <div>
@@ -1387,7 +1735,7 @@ export default function DashboardApp() {
                         </span>
                       </div>
                       {movement.note && (
-                        <p className="mt-3 text-sm text-[#475569]">{movement.note}</p>
+                        <p className="mt-3 text-sm text-[#4b5c4f]">{movement.note}</p>
                       )}
                       <p className="mt-3 text-xs text-[#94a494]">
                         {formatDateTimeLabel(movement.createdAt)}
@@ -1401,7 +1749,7 @@ export default function DashboardApp() {
 
           {activeTab === 'treasury' && (
             <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
-              <article className="rounded-[32px] border border-[#dce2cd] bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.05)]">
+              <article className="rounded-[28px] border border-[#dce8c8] bg-white p-6 shadow-[0_16px_40px_rgba(23,59,45,0.05)]">
                 <p className="text-sm uppercase tracking-[0.22em] text-[#6f8f2f]">
                   Balance
                 </p>
@@ -1426,7 +1774,7 @@ export default function DashboardApp() {
                     </p>
                   </div>
                   <div className="rounded-3xl bg-[#173b2d] p-5 text-white">
-                    <p className="text-sm text-[#a8c49a]">Balance</p>
+                    <p className="text-sm text-[#b8d986]">Balance</p>
                     <p className="mt-2 text-3xl font-semibold">
                       {snapshot
                         ? formatPriceARS(snapshot.summary.treasuryBalance)
@@ -1436,14 +1784,14 @@ export default function DashboardApp() {
                 </div>
               </article>
 
-              <article className="rounded-[32px] border border-[#dce2cd] bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.05)]">
+              <article className="rounded-[28px] border border-[#dce8c8] bg-white p-6 shadow-[0_16px_40px_rgba(23,59,45,0.05)]">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm uppercase tracking-[0.22em] text-[#6f8f2f]">
                       Registro
                     </p>
                     <h2 className="mt-2 text-2xl font-semibold text-[#173b2d]">
-                      Ultimas transacciones
+                      Últimas transacciones
                     </h2>
                   </div>
                   <button
@@ -1460,7 +1808,7 @@ export default function DashboardApp() {
                   {transactions.map((transaction) => (
                     <div
                       key={transaction.id}
-                      className="rounded-2xl bg-[#f0ede6] px-4 py-4"
+                      className="rounded-2xl bg-[#eef4e0] px-4 py-4"
                     >
                       <div className="flex items-start justify-between gap-4">
                         <div>
@@ -1480,14 +1828,14 @@ export default function DashboardApp() {
                           <button
                             type="button"
                             onClick={() => deleteTransaction(transaction)}
-                            className="rounded-full border border-[#dce2cd] p-3 text-[#475569] transition hover:border-rose-300 hover:text-rose-700"
+                            className="rounded-full border border-[#dce8c8] p-3 text-[#4b5c4f] transition hover:border-rose-300 hover:text-rose-700"
                           >
                             <Trash2 className="h-4 w-4" />
                           </button>
                         </div>
                       </div>
                       {transaction.note && (
-                        <p className="mt-3 text-sm text-[#475569]">{transaction.note}</p>
+                        <p className="mt-3 text-sm text-[#4b5c4f]">{transaction.note}</p>
                       )}
                       <p className="mt-3 text-xs text-[#94a494]">
                         {formatDateTimeLabel(transaction.occurredAt)}
@@ -1500,12 +1848,12 @@ export default function DashboardApp() {
           )}
 
           {activeTab === 'analytics' && <AnalyticsPanel />}
-        </section>
+        </main>
       </div>
 
       {productModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#173b2d]/60 p-4 backdrop-blur-sm">
-          <div className="flex w-full max-w-3xl flex-col rounded-[32px] bg-white shadow-[0_40px_120px_rgba(15,23,42,0.22)]" style={{maxHeight: 'calc(100vh - 2rem)'}}>
+          <div className="flex w-full max-w-3xl flex-col rounded-[28px] bg-white shadow-[0_40px_120px_rgba(23,59,45,0.22)]" style={{maxHeight: 'calc(100vh - 2rem)'}}>
             <div className="flex items-start justify-between gap-4 px-8 pt-8 pb-4">
               <div>
                 <p className="text-sm uppercase tracking-[0.22em] text-[#6f8f2f]">
@@ -1527,7 +1875,7 @@ export default function DashboardApp() {
             <form onSubmit={submitProduct} className="flex flex-col gap-5 overflow-y-auto px-8 pb-2">
               <div className="grid gap-5 md:grid-cols-2">
                 <label className="grid gap-2">
-                  <span className="text-sm text-[#475569]">Nombre</span>
+                  <span className="text-sm text-[#4b5c4f]">Nombre</span>
                   <input
                     value={productForm.name}
                     onChange={(event) =>
@@ -1536,13 +1884,13 @@ export default function DashboardApp() {
                         name: event.target.value
                       }))
                     }
-                    className="rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
+                    className="rounded-2xl border border-[#dce8c8] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
                     required
                   />
                 </label>
 
                 <label className="grid gap-2">
-                  <span className="text-sm text-[#475569]">Categoria</span>
+                  <span className="text-sm text-[#4b5c4f]">Categoría</span>
                   <input
                     list="dashboard-categories"
                     value={productForm.category}
@@ -1552,13 +1900,13 @@ export default function DashboardApp() {
                         category: event.target.value
                       }))
                     }
-                    className="rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
+                    className="rounded-2xl border border-[#dce8c8] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
                     required
                   />
                 </label>
 
                 <label className="grid gap-2">
-                  <span className="text-sm text-[#475569]">Precio</span>
+                  <span className="text-sm text-[#4b5c4f]">Precio</span>
                   <input
                     type="number"
                     min="0"
@@ -1570,13 +1918,13 @@ export default function DashboardApp() {
                         price: event.target.value
                       }))
                     }
-                    className="rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
+                    className="rounded-2xl border border-[#dce8c8] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
                     required
                   />
                 </label>
 
                 <label className="grid gap-2">
-                  <span className="text-sm text-[#475569]">Stock</span>
+                  <span className="text-sm text-[#4b5c4f]">Stock</span>
                   <input
                     type="number"
                     min="0"
@@ -1588,14 +1936,14 @@ export default function DashboardApp() {
                         stockQuantity: event.target.value
                       }))
                     }
-                    className="rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
+                    className="rounded-2xl border border-[#dce8c8] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
                     required
                   />
                 </label>
               </div>
 
               <label className="grid gap-2">
-                <span className="text-sm text-[#475569]">Descripcion</span>
+                <span className="text-sm text-[#4b5c4f]">Descripción</span>
                 <textarea
                   value={productForm.description}
                   onChange={(event) =>
@@ -1604,13 +1952,13 @@ export default function DashboardApp() {
                       description: event.target.value
                     }))
                   }
-                  className="min-h-32 rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
+                  className="min-h-32 rounded-2xl border border-[#dce8c8] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
                 />
               </label>
 
               {/* Imagen del producto */}
               <div className="grid gap-2">
-                <span className="text-sm text-[#475569]">Imagen del producto</span>
+                <span className="text-sm text-[#4b5c4f]">Imagen del producto</span>
                 <div
                   onDragOver={(e) => { e.preventDefault(); setDraggingMain(true); }}
                   onDragLeave={() => setDraggingMain(false)}
@@ -1620,7 +1968,7 @@ export default function DashboardApp() {
                     if (e.dataTransfer.files.length) handleImageUpload(e.dataTransfer.files, 'image');
                   }}
                   onClick={() => fileInputMainRef.current?.click()}
-                  className={`relative cursor-pointer rounded-2xl border-2 border-dashed p-5 text-center transition ${draggingMain ? 'border-[#8dc63f] bg-[#f0f7e6]' : 'border-[#dce2cd] hover:border-[#8dc63f] hover:bg-[#fafaf7]'}`}
+                  className={`relative cursor-pointer rounded-2xl border-2 border-dashed p-5 text-center transition ${draggingMain ? 'border-[#8dc63f] bg-[#f0f7e6]' : 'border-[#dce8c8] hover:border-[#8dc63f] hover:bg-[#fafaf7]'}`}
                 >
                   {productForm.image ? (
                     <div className="relative inline-block">
@@ -1639,7 +1987,7 @@ export default function DashboardApp() {
                       </button>
                     </div>
                   ) : (
-                    <div className="flex flex-col items-center gap-2 text-[#475569]">
+                    <div className="flex flex-col items-center gap-2 text-[#4b5c4f]">
                       {imageUploading ? (
                         <Loader2 className="h-8 w-8 animate-spin text-[#8dc63f]" />
                       ) : (
@@ -1656,7 +2004,7 @@ export default function DashboardApp() {
                   value={productForm.image}
                   onChange={(event) => setProductForm((c) => ({ ...c, image: event.target.value }))}
                   placeholder="O pegá una URL: https://..."
-                  className="min-w-0 flex-1 rounded-2xl border border-[#dce2cd] px-4 py-3 text-sm outline-none transition focus:border-[#8dc63f]"
+                  className="min-w-0 flex-1 rounded-2xl border border-[#dce8c8] px-4 py-3 text-sm outline-none transition focus:border-[#8dc63f]"
                 />
                 <input
                   ref={fileInputMainRef}
@@ -1670,7 +2018,7 @@ export default function DashboardApp() {
                 />
               </div>
 
-              <label className="inline-flex items-center gap-3 rounded-2xl bg-[#f0ede6] px-4 py-3 text-sm font-medium text-[#475569]">
+              <label className="inline-flex items-center gap-3 rounded-2xl bg-[#eef4e0] px-4 py-3 text-sm font-medium text-[#4b5c4f]">
                 <input
                   type="checkbox"
                   checked={productForm.featured}
@@ -1688,7 +2036,7 @@ export default function DashboardApp() {
                 <button
                   type="button"
                   onClick={() => setProductModalOpen(false)}
-                  className="rounded-full border border-[#dce2cd] px-5 py-3 font-medium text-[#475569] transition hover:border-[#8dc63f]"
+                  className="rounded-full border border-[#dce8c8] px-5 py-3 font-medium text-[#4b5c4f] transition hover:border-[#8dc63f]"
                 >
                   Cancelar
                 </button>
@@ -1706,11 +2054,11 @@ export default function DashboardApp() {
 
       {categoryModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#173b2d]/60 p-4 backdrop-blur-sm">
-          <div className="w-full max-w-xl rounded-[32px] bg-white p-8 shadow-[0_40px_120px_rgba(15,23,42,0.22)]">
+          <div className="w-full max-w-xl rounded-[28px] bg-white p-8 shadow-[0_40px_120px_rgba(23,59,45,0.22)]">
             <div className="flex items-start justify-between gap-4">
               <div>
                 <p className="text-sm uppercase tracking-[0.22em] text-[#6f8f2f]">
-                  Categoria
+                  Categoría
                 </p>
                 <h2 className="mt-2 text-3xl font-semibold text-[#173b2d]">
                   {editingCategory ? 'Editar categoria' : 'Nueva categoria'}
@@ -1727,7 +2075,7 @@ export default function DashboardApp() {
 
             <form onSubmit={submitCategory} className="mt-8 grid gap-5">
               <label className="grid gap-2">
-                <span className="text-sm text-[#475569]">Nombre</span>
+                <span className="text-sm text-[#4b5c4f]">Nombre</span>
                 <input
                   value={categoryForm.name}
                   onChange={(event) =>
@@ -1736,13 +2084,13 @@ export default function DashboardApp() {
                       name: event.target.value
                     }))
                   }
-                  className="rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
+                  className="rounded-2xl border border-[#dce8c8] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
                   required
                 />
               </label>
 
               <label className="grid gap-2">
-                <span className="text-sm text-[#475569]">Descripcion</span>
+                <span className="text-sm text-[#4b5c4f]">Descripción</span>
                 <textarea
                   value={categoryForm.description}
                   onChange={(event) =>
@@ -1751,7 +2099,7 @@ export default function DashboardApp() {
                       description: event.target.value
                     }))
                   }
-                  className="min-h-28 rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
+                  className="min-h-28 rounded-2xl border border-[#dce8c8] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
                 />
               </label>
 
@@ -1759,7 +2107,7 @@ export default function DashboardApp() {
                 <button
                   type="button"
                   onClick={() => setCategoryModalOpen(false)}
-                  className="rounded-full border border-[#dce2cd] px-5 py-3 font-medium text-[#475569] transition hover:border-[#8dc63f]"
+                  className="rounded-full border border-[#dce8c8] px-5 py-3 font-medium text-[#4b5c4f] transition hover:border-[#8dc63f]"
                 >
                   Cancelar
                 </button>
@@ -1777,7 +2125,7 @@ export default function DashboardApp() {
 
       {movementModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#173b2d]/60 p-4 backdrop-blur-sm">
-          <div className="w-full max-w-xl rounded-[32px] bg-white p-8 shadow-[0_40px_120px_rgba(15,23,42,0.22)]">
+          <div className="w-full max-w-xl rounded-[28px] bg-white p-8 shadow-[0_40px_120px_rgba(23,59,45,0.22)]">
             <div className="flex items-start justify-between gap-4">
               <div>
                 <p className="text-sm uppercase tracking-[0.22em] text-[#6f8f2f]">
@@ -1798,7 +2146,7 @@ export default function DashboardApp() {
 
             <form onSubmit={submitMovement} className="mt-8 grid gap-5">
               <label className="grid gap-2">
-                <span className="text-sm text-[#475569]">Producto</span>
+                <span className="text-sm text-[#4b5c4f]">Producto</span>
                 <select
                   value={movementForm.productId}
                   onChange={(event) =>
@@ -1807,7 +2155,7 @@ export default function DashboardApp() {
                       productId: event.target.value
                     }))
                   }
-                  className="rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
+                  className="rounded-2xl border border-[#dce8c8] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
                   required
                 >
                   <option value="">Seleccionar</option>
@@ -1821,7 +2169,7 @@ export default function DashboardApp() {
 
               <div className="grid gap-5 md:grid-cols-2">
                 <label className="grid gap-2">
-                  <span className="text-sm text-[#475569]">Tipo</span>
+                  <span className="text-sm text-[#4b5c4f]">Tipo</span>
                   <select
                     value={movementForm.movementType}
                     onChange={(event) =>
@@ -1830,7 +2178,7 @@ export default function DashboardApp() {
                         movementType: event.target.value as 'IN' | 'OUT'
                       }))
                     }
-                    className="rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
+                    className="rounded-2xl border border-[#dce8c8] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
                   >
                     <option value="IN">Ingreso</option>
                     <option value="OUT">Salida</option>
@@ -1838,7 +2186,7 @@ export default function DashboardApp() {
                 </label>
 
                 <label className="grid gap-2">
-                  <span className="text-sm text-[#475569]">Cantidad</span>
+                  <span className="text-sm text-[#4b5c4f]">Cantidad</span>
                   <input
                     type="number"
                     min="1"
@@ -1850,14 +2198,14 @@ export default function DashboardApp() {
                         quantity: event.target.value
                       }))
                     }
-                    className="rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
+                    className="rounded-2xl border border-[#dce8c8] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
                     required
                   />
                 </label>
               </div>
 
               <label className="grid gap-2">
-                <span className="text-sm text-[#475569]">Motivo</span>
+                <span className="text-sm text-[#4b5c4f]">Motivo</span>
                 <input
                   value={movementForm.reason}
                   onChange={(event) =>
@@ -1866,12 +2214,12 @@ export default function DashboardApp() {
                       reason: event.target.value
                     }))
                   }
-                  className="rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
+                  className="rounded-2xl border border-[#dce8c8] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
                 />
               </label>
 
               <label className="grid gap-2">
-                <span className="text-sm text-[#475569]">Nota</span>
+                <span className="text-sm text-[#4b5c4f]">Nota</span>
                 <textarea
                   value={movementForm.note}
                   onChange={(event) =>
@@ -1880,7 +2228,7 @@ export default function DashboardApp() {
                       note: event.target.value
                     }))
                   }
-                  className="min-h-28 rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
+                  className="min-h-28 rounded-2xl border border-[#dce8c8] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
                 />
               </label>
 
@@ -1888,7 +2236,7 @@ export default function DashboardApp() {
                 <button
                   type="button"
                   onClick={() => setMovementModalOpen(false)}
-                  className="rounded-full border border-[#dce2cd] px-5 py-3 font-medium text-[#475569] transition hover:border-[#8dc63f]"
+                  className="rounded-full border border-[#dce8c8] px-5 py-3 font-medium text-[#4b5c4f] transition hover:border-[#8dc63f]"
                 >
                   Cancelar
                 </button>
@@ -1906,14 +2254,14 @@ export default function DashboardApp() {
 
       {transactionModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#173b2d]/60 p-4 backdrop-blur-sm">
-          <div className="w-full max-w-2xl rounded-[32px] bg-white p-8 shadow-[0_40px_120px_rgba(15,23,42,0.22)]">
+          <div className="w-full max-w-2xl rounded-[28px] bg-white p-8 shadow-[0_40px_120px_rgba(23,59,45,0.22)]">
             <div className="flex items-start justify-between gap-4">
               <div>
                 <p className="text-sm uppercase tracking-[0.22em] text-[#6f8f2f]">
-                  Tesoreria
+                  Tesorería
                 </p>
                 <h2 className="mt-2 text-3xl font-semibold text-[#173b2d]">
-                  Nueva transaccion
+                  Nueva transacción
                 </h2>
               </div>
               <button
@@ -1928,7 +2276,7 @@ export default function DashboardApp() {
             <form onSubmit={submitTransaction} className="mt-8 grid gap-5">
               <div className="grid gap-5 md:grid-cols-2">
                 <label className="grid gap-2">
-                  <span className="text-sm text-[#475569]">Tipo</span>
+                  <span className="text-sm text-[#4b5c4f]">Tipo</span>
                   <select
                     value={transactionForm.transactionType}
                     onChange={(event) =>
@@ -1937,7 +2285,7 @@ export default function DashboardApp() {
                         transactionType: event.target.value as TransactionFormState['transactionType']
                       }))
                     }
-                    className="rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
+                    className="rounded-2xl border border-[#dce8c8] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
                   >
                     <option value="INCOME">Ingreso</option>
                     <option value="EXPENSE">Gasto</option>
@@ -1950,7 +2298,7 @@ export default function DashboardApp() {
                 </label>
 
                 <label className="grid gap-2">
-                  <span className="text-sm text-[#475569]">Monto</span>
+                  <span className="text-sm text-[#4b5c4f]">Monto</span>
                   <input
                     type="number"
                     min="0"
@@ -1962,7 +2310,7 @@ export default function DashboardApp() {
                         amount: event.target.value
                       }))
                     }
-                    className="rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
+                    className="rounded-2xl border border-[#dce8c8] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
                     required
                   />
                 </label>
@@ -1970,7 +2318,7 @@ export default function DashboardApp() {
 
               <div className="grid gap-5 md:grid-cols-2">
                 <label className="grid gap-2">
-                  <span className="text-sm text-[#475569]">Categoria</span>
+                  <span className="text-sm text-[#4b5c4f]">Categoría</span>
                   <input
                     value={transactionForm.category}
                     onChange={(event) =>
@@ -1979,13 +2327,13 @@ export default function DashboardApp() {
                         category: event.target.value
                       }))
                     }
-                    className="rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
+                    className="rounded-2xl border border-[#dce8c8] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
                     required
                   />
                 </label>
 
                 <label className="grid gap-2">
-                  <span className="text-sm text-[#475569]">Fecha y hora</span>
+                  <span className="text-sm text-[#4b5c4f]">Fecha y hora</span>
                   <input
                     type="datetime-local"
                     value={transactionForm.occurredAt}
@@ -1995,14 +2343,14 @@ export default function DashboardApp() {
                         occurredAt: event.target.value
                       }))
                     }
-                    className="rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
+                    className="rounded-2xl border border-[#dce8c8] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
                   />
                 </label>
               </div>
 
               <div className="grid gap-5 md:grid-cols-2">
                 <label className="grid gap-2">
-                  <span className="text-sm text-[#475569]">Metodo de pago</span>
+                  <span className="text-sm text-[#4b5c4f]">Metodo de pago</span>
                   <input
                     value={transactionForm.paymentMethod}
                     onChange={(event) =>
@@ -2011,12 +2359,12 @@ export default function DashboardApp() {
                         paymentMethod: event.target.value
                       }))
                     }
-                    className="rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
+                    className="rounded-2xl border border-[#dce8c8] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
                   />
                 </label>
 
                 <label className="grid gap-2">
-                  <span className="text-sm text-[#475569]">Referencia</span>
+                  <span className="text-sm text-[#4b5c4f]">Referencia</span>
                   <input
                     value={transactionForm.reference}
                     onChange={(event) =>
@@ -2025,13 +2373,13 @@ export default function DashboardApp() {
                         reference: event.target.value
                       }))
                     }
-                    className="rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
+                    className="rounded-2xl border border-[#dce8c8] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
                   />
                 </label>
               </div>
 
               <label className="grid gap-2">
-                <span className="text-sm text-[#475569]">Nota</span>
+                <span className="text-sm text-[#4b5c4f]">Nota</span>
                 <textarea
                   value={transactionForm.note}
                   onChange={(event) =>
@@ -2040,7 +2388,7 @@ export default function DashboardApp() {
                       note: event.target.value
                     }))
                   }
-                  className="min-h-28 rounded-2xl border border-[#dce2cd] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
+                  className="min-h-28 rounded-2xl border border-[#dce8c8] px-4 py-3 outline-none transition focus:border-[#8dc63f]"
                 />
               </label>
 
@@ -2048,7 +2396,7 @@ export default function DashboardApp() {
                 <button
                   type="button"
                   onClick={() => setTransactionModalOpen(false)}
-                  className="rounded-full border border-[#dce2cd] px-5 py-3 font-medium text-[#475569] transition hover:border-[#8dc63f]"
+                  className="rounded-full border border-[#dce8c8] px-5 py-3 font-medium text-[#4b5c4f] transition hover:border-[#8dc63f]"
                 >
                   Cancelar
                 </button>
@@ -2056,7 +2404,7 @@ export default function DashboardApp() {
                   type="submit"
                   className="rounded-full bg-[#173b2d] px-6 py-3 font-semibold text-white transition hover:bg-[#0f2a1d]"
                 >
-                  Registrar transaccion
+                  Registrar transacción
                 </button>
               </div>
             </form>

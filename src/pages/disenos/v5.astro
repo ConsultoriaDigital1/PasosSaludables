@@ -1,0 +1,215 @@
+---
+// Maqueta V5 "Horizonte": la combinada. Toma el hero centrado y los CTAs en
+// fila de V1, el navbar transparente (que gana vidrio al hacer scroll), la
+// vitrina "canasta de hoy" y la barra de acciones mobile de V2, y el fondo
+// de campo realista con mas detalle (CampoFondoReal). Pensada para verse
+// con parallax activado.
+import Layout from '../../layouts/Layout.astro';
+import CampoFondoReal from '../../components/disenos/CampoFondoReal.astro';
+import ControlesDiseno from '../../components/disenos/ControlesDiseno.astro';
+import { productosDemo, pasosDemo } from '../../components/disenos/demo';
+import { formatPriceARS } from '../../lib/formatters';
+
+const brandLogo = '/pasossaludablesstock-logo.jpeg';
+const vitrina = productosDemo.slice(0, 3);
+---
+
+<Layout
+  title="Diseño V5 · Horizonte — Pasos Saludables"
+  description="Maqueta de rediseño V5: combinación de V1+V2+V3 con fondo de campo realista y navbar transparente"
+>
+  <CampoFondoReal />
+
+  <div class="relative z-10 min-h-screen pb-36 text-slate-950 sm:pb-24">
+    <!-- Navbar transparente: sin fondo arriba; gana vidrio al hacer scroll -->
+    <header id="navbar-v5" class="fixed inset-x-0 top-0 z-30 transition-all duration-300">
+      <div class="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
+        <a href="#" class="flex items-center gap-2.5 rounded-full border border-white/50 bg-white/40 py-1.5 pl-1.5 pr-4 shadow-sm backdrop-blur-md transition hover:bg-white/70">
+          <img src={brandLogo} alt="Logo Pasos Saludables" class="h-9 w-9 rounded-full object-cover" />
+          <span class="hidden text-sm font-bold text-[#14231a] sm:block">Pasos Saludables</span>
+        </a>
+
+        <nav class="hidden items-center gap-1 rounded-full border border-white/50 bg-white/40 p-1 shadow-sm backdrop-blur-md md:flex">
+          <a href="#como-comprar" class="rounded-full px-4 py-2 text-sm font-semibold text-[#2a3d2f] transition hover:bg-white/80 hover:text-[#173b2d]">Cómo comprar</a>
+          <a href="#destacados" class="rounded-full px-4 py-2 text-sm font-semibold text-[#2a3d2f] transition hover:bg-white/80 hover:text-[#173b2d]">Destacados</a>
+          <a href="#catalogo" class="rounded-full px-4 py-2 text-sm font-semibold text-[#2a3d2f] transition hover:bg-white/80 hover:text-[#173b2d]">Catálogo</a>
+        </nav>
+
+        <button type="button" class="inline-flex items-center gap-2 rounded-full bg-[#173b2d]/90 px-4 py-2.5 text-sm font-semibold text-white shadow-[0_14px_34px_rgba(23,59,45,0.3)] backdrop-blur-md transition hover:-translate-y-0.5 hover:bg-[#173b2d]">
+          <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"></path></svg>
+          <span class="hidden sm:inline">Carrito</span>
+          <span class="rounded-full bg-[#8dc63f] px-2 py-0.5 text-xs font-bold text-[#10301f]">3</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="pt-20 sm:pt-24">
+      <!-- Hero centrado (V1) sobre el campo realista -->
+      <section class="mx-auto max-w-4xl px-4 pb-10 pt-10 text-center sm:px-6 sm:pt-16">
+        <span class="inline-flex items-center gap-2 rounded-full border border-[#8dc63f]/50 bg-white/60 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-[#578124] shadow-sm backdrop-blur sm:text-xs">
+          <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path></svg>
+          Tienda paraguaya · stock real
+        </span>
+
+        <h1 class="mx-auto mt-6 max-w-3xl font-serif text-[2.4rem] leading-[1.05] text-[#14231a] drop-shadow-[0_2px_18px_rgba(255,255,255,0.65)] sm:text-6xl">
+          Del campo a tu mesa, <em class="text-[#578124]">sin trámites</em>.
+        </h1>
+
+        <p class="mx-auto mt-5 max-w-xl text-sm font-medium leading-6 text-[#2a3d2f] sm:text-base sm:leading-7">
+          Filtrás, elegís y cerrás el pedido por WhatsApp con información real del
+          stock. Fresco, verde y sin vueltas.
+        </p>
+
+        <!-- CTAs en fila (V1): columna a lo ancho en mobile -->
+        <div class="mx-auto mt-8 flex w-full max-w-md flex-col items-stretch gap-3 sm:max-w-none sm:flex-row sm:items-center sm:justify-center">
+          <a href="#catalogo" class="inline-flex items-center justify-center gap-2 rounded-full bg-[#173b2d] px-7 py-3.5 text-sm font-bold text-white shadow-[0_20px_46px_rgba(23,59,45,0.32)] transition hover:-translate-y-0.5 hover:bg-[#21503c]">
+            Ver catálogo
+            <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+          </a>
+          <a href="#como-comprar" class="inline-flex items-center justify-center gap-2 rounded-full border border-white/70 bg-white/60 px-7 py-3.5 text-sm font-bold text-[#173b2d] shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:border-[#8dc63f] hover:bg-white/90">
+            Cómo comprar
+          </a>
+          <a href="#" class="inline-flex items-center justify-center gap-2 rounded-full bg-[#8dc63f] px-7 py-3.5 text-sm font-bold text-[#10301f] shadow-[0_20px_46px_rgba(141,198,63,0.4)] transition hover:-translate-y-0.5 hover:bg-[#9fd348] sm:h-12 sm:w-12 sm:px-0 sm:py-0" aria-label="Pedir por WhatsApp">
+            <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg>
+            <span class="sm:hidden">Pedir por WhatsApp</span>
+          </a>
+        </div>
+
+        <div class="mt-9 flex items-center justify-center gap-6 text-xs font-bold text-[#2a3d2f] sm:gap-10 sm:text-sm">
+          <span><strong class="block font-serif text-2xl text-[#173b2d] sm:text-3xl">120+</strong>productos</span>
+          <span class="h-8 w-px bg-[#173b2d]/20"></span>
+          <span><strong class="block font-serif text-2xl text-[#173b2d] sm:text-3xl">100%</strong>stock real</span>
+          <span class="h-8 w-px bg-[#173b2d]/20"></span>
+          <span><strong class="block font-serif text-2xl text-[#173b2d] sm:text-3xl">24h</strong>respuesta</span>
+        </div>
+      </section>
+
+      <!-- Vitrina "canasta de hoy" (V2), flotando con su propia profundidad -->
+      <section class="mx-auto max-w-2xl px-4 pb-6 sm:px-6" data-depth="-0.04">
+        <div class="rounded-[26px] border border-white/70 bg-white/60 p-4 shadow-[0_26px_70px_rgba(23,59,45,0.18)] backdrop-blur-xl sm:p-5">
+          <p class="flex items-center justify-between px-1 text-xs font-bold uppercase tracking-[0.18em] text-[#578124]">
+            En la canasta de hoy
+            <span class="rounded-full bg-[#edf7d7] px-2.5 py-1 text-[0.65rem] text-[#578124]">stock real</span>
+          </p>
+          <div class="mt-3 grid gap-2 sm:grid-cols-3 sm:gap-3">
+            {
+              vitrina.map((producto) => (
+                <article class="flex items-center gap-3 rounded-2xl border border-white/80 bg-white/85 p-2.5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md sm:flex-col sm:items-start sm:p-3">
+                  <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl sm:h-14 sm:w-full" style={`background: ${producto.tinte}`}>
+                    <svg viewBox="0 0 24 24" class="h-5 w-5 text-white/85" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path></svg>
+                  </div>
+                  <div class="min-w-0 flex-1">
+                    <h3 class="truncate text-xs font-bold text-[#14231a] sm:text-sm">{producto.nombre}</h3>
+                    <p class="text-sm font-extrabold text-[#578124]">{formatPriceARS(producto.precio)}</p>
+                  </div>
+                </article>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+
+      <!-- Cómo comprar: tarjetas de vidrio (V1) con el círculo numerado (V2) -->
+      <section id="como-comprar" class="mx-auto max-w-6xl scroll-mt-24 px-4 py-10 sm:px-6">
+        <h2 class="text-center font-serif text-2xl text-[#14231a] sm:text-3xl">Cómo comprar</h2>
+        <div class="mt-6 grid gap-4 sm:grid-cols-3">
+          {
+            pasosDemo.map((paso, indice) => (
+              <article class="rounded-[24px] border border-white/70 bg-white/65 p-6 shadow-[0_16px_44px_rgba(23,59,45,0.1)] backdrop-blur-xl transition hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(23,59,45,0.16)]">
+                <span class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#173b2d] font-serif text-lg text-[#a5d95d] shadow">{indice + 1}</span>
+                <h3 class="mt-4 text-lg font-bold text-[#14231a]">{paso.titulo}</h3>
+                <p class="mt-2 text-sm leading-6 text-slate-600">{paso.detalle}</p>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <!-- Destacados (V1) -->
+      <section id="destacados" class="mx-auto max-w-6xl scroll-mt-24 px-4 py-10 sm:px-6">
+        <div class="text-center">
+          <p class="text-xs font-bold uppercase tracking-[0.2em] text-[#578124]">Destacados</p>
+          <h2 id="catalogo" class="mt-1 scroll-mt-24 font-serif text-2xl text-[#14231a] sm:text-3xl">Lo que más se busca</h2>
+        </div>
+
+        <div class="mt-6 grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-3">
+          {
+            productosDemo.map((producto) => (
+              <article class="group overflow-hidden rounded-[22px] border border-white/70 bg-white/80 shadow-[0_14px_40px_rgba(23,59,45,0.1)] backdrop-blur transition hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(23,59,45,0.16)]">
+                <div class="relative flex aspect-square items-center justify-center" style={`background: ${producto.tinte}`}>
+                  <svg viewBox="0 0 24 24" class="h-12 w-12 text-white/80 transition duration-500 group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path></svg>
+                  {producto.etiqueta && (
+                    <span class="absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-[0.65rem] font-bold text-[#578124] shadow-sm">
+                      {producto.etiqueta}
+                    </span>
+                  )}
+                </div>
+                <div class="flex items-end justify-between gap-2 p-4">
+                  <div class="min-w-0">
+                    <h3 class="line-clamp-2 text-sm font-bold leading-tight text-[#14231a]">{producto.nombre}</h3>
+                    <p class="mt-1.5 text-base font-extrabold text-[#173b2d]">{formatPriceARS(producto.precio)}</p>
+                  </div>
+                  <button type="button" class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#173b2d] text-white shadow-sm transition hover:bg-[#21503c] active:scale-95" aria-label={`Agregar ${producto.nombre}`}>
+                    <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+                  </button>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <!-- Franja final -->
+      <section class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+        <div class="rounded-[28px] bg-gradient-to-br from-[#0e2f1e] via-[#173b2d] to-[#245a3c] px-6 py-10 text-center shadow-[0_30px_80px_rgba(23,59,45,0.3)] sm:px-10">
+          <h2 class="font-serif text-2xl text-white sm:text-4xl">¿Listo para tu primer pedido?</h2>
+          <p class="mx-auto mt-3 max-w-md text-sm text-white/70 sm:text-base">Atención humana por WhatsApp, con stock confirmado antes de pagar.</p>
+          <a href="#" class="mt-6 inline-flex items-center gap-2 rounded-full bg-[#8dc63f] px-8 py-3.5 text-sm font-bold text-[#10301f] shadow-[0_20px_46px_rgba(141,198,63,0.35)] transition hover:-translate-y-0.5 hover:bg-[#9fd348]">
+            <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg>
+            Escribinos por WhatsApp
+          </a>
+        </div>
+      </section>
+
+      <footer class="pb-8 pt-2 text-center text-xs font-semibold text-slate-500">
+        Pasos Saludables · Maqueta V5 «Horizonte» · V1 + navbar transparente + vitrina y barra mobile de V2 + campo realista
+      </footer>
+    </main>
+
+    <!-- Barra de acciones mobile (V2), sobre la barra de controles -->
+    <div class="fixed inset-x-3 bottom-[4.4rem] z-40 flex gap-2 rounded-2xl border border-white/60 bg-[#0f2a1d]/92 p-2 shadow-[0_20px_50px_rgba(15,42,29,0.4)] backdrop-blur-xl sm:hidden">
+      <a href="#catalogo" class="flex flex-1 items-center justify-center gap-2 rounded-xl bg-white/10 px-3 py-3 text-sm font-bold text-white transition active:scale-95">
+        <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 9.4 7.55 4.24"></path><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path></svg>
+        Catálogo
+      </a>
+      <a href="#" class="flex flex-1 items-center justify-center gap-2 rounded-xl bg-[#8dc63f] px-3 py-3 text-sm font-bold text-[#10301f] transition active:scale-95">
+        <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg>
+        Pedir ahora
+      </a>
+    </div>
+  </div>
+
+  <ControlesDiseno actual={5} />
+</Layout>
+
+<style>
+  /* Estado "con scroll" del navbar transparente */
+  #navbar-v5.navbar-vidrio {
+    background: rgba(246, 251, 236, 0.78);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 10px 34px rgba(23, 59, 45, 0.1);
+  }
+</style>
+
+<script>
+  // Navbar transparente arriba; gana vidrio apenas se scrollea.
+  const navbar = document.getElementById('navbar-v5');
+
+  function actualizarNavbar() {
+    navbar?.classList.toggle('navbar-vidrio', window.scrollY > 24);
+  }
+
+  window.addEventListener('scroll', actualizarNavbar, { passive: true });
+  actualizarNavbar();
+</script>

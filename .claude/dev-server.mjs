@@ -23,7 +23,13 @@ if (process.platform === 'win32') {
   );
 }
 
-const child = spawn(process.execPath, [astroBin, 'dev', ...process.argv.slice(2)], {
+// El harness de preview asigna el puerto via PORT cuando autoPort esta activo.
+const extraArgs = process.argv.slice(2);
+if (env.PORT && !extraArgs.includes('--port')) {
+  extraArgs.push('--port', env.PORT);
+}
+
+const child = spawn(process.execPath, [astroBin, 'dev', ...extraArgs], {
   cwd: rootDir,
   stdio: 'inherit',
   env
