@@ -7,11 +7,17 @@ type Slide = {
   ctaLabel: string;
   ctaHref: string;
   gradient: string;
+  image: string;
 };
 
-// Sin banners de imagen en Pasos Saludables: reemplazamos las diapositivas de
-// farmacia por slides promocionales con degradado verde, misma UX (auto-avance,
-// flechas, puntos, swipe).
+// Fondos del carrusel: fotos acordes al stock real (frutos secos, café) más una
+// toma de la cascada local. Cada slide combina la imagen con un degradado verde
+// de la marca por encima, semitransparente, para que el texto blanco siga
+// legible. Misma UX que antes (auto-avance, flechas, puntos, swipe).
+// Las de Unsplash (uso libre) se sirven desde su CDN a 2000px.
+const IMG = (id: string) =>
+  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=2000&q=80`;
+
 const SLIDES: Slide[] = [
   {
     eyebrow: 'Tienda paraguaya · stock real',
@@ -19,7 +25,10 @@ const SLIDES: Slide[] = [
     text: 'Filtrás, elegís y cerrás el pedido por WhatsApp con información real del stock.',
     ctaLabel: 'Ver catálogo',
     ctaHref: '#catalogo',
-    gradient: 'linear-gradient(120deg, #0e2f1e 0%, #173b2d 55%, #245a3c 100%)'
+    gradient:
+      'linear-gradient(120deg, rgba(14,47,30,0.88) 0%, rgba(23,59,45,0.80) 55%, rgba(36,90,60,0.72) 100%)',
+    // Frutos secos surtidos (nueces, pistachos, avellanas, maní).
+    image: IMG('photo-1600189020840-e9918c25269d')
   },
   {
     eyebrow: 'Lo más buscado',
@@ -27,7 +36,10 @@ const SLIDES: Slide[] = [
     text: 'Descubrí los productos que más se piden, siempre con stock al día.',
     ctaLabel: 'Ver destacados',
     ctaHref: '#destacados',
-    gradient: 'linear-gradient(120deg, #578124 0%, #71a52c 50%, #8dc63f 100%)'
+    gradient:
+      'linear-gradient(120deg, rgba(24,59,45,0.86) 0%, rgba(74,110,30,0.76) 50%, rgba(109,143,47,0.70) 100%)',
+    // Café de filtro (categoría CAFÉ del stock).
+    image: IMG('photo-1442512595331-e89e73853f31')
   },
   {
     eyebrow: 'Atención personalizada',
@@ -35,7 +47,10 @@ const SLIDES: Slide[] = [
     text: 'Armá tu carrito y coordinamos entrega y pago directo por WhatsApp.',
     ctaLabel: 'Cómo comprar',
     ctaHref: '#como-comprar',
-    gradient: 'linear-gradient(120deg, #10301f 0%, #21503c 55%, #466721 100%)'
+    gradient:
+      'linear-gradient(120deg, rgba(16,48,31,0.86) 0%, rgba(33,80,60,0.78) 55%, rgba(70,103,33,0.70) 100%)',
+    // Cascada local (Salto Cristal) — imagen de marca.
+    image: '/assets/cascada-fondo.jpg'
   }
 ];
 
@@ -92,8 +107,8 @@ export default function HeroCarousel() {
         {SLIDES.map((slide, i) => (
           <div
             key={slide.title}
-            className="relative flex w-full shrink-0 items-center"
-            style={{ background: slide.gradient }}
+            className="relative flex w-full shrink-0 items-center bg-cover bg-center"
+            style={{ backgroundImage: `${slide.gradient}, url("${slide.image}")` }}
             aria-hidden={i !== index}
           >
             <div className="mx-auto flex min-h-[300px] w-full max-w-7xl flex-col justify-center gap-4 px-6 py-12 sm:min-h-[360px] sm:px-10 md:min-h-[420px]">

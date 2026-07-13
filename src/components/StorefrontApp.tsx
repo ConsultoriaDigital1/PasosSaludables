@@ -426,7 +426,7 @@ export default function StorefrontApp({ initialData, loadError = null }: Props) 
   return (
     <div
       id="top"
-      className="relative z-10 flex min-h-screen flex-col bg-gradient-to-b from-white via-marca-50/40 to-white text-slate-900"
+      className="relative z-10 flex min-h-screen flex-col bg-gradient-to-b from-white via-marca-50 to-white text-slate-900"
     >
       <TopBar phoneNumber={PHONE} />
 

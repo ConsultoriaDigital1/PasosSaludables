@@ -1,0 +1,275 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// Ruta de la imagen de cascada. Guardá la foto en: public/assets/cascada-fondo.jpg
+const IMG = '/assets/cascada-fondo.jpg';
+---
+
+<Layout title="Fondos de cascada — opciones">
+  <main class="picker" style={`--img: url('${IMG}')`}>
+    <header class="picker__head">
+      <h1>Fondo de cascada — 4 opciones</h1>
+      <p>
+        Mirá cada variante con contenido encima para chequear la legibilidad.
+        Cuando elijas, decime el número y lo dejo aplicado en toda la web.
+      </p>
+      <p class="picker__note">
+        ⚠️ Si ves los fondos en blanco/gris, guardá la foto en
+        <code>public/assets/cascada-fondo.jpg</code> y recargá.
+      </p>
+    </header>
+
+    <!-- OPCIÓN 1 — Sutil clara -->
+    <section class="opt opt--1">
+      <div class="opt__bg"></div>
+      <div class="opt__content">
+        <span class="opt__tag">Opción 1</span>
+        <h2>Sutil clara</h2>
+        <p>
+          Blur fuerte + velo blanco-verdoso alto. La cascada apenas se insinúa,
+          mantiene el look limpio y aireado actual. La más segura para leer.
+        </p>
+        <div class="card">Tarjeta de producto de muestra · $ 12.900</div>
+      </div>
+    </section>
+
+    <!-- OPCIÓN 2 — Inmersiva verde -->
+    <section class="opt opt--2">
+      <div class="opt__bg"></div>
+      <div class="opt__content opt__content--light">
+        <span class="opt__tag">Opción 2</span>
+        <h2>Inmersiva verde</h2>
+        <p>
+          Blur medio + degradado verde oscuro de la marca. La cascada se ve más,
+          tintada en verde. Más dramática e inmersiva, muy coherente con la paleta.
+        </p>
+        <div class="card card--light">Tarjeta de producto de muestra · $ 12.900</div>
+      </div>
+    </section>
+
+    <!-- OPCIÓN 3 — Lateral -->
+    <section class="opt opt--3">
+      <div class="opt__bg"></div>
+      <div class="opt__content">
+        <span class="opt__tag">Opción 3</span>
+        <h2>Lateral / banda</h2>
+        <p>
+          La cascada vive sobre el borde derecho y se funde con un fondo claro
+          hacia el centro. Menos ruido justo detrás del contenido principal.
+        </p>
+        <div class="card">Tarjeta de producto de muestra · $ 12.900</div>
+      </div>
+    </section>
+
+    <!-- OPCIÓN 4 — Duotono marca de agua -->
+    <section class="opt opt--4">
+      <div class="opt__bg"></div>
+      <div class="opt__content">
+        <span class="opt__tag">Opción 4</span>
+        <h2>Duotono / marca de agua</h2>
+        <p>
+          Imagen desaturada y teñida de verde con blur suave, tipo marca de agua
+          elegante. Sofisticado y sobrio, sin competir con las fotos de producto.
+        </p>
+        <div class="card">Tarjeta de producto de muestra · $ 12.900</div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .picker {
+    position: relative;
+    z-index: 1;
+  }
+
+  .picker__head {
+    max-width: 46rem;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 1.5rem;
+    text-align: center;
+  }
+
+  .picker__head h1 {
+    margin: 0 0 0.75rem;
+    color: #14231a;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+  }
+
+  .picker__head p {
+    margin: 0.5rem 0 0;
+    color: #43584a;
+    line-height: 1.6;
+  }
+
+  .picker__note {
+    font-size: 0.9rem;
+    color: #7a5b18 !important;
+    background: #fdf6e3;
+    border: 1px solid #f0e2b8;
+    border-radius: 0.75rem;
+    padding: 0.6rem 0.9rem;
+    display: inline-block;
+    margin-top: 1rem !important;
+  }
+
+  .picker__note code {
+    font-family: ui-monospace, monospace;
+    background: rgba(0, 0, 0, 0.06);
+    padding: 0.1rem 0.35rem;
+    border-radius: 0.35rem;
+  }
+
+  .opt {
+    position: relative;
+    min-height: 78vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  .opt__bg {
+    position: absolute;
+    inset: 0;
+    background-image: var(--img);
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+  }
+
+  .opt__content {
+    position: relative;
+    z-index: 1;
+    max-width: 40rem;
+    padding: 2.5rem;
+    text-align: center;
+  }
+
+  .opt__tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: #6f8f2f;
+    margin-bottom: 0.6rem;
+  }
+
+  .opt__content h2 {
+    margin: 0 0 0.75rem;
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    color: #14231a;
+  }
+
+  .opt__content p {
+    margin: 0 auto;
+    max-width: 34rem;
+    color: #3d5245;
+    line-height: 1.7;
+  }
+
+  .opt__content--light .opt__tag {
+    color: #b8e986;
+  }
+  .opt__content--light h2 {
+    color: #ffffff;
+  }
+  .opt__content--light p {
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .card {
+    margin: 1.75rem auto 0;
+    max-width: 22rem;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 1rem;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+    padding: 1rem 1.25rem;
+    font-weight: 700;
+    color: #173b2d;
+  }
+
+  .card--light {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    backdrop-filter: blur(4px);
+  }
+
+  /* ===== OPCIÓN 1 — Sutil clara ===== */
+  .opt--1 .opt__bg {
+    filter: blur(10px) saturate(1.05);
+    transform: scale(1.1);
+  }
+  .opt--1::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(243, 248, 235, 0.86),
+      rgba(251, 253, 246, 0.9)
+    );
+  }
+
+  /* ===== OPCIÓN 2 — Inmersiva verde ===== */
+  .opt--2 .opt__bg {
+    filter: blur(6px) saturate(1.1);
+    transform: scale(1.1);
+  }
+  .opt--2::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(
+      160deg,
+      rgba(14, 47, 30, 0.82) 0%,
+      rgba(23, 59, 45, 0.72) 55%,
+      rgba(36, 90, 60, 0.68) 100%
+    );
+  }
+
+  /* ===== OPCIÓN 3 — Lateral / banda ===== */
+  .opt--3 .opt__bg {
+    filter: blur(5px) saturate(1.05);
+    transform: scale(1.05);
+  }
+  .opt--3::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(
+      100deg,
+      #f3f8eb 0%,
+      rgba(243, 248, 235, 0.96) 42%,
+      rgba(243, 248, 235, 0.55) 66%,
+      rgba(243, 248, 235, 0.15) 100%
+    );
+  }
+
+  /* ===== OPCIÓN 4 — Duotono / marca de agua ===== */
+  .opt--4 .opt__bg {
+    filter: blur(7px) grayscale(0.7) saturate(0.6) contrast(1.05);
+    transform: scale(1.1);
+  }
+  .opt--4::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background:
+      linear-gradient(
+        180deg,
+        rgba(111, 143, 47, 0.4),
+        rgba(23, 59, 45, 0.35)
+      ),
+      rgba(243, 248, 235, 0.72);
+    mix-blend-mode: normal;
+  }
+</style>
